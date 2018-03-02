@@ -99,6 +99,7 @@
                     <div class="col-lg-6 text-right">
                         <h3>Contactgegevens</h3>
                         <p>
+                            Joske & Fonske<br>
                             Tel:  070 22 22 92<br>
                             E-mail: mmc@taxistop.be<br>
                             Andere websites: www.taxistop.be
