@@ -11,7 +11,7 @@
     <!-- Eigen CSS -->
     <link rel="stylesheet" href="assets/css/mmc.css">
 
-    <title>MMC - <?php echo $titel ?></title>
+    <title>MMC - <?php echo $titel; ?></title>
 
     <script type="text/javascript">
         var site_url = '<?php echo site_url(); ?>';
@@ -36,7 +36,20 @@
         </nav>
     </header>
     <div class="container">
-        <?php echo $inhoud ?>
+        <div class="row">
+            <div class="col-lg-8">
+                <main>
+                    <?php echo $inhoud; ?>
+                </main>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <aside>
+                    <nav>
+                        <?php echo $navigatie; ?>
+                    </nav>
+                </aside>
+            </div>
+        </div>
     </div>
     <footer class="footer">
         <div class="footer-main d-flex align-items-center">
