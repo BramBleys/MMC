@@ -1,0 +1,24 @@
+.navbar {
+    background-color: #0B5B99;
+    color: white;
+}
+
+.navbar a {
+    font-weight: bolder;
+    color: white;
+}
+
+/* footer */
+.footer {
+    background-color: #0B5B99;
+    color: white;
+}
+
+.footer-main {
+    padding: 2.5rem 0 0;
+}
+
+.hr-footer {
+    background-color: white;
+    color: white;
+}
