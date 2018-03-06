@@ -31,4 +31,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 #config file is voor iedereen anders
-application/config/config.php
+!application/config/config.php
