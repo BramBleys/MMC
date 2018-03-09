@@ -1,4 +1,4 @@
-<div class=nav flex-column">
+<div class="nav flex-colum achtergrond">
 <ul>
     <li class="nav-item">
         <a href="nav-link">Beheren</a>
