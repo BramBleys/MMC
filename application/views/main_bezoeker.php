@@ -1,11 +1,8 @@
-<div class="achtergrond">
+<div class="nav flex-column achtergrond">
     <ul>
-        <a href="">
-            <li>Beheren</li>
-        </a>
-        <a href="">
-            <li>Uitloggen</li>
-        </a>
+        <li class="nav-item">
+            <a href="" class="nav-link">Inloggen</a>
+        </li>
     </ul>
 </div>
 
