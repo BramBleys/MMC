@@ -16,4 +16,13 @@ class Home extends CI_Controller {
 
         //$this->load->view('mmc');
     }
+
+    public function uitloggen(){
+
+    }
+
+
+
+
+
 }

@@ -27,19 +27,13 @@
 .achtergrond {
     background-color: #0B5B99;
     color: white;
+    margin-top: 20px;
 }
 
 .achtergrond ul {
     list-style-type: none;
-    color: #fff;
-    padding: 15px;
 }
 
 .achtergrond a {
-    color: #fff;
-}
-
-.achtergrond a:hover {
-    color: #fff;
-    text-decoration: underline;
+    color: white;
 }
