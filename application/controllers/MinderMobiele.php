@@ -7,21 +7,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Time: 1:20 PM
  */
 
-class Administrator extends CI_Controller
+class MinderMobiele extends CI_Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->load->library('Template');
     }
 
-    public function index(){
+    public function index()
+    {
         $data['titel'] = 'Parameters';
+        $data['inhoud'] = "het werkt";
 
-        $partials = array( 'navigatie' => 'main_gebruiker', 'inhoud' => 'administrator/parameters');
+        $partials = array( 'navigatie' => 'main_gebruiker');
         $this->template->load('main_master', $partials, $data);
-    }
 
-    public function parametersOpslagen(){
-
+        $this->load->view('minderMobiele/geplandeRitten');
     }
 }
