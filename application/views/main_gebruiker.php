@@ -1,31 +1,11 @@
-<style>
-    div.achtergrond {
-        background-color: #0B5B99;
-        margin-top: 20px;
-    }
+<div class="nav flex-colum achtergrond">
+<ul>
+    <li class="nav-item">
+        <a href="nav-link">Beheren</a>
+    </li>
 
-    div.achtergrond ul {
-        list-style-type: none;
-        color: #fff;
-        padding: 15px;
-    }
-
-    a {
-        color: #fff;
-    }
-    a:hover{
-        /*nog iets*/
-    }
-</style>
-
-
-<div class="achtergrond">
-    <ul>
-        <a href="">
-            <li>Beheren</li>
-        </a>
-        <a href="">
-            <li>Uitloggen</li>
-        </a>
-    </ul>
+    <li class="nav-item">
+        <a href="nav-link">Uitloggen</a>
+    </li>
+</ul>
 </div>
