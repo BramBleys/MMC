@@ -23,5 +23,13 @@ class Administrator extends CI_Controller
 
     public function parametersOpslagen(){
 
+        $parameters = new stdClass();
+
+        $parameters->maxRitten = $this->input->post('maxRitten');
+        $parameters->bedragPerKM = $this->input->post('bedragPerKM');
+        $parameters->annulatieTijd = $this->input->post('annulatieTijd');
+
+        $this->load->model('info_model');
+
     }
 }
