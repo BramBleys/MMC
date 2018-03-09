@@ -5,13 +5,15 @@ class Home extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->library('Template');
     }
 
     public function index() {
         $data['titel'] = 'Home';
 
-        $partials = array( 'navigatie' => 'main_gebruiker');
+        $this->load->model('bezoeker_model');
+        $data['gebruiker'] = $this->bezoeker_model->get("1");
+
+        $partials = array( 'navigatie' => 'main_bezoeker', 'inhoud' => 'gebruiker/home');
         $this->template->load('main_master', $partials, $data);
 
         //$this->load->view('mmc');
