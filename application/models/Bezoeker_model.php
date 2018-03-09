@@ -9,14 +9,14 @@ class Bezoeker_model extends CI_Model {
     function get($id) {
         // geef gebruiker-object met opgegeven $id
         $this->db->where('id', $id);
-        $query = $this->db->get('gebruiker');
+        $query = $this->db->get('Gebruiker');
         return $query->row();
     }
 
     function getGebruiker($email, $wachtwoord) {
         // geef gebruiker-object met $email en $wachtwoord
         $this->db->where('email', $email);
-        $query = $this->db->get('gebruiker');
+        $query = $this->db->get('Gebruiker');
 
         if ($query->num_rows() == 1) {
             $gebruiker = $query->row();
