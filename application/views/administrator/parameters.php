@@ -8,9 +8,9 @@
 ?>
 <html>
 <head>
-    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
 </head>
 <body>
+    <h2>Parameters beheren</h2>
 <?php
 echo form_open('administrator/parametersOpslagen');
 ?>

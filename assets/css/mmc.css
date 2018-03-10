@@ -8,10 +8,17 @@
     color: white;
 }
 
+.marginTop{
+    margin-top: 21px;
+}
+
 /* footer */
 .footer {
     background-color: #0B5B99;
     color: white;
+    position:absolute;
+    bottom:0;
+    width:100%;
 }
 
 .footer-main {

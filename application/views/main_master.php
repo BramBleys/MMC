@@ -38,7 +38,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <main>
+                <main class="marginTop">
                     <?php echo $inhoud; ?>
                 </main>
             </div>
@@ -59,15 +59,15 @@
 
                     </div>
                     <div class="col-lg-6 text-right">
-                        <h3>Contactgegevens</h3>
-                        <p>
-                            Tel: 070 22 22 92<br>
-                            E-mail: mmc@taxistop.be<br>
-                            Andere websites: www.taxistop.be
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <h3>Contactgegevens</h3>
+            <p>
+                Tel: 070 22 22 92<br>
+                E-mail: mmc@taxistop.be<br>
+                Andere websites: www.taxistop.be
+            </p>
+        </div>
+        </div>
+        </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
