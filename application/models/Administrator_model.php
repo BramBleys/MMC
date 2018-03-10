@@ -14,10 +14,9 @@ class Administrator_model extends CI_Model {
         parent::__construct();
     }
 
-    function insert($parameters)
+    function update($parameters)
     {
-        $this->db->insert('parameters', $parameters);
-        return $this->db->insert_id();
+        $this->db->update('parameters', $parameters);
     }
 
 }

@@ -8,31 +8,29 @@
 ?>
 <html>
 <head>
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
 </head>
 <body>
 <?php
-$attributes = array('name' => 'parametersFormulier');
-echo form_open('administrator/parametersOpslagen', $attributes);
+echo form_open('administrator/parametersOpslagen');
 ?>
-<table>
-    <tr>
-        <td><?php echo form_label('Max ritten per week:', 'maxRitten'); ?></td>
-        <td><?php echo form_input(array('name' => 'maxRitten', 'id' => 'maxRitten', 'size' => '3')); ?></td>
-    </tr>
-    <tr>
-        <td><?php echo form_label('Bedrag per KM:', 'bedragPerKM'); ?></td>
-        <td><?php echo form_input(array('name' => 'bedragPerKM', 'id' => 'bedragPerKM', 'size' => '3')); ?></td>
-    </tr>
-    <tr>
-        <td><?php echo form_label('Tijd voor annulatie (in werkdagen):', 'annulatieTijd'); ?></td>
-        <td><?php echo form_input(array('name' => 'annulatieTijd', 'id' => 'annulatieTijd', 'size' => '3')); ?></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><?php echo form_submit('knop', 'Opslaan'); ?></td>
-    </tr>
-</table>
-
+    <div class="form-group">
+        <label for="exampleInputEmail1">Maximum aantal ritten</label>
+        <input type="number" class="form-control" name="maxRitten" id="maxRitten" placeholder="Per week">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Prijs</label>
+        <input type="number" step="0.01" class="form-control" name="prijsPerKM" id="prijsPerKM" placeholder="Per kilometer">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Tijd voor annulatie</label>
+        <input type="number" class="form-control" name="annulatieTijd" id="annulatieTijd" placeholder="In werkdagen">
+    </div>
+<?php echo form_submit('knop', 'Opslaan', array('class' =>'btn achtergrond')); ?>
 <?php echo form_close(); ?>
 </body>
 </html>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
