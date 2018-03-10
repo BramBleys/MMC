@@ -22,14 +22,21 @@ class Administrator extends CI_Controller
     }
 
     public function parametersOpslagen(){
-
+        $data['titel'] = 'Opgeslagen';
         $parameters = new stdClass();
 
         $parameters->maxRitten = $this->input->post('maxRitten');
-        $parameters->bedragPerKM = $this->input->post('bedragPerKM');
+        $parameters->prijsPerKM = $this->input->post('prijsPerKM');
         $parameters->annulatieTijd = $this->input->post('annulatieTijd');
 
-        $this->load->model('info_model');
+        $data['parameters'] = $parameters;
+
+        $this->load->model('administrator_model');
+        $this->administrator_model->update($parameters);
+
+        $partials = array( 'navigatie' => 'main_gebruiker', 'inhoud' => 'administrator/parametersBevestiging');
+        $this->template->load('main_master', $partials, $data);
+
 
     }
 }
