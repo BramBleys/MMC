@@ -10,21 +10,35 @@ class Home extends CI_Controller {
     public function index() {
         $data['titel'] = 'Home';
 
-        $this->load->model('bezoeker_model');
-        $data['gebruiker'] = $this->bezoeker_model->get("1");
-
-        $partials = array( 'navigatie' => 'main_bezoeker', 'inhoud' => 'gebruiker/home');
+        $partials = array('navigatie' => 'main_bezoeker', 'inhoud' => 'gebruiker/home');
         $this->template->load('main_master', $partials, $data);
-
-        //$this->load->view('mmc');
     }
 
-    public function uitloggen(){
+    public function uitloggen() {
 
     }
 
+    public function inloggen() {
+        $data['titel'] = "Inloggen";
+
+        $partials = array('navigatie' => 'main_bezoeker', 'inhoud' => 'gebruiker/inloggen');
+        $this->template->load('main_master', $partials, $data);
+    }
+
+    public function controleerInloggen() {
+        $email = $this->input->post('email');
+        $wachtwoord = $this->input->post('wachtwoord');
+
+        $data['email'] = $this->input->post('email');
+        $data['wachtwoord'] = $this->input->post('wachtwoord');
 
 
-
-
+        if ($this->authex->meldAan($email, $wachtwoord)) {
+            // redirect('home/index');
+            $this->load->view('gebruiker/home' ,$data);
+        } else {
+            //redirect('home/index');
+            $this->load->view('gebruiker/home', $data);
+        }
+    }
 }

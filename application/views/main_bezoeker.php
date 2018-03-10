@@ -1,7 +1,9 @@
 <div class="nav flex-column achtergrond">
     <ul>
         <li class="nav-item">
-            <a href="" class="nav-link">Inloggen</a>
+            <?php
+            echo anchor("home/inloggen", "Inloggen", "class: nav-link");
+            ?>
         </li>
     </ul>
 </div>
