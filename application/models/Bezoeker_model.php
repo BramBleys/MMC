@@ -44,19 +44,11 @@ class Bezoeker_model extends CI_Model {
         return $gebruiker;
     }
 
-    function getTekst($paginaId) {
+    /*function getTekst($paginaId) {
         $this->db->order_by('id', 'asc');
 
         $query = $this->db->where('id', $paginaId);
         return $query->result();
-    }
-
-
-    /*function updateWachtwoord($nieuwWachtwoord, $id) {
-    $gebruiker = new stdClass();
-    $gebruiker->wachtwoord = $nieuwWachtwoord;
-    $this->db->where('id', $id);
-    $this->db->update('tv_gebruiker', $gebruiker);
     }*/
 }
 

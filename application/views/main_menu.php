@@ -27,10 +27,12 @@
                         echo '<li class="nav-item">' . anchor("Administrator/gebruikersBeheren", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                         echo '<li class="nav-item">' . anchor("Administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
                         echo '<li class="nav-item">' . anchor("Administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
-                        echo '<li class="nav-item">' . anchor("Administrator/parametersOpslagen", "Configuratie beheren", 'class= "nav-link"') . '</li>';
+                        echo '<li class="nav-item">' . anchor("Administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
                         echo '<li class="nav-item">' . anchor("Administrator/MMCMedewerkersBeheren", "MMC medewerkers beheren", 'class= "nav-link"') . '</li>';
                         break;
                 }
+
+                //2 linken die elke gebruiker ziet
                 echo '<li class="nav-item marginTop">' . anchor("home/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
                 echo '<li class="nav-item">' . anchor("home/uitloggen", "Uitloggen", 'class= "nav-link"') . '</li>';
             }

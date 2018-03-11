@@ -8,6 +8,7 @@
         }
 
         public function index() {
+            //laat de home pagina zien
             $data['titel'] = 'Home';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
@@ -19,12 +20,14 @@
         }
 
         public function uitloggen() {
+            //meld de gebruiker af
             $this->authex->meldAf();
             redirect('home/index');
         }
 
         public function inloggen() {
             $data['titel'] = "Inloggen";
+            //haal gebruiker op en laat bijhorende zijbalk zien op homepagina
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
             $partials = array(
@@ -36,12 +39,16 @@
         }
 
         public function controleerInloggen() {
+            //haal email en wachtwoord uit formulier op
             $email = $this->input->post('email');
             $wachtwoord = $this->input->post('wachtwoord');
 
+            //controleer of email en wachtwoord overeen komen
             if ($this->authex->meldAan($email, $wachtwoord)) {
+                //toon homepagina
                 redirect('home/index');
             } else {
+                //toon fout
                 redirect('home/toonFout');
             }
         }
