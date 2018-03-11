@@ -19,15 +19,8 @@
             $this->template->load('main_master', $partials, $data);
         }
 
-        public function uitloggen() {
-            //meld de gebruiker af
-            $this->authex->meldAf();
-            redirect('home/index');
-        }
-
         public function inloggen() {
             $data['titel'] = "Inloggen";
-            //haal gebruiker op en laat bijhorende zijbalk zien op homepagina
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
             $partials = array(
@@ -36,6 +29,12 @@
             );
 
             $this->template->load('main_master', $partials, $data);
+        }
+
+        public function uitloggen() {
+            //meld de gebruiker af
+            $this->authex->meldAf();
+            redirect('home/index');
         }
 
         public function controleerInloggen() {
@@ -54,6 +53,7 @@
         }
 
         public function toonFout() {
+            //laad de view Home_fout
             $data['titel'] = 'Fout';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
@@ -62,6 +62,46 @@
                 'inhoud' => 'home_fout'
             );
 
+            $this->template->load('main_master', $partials, $data);
+        }
+
+        public function accountBeheren(){
+            //laad de view accountBeheren
+            $data['titel'] = 'Account beheren';
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            $partials = array(
+                'navigatie' => 'main_menu',
+                'inhoud' => 'gebruiker/accountBeheren'
+            );
+
+            $this->template->load('main_master', $partials, $data);
+        }
+
+        public function gegevensOpslaan(){
+            $data['titel'] = 'Home';
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            //haal alle gegevens op uit het ingevulde formulier en steek ze in een object
+            $gegevens = new stdClass();
+            $gegevens->id = $this->input->post('hidden');
+            $gegevens->voornaam = $this->input->post('voornaam');
+            $gegevens->naam = $this->input->post('naam');
+            $gegevens->telefoonnummer = $this->input->post('telefoonnummer');
+            $gegevens->email = $this->input->post('email');
+            $gegevens->gemeente = $this->input->post('gemeente');
+            $gegevens->postcode = $this->input->post('postcode');
+            $gegevens->straatEnNummer = $this->input->post('straatEnNummer');
+            $gegevens->contactvorm = $this->input->post('contactvorm');
+
+            $data['gegevens'] = $gegevens;
+
+            $this->load->model('gebruiker_model');
+            $this->gebruiker_model->update($gegevens);
+
+            $partials = array(
+                'navigatie' => 'main_menu',
+                'inhoud' => 'gebruiker/gegevensBevestiging');
             $this->template->load('main_master', $partials, $data);
         }
     }

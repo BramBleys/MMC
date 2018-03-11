@@ -17,6 +17,10 @@
         var site_url = '<?php echo site_url(); ?>';
         var base_url = '<?php echo base_url(); ?>';
     </script>
+
+    <!--laad jQuery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <header>
@@ -28,8 +32,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="primaryNav">
                     <div class="navbar-nav">
-<!--                        Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
-                        <a class="nav-item nav-link active" href="home/index">Home <span class="sr-only">(current)</span></a>
+                        <!--                        Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
+                        <a class="nav-item nav-link active" href="home/index">Home
+                            <span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="#">Contact</a>
                     </div>
                 </div>
@@ -60,15 +65,15 @@
 
                     </div>
                     <div class="col-lg-6 text-right">
-            <h3>Contactgegevens</h3>
-            <p>
-                Tel: 070 22 22 92<br>
-                E-mail: mmc@taxistop.be<br>
-                Andere websites: www.taxistop.be
-            </p>
-        </div>
-        </div>
-        </div>
+                        <h3>Contactgegevens</h3>
+                        <p>
+                            Tel: 070 22 22 92<br>
+                            E-mail: mmc@taxistop.be<br>
+                            Andere websites: www.taxistop.be
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
