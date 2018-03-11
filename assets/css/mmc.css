@@ -30,11 +30,10 @@
     color: white;
 }
 
-/* zijbalken */
+/* algemene achtergrond kleuren */
 .achtergrond {
     background-color: #0B5B99;
     color: white;
-    margin-top: 20px;
 }
 
 .achtergrond ul {

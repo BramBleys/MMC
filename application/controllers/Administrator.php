@@ -16,13 +16,15 @@ class Administrator extends CI_Controller
 
     public function index(){
         $data['titel'] = 'Parameters';
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
-        $partials = array( 'navigatie' => 'main_gebruiker', 'inhoud' => 'administrator/parameters');
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parameters');
         $this->template->load('main_master', $partials, $data);
     }
 
     public function parametersOpslagen(){
         $data['titel'] = 'Opgeslagen';
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $parameters = new stdClass();
 
         $parameters->maxRitten = $this->input->post('maxRitten');
@@ -34,7 +36,7 @@ class Administrator extends CI_Controller
         $this->load->model('administrator_model');
         $this->administrator_model->update($parameters);
 
-        $partials = array( 'navigatie' => 'main_gebruiker', 'inhoud' => 'administrator/parametersBevestiging');
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parametersBevestiging');
         $this->template->load('main_master', $partials, $data);
 
 
