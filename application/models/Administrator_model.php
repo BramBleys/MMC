@@ -16,7 +16,7 @@ class Administrator_model extends CI_Model {
 
     function update($parameters)
     {
-        $this->db->update('parameters', $parameters);
+        $this->db->update('Parameters', $parameters);
     }
 
 }
