@@ -1,10 +1,17 @@
+<h2><?= $titel ?></h2>
 <?php
-$extraButton = array('class' => 'btn btn-warning btn-xs btn-round',
-    'data-toggle' => 'tootlip', 'title' => 'Brouwerij Toevoegen');
-$button = form_button("knopnieuw", "<span class=\"glyphicon glyphicon-plus\"></span>", $extraButton);
-echo '<p>' . anchor('brouwerij/maakNieuwe', $button) . '</p>';
+$extraButton = array('class' => 'btn achtergrond margin-top');
+$button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
+echo '<p>' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
-if(count($geplanderitten)!=0){
+$extraButton = array('class' => 'btn achtergrond margin-top');
+$button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
+echo anchor('minderMobiele/afgelopenRitten', $button) . '</p>';
+
+$wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\" title=\"rit bewerken\"></i>";
+$verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"  title=\"rit annuleren\"></i>";
+
+if(count($ritten)!=0){
     echo "<table class=\"table table-hover\">\n";
     echo "   <thead>\n";
     echo "    <tr>\n";
@@ -19,38 +26,29 @@ if(count($geplanderitten)!=0){
     echo "    </thead>\n";
     echo "    <tbody>\n";
 
-    foreach ($geplanderitten as $rit) {
-        $wijzigknop = "<button type=\"button\" class=\"btn btn-success btn-xs btn-round\">"
-            . "<span class=\"glyphicon glyphicon-pencil\"></span></button>";
-        $verwijderknop = "<button type=\"button\" class=\"btn btn-danger btn-xs btn-round\">"
-            . "<span class=\"glyphicon glyphicon-remove\"></span></button>";
-        echo "<tr>\n<td>" . $rit->vertrekTijdstip . "</td>\n<td>"
-            . $rit->vertrekTijdstip . "</td>\n<td>"
-            //. ($brouwerij->oprichting != "0000-00-00" ? zetOmNaarDDMMYYYY($brouwerij->oprichting) : "")
+    foreach ($ritten as $rit) {
+        $spatie = strpos($rit->vertrekTijdstip, " ");
+        echo "<tr>\n<td>" . zetOmNaarDDMMYYYY(substr($rit->vertrekTijdstip,0, $spatie)) . "</td>\n<td>"
+            . substr($rit->vertrekTijdstip, $spatie+1, 5) . "</td>\n<td>"
             . $rit->vertrekAdres->straatEnNummer . ", " . $rit->vertrekAdres->postcode . " " . $rit->vertrekAdres->gemeente
             . "</td>\n<td>"
             . $rit->bestemmingAdres->straatEnNummer . ", " . $rit->bestemmingAdres->postcode . " " . $rit->bestemmingAdres->gemeente
             . "</td>\n<td>"
-            . $rit->bestuurder->voornaam . " " . $rit->bestuurder-naam
+            . $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam
             . "</td>\n<td>"
             . "€5800"
             . "</td>\n<td>"
-            . anchor("minderMobiele/wijzig/rit->id", $wijzigknop)
-            . " " . anchor("minderMobile/schrap/rit->id", $verwijderknop)
+            . anchor("minderMobiele/wijzig/$rit->id", $wijzigknop)
+            . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop)
             . "</td>\n</tr>\n";
     }
     echo"    </tbody>\n";
     echo"</table>\n";
 }
 else{
-    echo "<p>Je hebt geen geplande ritten.";
+    echo "<p>Je hebt geen geplande ritten.</p>\n";
 }
 ?>
 
 
 <hr>
-
-<?php
-
-echo '<p>' . anchor('home', 'Terug') . '</p>';
-?>
