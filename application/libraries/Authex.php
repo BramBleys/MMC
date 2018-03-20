@@ -33,7 +33,7 @@ class Authex {
     }
 
     function meldAan($gebruikersnaam, $wachtwoord) {
-        // gebruiker aanmelden met opgegeven email en wachtwoord
+        // gebruiker aanmelden met opgegeven gebruikersnaam en wachtwoord
         $CI = &get_instance();
 
         $gebruiker = $CI->bezoeker_model->getGebruiker($gebruikersnaam, $wachtwoord);

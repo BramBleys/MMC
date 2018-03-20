@@ -42,7 +42,7 @@
             $gebruikersnaam = $this->input->post('gebruikersnaam');
             $wachtwoord = $this->input->post('wachtwoord');
 
-            //controleer of email en wachtwoord overeen komen
+            //controleer of gebruikersnaam en wachtwoord overeen komen
             if ($this->authex->meldAan($gebruikersnaam, $wachtwoord)) {
                 //toon homepagina
                 redirect('home/index');

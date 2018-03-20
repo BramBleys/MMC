@@ -14,7 +14,7 @@ class Bezoeker_model extends CI_Model {
     }
 
     function getGebruiker($gebruikersnaam, $wachtwoord) {
-        // geef gebruiker-object met $email en $wachtwoord
+        // geef gebruiker-object met gebruikersnaam en wachtwoord
         $this->db->where('gebruikersnaam', $gebruikersnaam);
         $query = $this->db->get('Gebruiker');
 
