@@ -7,7 +7,7 @@ class Bezoeker_model extends CI_Model {
     }
 
     function get($id) {
-        // geef gebruiker-object met opgegeven $id
+        // geef gebruiker-object met opgegeven id
         $this->db->where('id', $id);
         $query = $this->db->get('Gebruiker');
         return $query->row();
@@ -32,9 +32,8 @@ class Bezoeker_model extends CI_Model {
     }
 
     function getGebruikerWithSoort($id) {
-        //geef gebruiker-object met soort door opgegeven $id
+        //geef gebruiker-object met soort door opgegeven id
         $this->db->order_by('id', 'asc');
-
         $query = $this->db->where('id', $id);
         $gebruiker = $query->row();
 
