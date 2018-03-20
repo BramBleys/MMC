@@ -1,6 +1,5 @@
 <script>
     var voorkeur = <?php echo json_encode($gebruiker); ?>;
-console.log(voorkeur.contactvorm);
     if (voorkeur.contactvorm === "telefonisch") {
         $("#telefonisch").prop("checked", true);
     } else if (voorkeur.contactvorm === "email") {

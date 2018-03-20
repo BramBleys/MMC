@@ -6,7 +6,7 @@ class Authex {
 
     public function __construct() {
         $CI = &get_instance();
-        $CI->load->model('bezoeker_model');
+        $CI->load->model('gebruiker_model');
     }
 
     function getGebruikerInfo() {
@@ -17,7 +17,7 @@ class Authex {
             return null;
         } else {
             $id = $CI->session->userdata('gebruiker_id');
-            return $CI->bezoeker_model->get($id);
+            return $CI->gebruiker_model->get($id);
         }
     }
 
@@ -36,7 +36,7 @@ class Authex {
         // gebruiker aanmelden met opgegeven gebruikersnaam en wachtwoord
         $CI = &get_instance();
 
-        $gebruiker = $CI->bezoeker_model->getGebruiker($gebruikersnaam, $wachtwoord);
+        $gebruiker = $CI->gebruiker_model->getGebruiker($gebruikersnaam, $wachtwoord);
 
         if ($gebruiker == null) {
             return false;

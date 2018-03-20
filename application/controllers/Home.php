@@ -12,6 +12,9 @@
             $data['titel'] = 'Home';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
+            $this->load->model('bezoeker_model');
+            $data['inhoud'] = $this->bezoeker_model->getInhoud("1");
+
             $partials = array(
                 'navigatie' => 'main_menu',
                 'inhoud' => 'gebruiker/home'
