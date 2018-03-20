@@ -14,7 +14,7 @@ console.log(voorkeur.contactvorm);
 <h3 class="marginTop">Contactgegevens</h3>
 <?php
     $attributes = array('name' => 'formulier');
-    echo form_open('home/gegevensOpslaan', $attributes);
+    echo form_open('Gebruiker/gegevensOpslaan', $attributes);
 ?>
 <div class="form-group row">
     <?php echo form_label('Voornaam', 'voornaam', 'class="col-sm-6 col-form-label"'); ?>

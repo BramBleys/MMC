@@ -65,7 +65,7 @@
                 }
 
                 //2 linken die elke gebruiker ziet
-                echo '<li class="nav-item marginTop">' . anchor("home/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
+                echo '<li class="nav-item marginTop">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
                 echo '<li class="nav-item">' . anchor("home/uitloggen", "Uitloggen", 'class= "nav-link"') . '</li>';
             }
         ?>
