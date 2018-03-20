@@ -35,7 +35,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="primaryNav">
                     <div class="navbar-nav">
-                        <!--                        Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
+                        <!--Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
                         <a class="nav-item nav-link active" href="home/index">Home
                             <span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="#">Contact</a>

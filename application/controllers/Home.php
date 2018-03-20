@@ -39,11 +39,11 @@
 
         public function controleerInloggen() {
             //haal email en wachtwoord uit formulier op
-            $email = $this->input->post('email');
+            $gebruikersnaam = $this->input->post('gebruikersnaam');
             $wachtwoord = $this->input->post('wachtwoord');
 
             //controleer of email en wachtwoord overeen komen
-            if ($this->authex->meldAan($email, $wachtwoord)) {
+            if ($this->authex->meldAan($gebruikersnaam, $wachtwoord)) {
                 //toon homepagina
                 redirect('home/index');
             } else {

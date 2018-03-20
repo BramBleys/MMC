@@ -32,11 +32,11 @@ class Authex {
         }
     }
 
-    function meldAan($email, $wachtwoord) {
+    function meldAan($gebruikersnaam, $wachtwoord) {
         // gebruiker aanmelden met opgegeven email en wachtwoord
         $CI = &get_instance();
 
-        $gebruiker = $CI->bezoeker_model->getGebruiker($email, $wachtwoord);
+        $gebruiker = $CI->bezoeker_model->getGebruiker($gebruikersnaam, $wachtwoord);
 
         if ($gebruiker == null) {
             return false;

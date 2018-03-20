@@ -13,9 +13,9 @@ class Bezoeker_model extends CI_Model {
         return $query->row();
     }
 
-    function getGebruiker($email, $wachtwoord) {
+    function getGebruiker($gebruikersnaam, $wachtwoord) {
         // geef gebruiker-object met $email en $wachtwoord
-        $this->db->where('email', $email);
+        $this->db->where('gebruikersnaam', $gebruikersnaam);
         $query = $this->db->get('Gebruiker');
 
         if ($query->num_rows() == 1) {
