@@ -22,7 +22,7 @@
             if ($query->num_rows() == 1) {
                 $gebruiker = $query->row();
                 // controleren of het wachtwoord overeenkomt
-                if ($wachtwoord == $gebruiker->wachtwoord) {
+                if (password_verify($wachtwoord, $gebruiker->wachtwoord)) {
                     return $gebruiker;
                 } else {
                     return null;
