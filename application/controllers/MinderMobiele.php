@@ -33,4 +33,37 @@ class MinderMobiele extends CI_Controller
             redirect('Home');
         }
     }
+
+    public function afgelopenRitten() {
+        $data['titel'] = 'Mijn afgelopen ritten';
+
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        if($this->session->has_userdata('gebruiker_id')){
+            $gebruikerId = $this->session->userdata('gebruiker_id');
+
+            $this->load->model('MinderMobiele_model');
+            $data['ritten'] = $this->MinderMobiele_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId);
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'minderMobiele/afgelopenRitten');
+            $this->template->load('main_master', $partials, $data);
+        } else {
+            redirect('Home');
+        }
+    }
+
+    public function nieuweRit() {
+        $data['titel'] = 'Rit aanmaken';
+
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        if($this->session->has_userdata('gebruiker_id')){
+            $gebruikerId = $this->session->userdata('gebruiker_id');
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'minderMobiele/nieuweRit');
+            $this->template->load('main_master', $partials, $data);
+        } else {
+            redirect('Home');
+        }
+    }
 }

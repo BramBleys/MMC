@@ -1,18 +1,16 @@
 <h2><?= $titel ?></h2>
 <?php
-$extraButton = array('class' => 'btn achtergrond');
+$extraButton = array('class' => 'btn achtergrond margin-top');
 $button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
-echo '<p class="marginTop">' . anchor('minderMobiele/nieuweRit', $button) . ' ';
+echo '<p>' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
-$extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
-echo anchor('minderMobiele/afgelopenRitten', $button) . '</p>';
+$extraButton = array('class' => 'btn achtergrond margin-top');
+$button = form_button("knopGepland", "Geplande ritten", $extraButton);
+echo anchor('minderMobiele', $button) . '</p>';
 
-$wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\" title=\"rit bewerken\"></i>";
-$verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"  title=\"rit annuleren\"></i>";
 
 if(count($ritten)!=0){
-    echo "<table class=\"table table-hover marginTop\">\n";
+    echo "<table class=\"table table-hover\">\n";
     echo "   <thead>\n";
     echo "    <tr>\n";
     echo "        <th>Datum</th>\n";
@@ -21,7 +19,6 @@ if(count($ritten)!=0){
     echo "        <th>Bestemming</th>\n";
     echo "        <th>Bestuurder</th>\n";
     echo "        <th>Bedrag</th>\n";
-    echo "        <th></th>\n";
     echo "    </tr>\n";
     echo "    </thead>\n";
     echo "    <tbody>\n";
@@ -37,15 +34,12 @@ if(count($ritten)!=0){
             . $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam
             . "</td>\n<td>"
             . "€5800"
-            . "</td>\n<td>"
-            . anchor("minderMobiele/wijzig/$rit->id", $wijzigknop)
-            . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop)
             . "</td>\n</tr>\n";
     }
     echo"    </tbody>\n";
     echo"</table>\n";
 }
 else{
-    echo "<p>Je hebt geen geplande ritten.</p>\n";
+    echo "<p>Je hebt geen afgelopen ritten.</p>\n";
 }
 ?>
