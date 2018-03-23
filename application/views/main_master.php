@@ -29,16 +29,14 @@
     <header>
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="#">MMC</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+                <?php echo anchor('home/index', 'MMC' , array('class' => 'navbar-brand')) . "\n" ?>
+                <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="primaryNav">
                     <div class="navbar-nav">
-                        <!--Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
-                        <a class="nav-item nav-link active" href="home/index">Home
-                            <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Contact</a>
+                        <?php echo anchor('home/index', 'Home <span class="sr-only">(current)</span>' , array('class' => 'nav-item nav-link active')) . "\n" ?>
+                        <?php echo anchor('home/contact', 'Contact' , array('class' => 'nav-item nav-link')) . "\n" ?>
                     </div>
                 </div>
             </div>
