@@ -1,8 +1,7 @@
 <script>
     var voorkeur = <?php echo json_encode($gebruiker); ?>;
-console.log(voorkeur.contactvorm);
     if (voorkeur.contactvorm === "telefonisch") {
-        $("#telefonisch").prop("checked", true);
+        $("#telefonisch").attr("checked", true);
     } else if (voorkeur.contactvorm === "email") {
         $("#email").prop("checked", true);
     } else if (voorkeur.contactvorm === "beide") {
@@ -10,32 +9,34 @@ console.log(voorkeur.contactvorm);
     }
 </script>
 
+<!--TODO nog controleren op string/int + juiste bolletje nog selecteren in script hierboven + custom tooltip error message-->
+
 <h2>Account gegevens wijzigen</h2>
 <h3 class="marginTop">Contactgegevens</h3>
 <?php
     $attributes = array('name' => 'formulier');
-    echo form_open('home/gegevensOpslaan', $attributes);
+    echo form_open('Gebruiker/gegevensOpslaan', $attributes);
 ?>
 <div class="form-group row">
     <?php echo form_label('Voornaam', 'voornaam', 'class="col-sm-6 col-form-label"'); ?>
     <?php echo form_label('Naam', 'naam', 'class="col-sm-6 col-form-label"'); ?>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'voornaam', 'id' => 'voornaam', 'class' => 'form-control', 'value' => $gebruiker->voornaam)); ?>
+        <?php echo form_input(array('name' => 'voornaam', 'id' => 'voornaam', 'class' => 'form-control', 'value' => $gebruiker->voornaam, 'required' => 'required')); ?>
     </div>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'naam', 'id' => 'naam', 'class' => 'form-control', 'value' => $gebruiker->naam)); ?>
+        <?php echo form_input(array('name' => 'naam', 'id' => 'naam', 'class' => 'form-control', 'value' => $gebruiker->naam, 'required' => 'required')); ?>
     </div>
 </div>
 <div class="form-group row">
     <?php echo form_label('Telefoonnummer', 'telefoonnummer', 'class="col-sm-12 col-form-label"'); ?>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'telefoonnummer', 'id' => 'telefoonnummer', 'class' => 'form-control', 'value' => $gebruiker->telefoonnummer)); ?>
+        <?php echo form_input(array('name' => 'telefoonnummer', 'id' => 'telefoonnummer', 'class' => 'form-control', 'value' => $gebruiker->telefoonnummer, 'required' => 'required')); ?>
     </div>
 </div>
 <div class="form-group row">
     <?php echo form_label('E-mail', 'email', 'class="col-sm-12 col-form-label"'); ?>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'email', 'id' => 'email', 'class' => 'form-control', 'value' => $gebruiker->email)); ?>
+        <?php echo form_input(array('type' => 'email','name' => 'email', 'id' => 'email', 'class' => 'form-control', 'value' => $gebruiker->email, 'required' => 'required')); ?>
     </div>
 </div>
 
@@ -44,16 +45,16 @@ console.log(voorkeur.contactvorm);
     <?php echo form_label('Gemeente', 'gemeente', 'class="col-sm-6 col-form-label"'); ?>
     <?php echo form_label('Postcode', 'postcode', 'class="col-sm-3 col-form-label"'); ?>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'gemeente', 'id' => 'gemeente', 'class' => 'form-control', 'value' => $gebruiker->gemeente)); ?>
+        <?php echo form_input(array('name' => 'gemeente', 'id' => 'gemeente', 'class' => 'form-control', 'value' => $gebruiker->gemeente, 'required' => 'required')); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo form_input(array('name' => 'postcode', 'id' => 'postcode', 'class' => 'form-control', 'value' => $gebruiker->postcode)); ?>
+        <?php echo form_input(array('name' => 'postcode', 'id' => 'postcode', 'class' => 'form-control', 'value' => $gebruiker->postcode, 'required' => 'required')); ?>
     </div>
 </div>
 <div class="form-group row">
     <?php echo form_label('Straat + nummer', 'straatEnNummer', 'class="col-sm-9 col-form-label"'); ?>
     <div class="col-sm-9">
-        <?php echo form_input(array('name' => 'straatEnNummer', 'id' => 'straatEnNummer', 'class' => 'form-control', 'value' => $gebruiker->straatEnNummer)); ?>
+        <?php echo form_input(array('name' => 'straatEnNummer', 'id' => 'straatEnNummer', 'class' => 'form-control', 'value' => $gebruiker->straatEnNummer, 'required' => 'required')); ?>
     </div>
 </div>
 

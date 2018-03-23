@@ -12,13 +12,18 @@
     margin-top: 21px;
 }
 
+body {
+    min-height: 100vh;
+}
+
+#main-content {
+    height: 100%;
+}
+
 /* footer */
 .footer {
     background-color: #0B5B99;
     color: white;
-    position:absolute;
-    /*position:relative;
-    bottom:0;*/
     width:100%;
     margin-top: 21px;
 }

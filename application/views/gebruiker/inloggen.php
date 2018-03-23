@@ -4,9 +4,9 @@
 ?>
 
     <div class="form-group row">
-        <?php echo form_label('E-mail:', 'email', 'class="col-sm-2 col-form-label"'); ?>
+        <?php echo form_label('Gebruikersnaam:', 'gebruikersnaam', 'class="col-sm-2 col-form-label"'); ?>
         <div class="col-sm-10">
-            <?php echo form_input(array('name' => 'email', 'id' => 'email', 'class' => 'form-control')); ?>
+            <?php echo form_input(array('name' => 'gebruikersnaam', 'id' => 'gebruikersnaam', 'class' => 'form-control')); ?>
         </div>
     </div>
 

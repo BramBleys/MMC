@@ -8,8 +8,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Eigen CSS -->
     <?php echo haalCssOp("mmc.css"); ?>
+
 
     <title>MMC - <?php echo $titel; ?></title>
 
@@ -32,7 +35,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="primaryNav">
                     <div class="navbar-nav">
-                        <!--                        Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
+                        <!--Om deze linkjes aan te passen naar bijvoorbeeld home/index moet je anchor gebruiker, dan weet ik wel niet hoe die span werkt-->
                         <a class="nav-item nav-link active" href="home/index">Home
                             <span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="#">Contact</a>
@@ -41,23 +44,25 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <main class="marginTop">
-                    <?php echo $inhoud; ?>
-                </main>
-            </div>
-            <div class="col-lg-3 offset-lg-1">
-                <aside>
-                    <nav>
-                        <?php echo $navigatie; ?>
-                    </nav>
-                </aside>
+    <main id="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <main class="marginTop">
+                        <?php echo $inhoud; ?>
+                    </main>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <aside>
+                        <nav>
+                            <?php echo $navigatie; ?>
+                        </nav>
+                    </aside>
+                </div>
             </div>
         </div>
-    </div>
-    <footer class="footer">
+    </main>
+    <footer class="footer sticky-bottom">
         <div class="footer-main d-flex align-items-center">
             <div class="container">
                 <div class="row">
@@ -82,7 +87,7 @@
                         <hr class="hr-footer">
                     </div>
                     <div class="col">
-                        <p class="text-left">Made with (l) by <a href="#">Brogrammers</a></p>
+                        <p class="text-left">Made with <i class="material-icons">favorite</i> by <a href="#">Brogrammers</a></p>
                     </div>
                     <div class="col">
                         <p class="text-right">&copy; MMC - 2018</p>

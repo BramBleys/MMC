@@ -1,5 +1,28 @@
-<!--<h1><?php /*echo $hoofdTitel */?></h1>
-<p><?php /*echo $inhoud1 */?></p>-->
-<!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur eius, impedit nulla soluta suscipit unde velit?
-    Accusantium omnis rem sunt velit voluptatibus? Debitis exercitationem fuga incidunt ipsam labore, nam
-    reprehenderit.</p>-->
+<?php
+    foreach ($inhoud as $rij) {
+        switch ($rij->naam) {
+            case "blok1":
+                echo '<div class="col-lg-12"><h3>' . $rij->titel . '</h3><p>' . $rij->inhoud . '</p></div>';
+                break;
+            case "blok2":
+                //TODO langs elkaar zetten, col-lg-6 werkt precies niet?
+                echo '<div class="col-lg-4"><h3>' . $rij->titel . '</h3><p>' . $rij->inhoud . '</p></div>';
+                break;
+            case "blok3":
+                echo '<div class="col-lg-4"><h3>' . $rij->titel . '</h3><p>' . $rij->inhoud . '</p></div>';
+                break;
+            case "blok4":
+                //TODO ul maken ipv p
+                echo '<div class="col-lg-12"><h3>' . $rij->titel . '</h3><p>' . $rij->inhoud . '</p></div>';
+                break;
+            case "blok5":
+                echo toonAfbeelding($rij->inhoud,'alt="' . $rij->titel .'" class="col-lg-4"');
+                break;
+            case "blok6":
+                echo toonAfbeelding($rij->inhoud,'alt="' . $rij->titel .'" class="col-lg-4"');
+                break;
+            case "blok7":
+                echo toonAfbeelding($rij->inhoud,'alt="' . $rij->titel .'" class="col-lg-4"');
+                break;
+        }
+    }
