@@ -54,3 +54,9 @@ body {
 .achtergrond a:hover{
     text-decoration: underline;
 }
+
+/* Buttons */
+.btn-primary {
+    background-color: #0B5B99;
+    border-color: #0B5B99;
+}
