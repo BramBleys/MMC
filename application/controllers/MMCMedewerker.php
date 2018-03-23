@@ -8,7 +8,7 @@ class MMCMedewerker extends CI_Controller {
         $this->load->library('Template');
     }
 
-    public function index() {
+    public function gebruikersBeheren() {
         $data['titel'] = 'MMC Medewerker';
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
