@@ -47,8 +47,8 @@
             'id' => 'datum',
             'class' => 'form-control',
             'placeholder' => "30/05/2018",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'required' => 'required',
+            'value' => $gebruiker->voornaam
         );
         echo form_input($dataDatum) . "\n";
         ?>
@@ -63,8 +63,8 @@
             'id' => 'uur',
             'class' => 'form-control',
             'placeholder' => "18:30",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'required' => 'required',
+            'value' => $gebruiker->voornaam
         );
         echo form_input($dataUur) . "\n";
         ?>
@@ -93,7 +93,7 @@
                 'id' => 'vertrekAdres',
                 'class' => 'form-control',
                 'placeholder' => "Schoolstraat 36",
-                //,'value' => $gebruiker->voornaam
+                'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekAdres) . "\n";
             ?>
@@ -110,7 +110,7 @@
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                //,'value' => $gebruiker->voornaam
+                'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekGemeente) . "\n";
             ?>
@@ -125,7 +125,7 @@
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                //,'value' => $gebruiker->voornaam
+                'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekPostcode) . "\n";
             ?>
@@ -144,8 +144,8 @@
             'id' => 'aankomstAdres',
             'class' => 'form-control',
             'placeholder' => "Schoolstraat 36",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'required' => 'required',
+            'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstAdres) . "\n";
         ?>
@@ -162,8 +162,8 @@
             'id' => 'aankomstGemeente',
             'class' => 'form-control',
             'placeholder' => "Geel",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'required' => 'required',
+            'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstGemeente) . "\n";
         ?>
@@ -178,8 +178,8 @@
             'id' => 'aankomstPostcode',
             'class' => 'form-control',
             'placeholder' => "Geel",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'required' => 'required',
+            'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstPostcode) . "\n";
         ?>
@@ -210,7 +210,7 @@
                 'id' => 'datumTerug',
                 'class' => 'form-control',
                 'placeholder' => "30/05/2018",
-                //,'value' => $gebruiker->voornaam
+                'value' => $gebruiker->voornaam
             );
             echo form_input($dataDatumTerug) . "\n";
             ?>
@@ -225,7 +225,7 @@
                 'id' => 'uurTerug',
                 'class' => 'form-control',
                 'placeholder' => "18:30",
-                //,'value' => $gebruiker->voornaam
+                'value' => $gebruiker->voornaam
             );
             echo form_input($dataUurTerug) . "\n";
             ?>
