@@ -124,7 +124,7 @@
             $dataVertrekPostcode = array('name' => 'vertrekPostcode',
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
-                'placeholder' => "Geel",
+                'placeholder' => "2440",
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekPostcode) . "\n";
@@ -177,7 +177,7 @@
         $dataAankomstPostcode = array('name' => 'aankomstPostcode',
             'id' => 'aankomstPostcode',
             'class' => 'form-control',
-            'placeholder' => "Geel",
+            'placeholder' => "2440",
             'required' => 'required'
             //,'value' => $gebruiker->voornaam
         );
