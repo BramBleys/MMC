@@ -12,11 +12,12 @@
                         //kijken met welk type gebruiker je bent aangemeld en bijpassende balk tonen
                         switch ($idArray[$i]) {
                             case 1: //minder mobiele
-                                echo '<li class="nav-item">' . anchor("MinderMobiele/rittenBeheren", "Ritten beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("MinderMobiele/", "Ritten beheren", 'class= "nav-link"') . '</li>';
                                 break;
                             case 2: //coach
                                 echo '<li class="nav-item">' . anchor("Coach/rittenBeheren", "Ritten beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Coach/minderMobieleBeheren", "Minder mobielen beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("Coach/nieuweRit", "Rit aanmaken", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("Coach/", "Minder mobielen beheren", 'class= "nav-link"') . '</li>';
                                 break;
                             case 3: //vrijwilliger
                                 echo '<li class="nav-item">' . anchor("Vrijwilliger/beschikbaarheidIngeven", "Beschikbaarheid ingeven", 'class= "nav-link"') . '</li>';
@@ -39,11 +40,13 @@
                 } else { //Als de gebruiker maar 1 type gebruiker is
                     switch ($gebruiker->soortId) {
                         case 1: //minder mobiele
-                            echo '<li class="nav-item">' . anchor("MinderMobiele/rittenBeheren", "Ritten beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("MinderMobiele/", "Ritten beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("MinderMobiele/nieuweRit", "Rit aanmaken", 'class= "nav-link"') . '</li>';
                             break;
                         case 2: //coach
                             echo '<li class="nav-item">' . anchor("Coach/rittenBeheren", "Ritten beheren", 'class= "nav-link"') . '</li>';
-                            echo '<li class="nav-item">' . anchor("Coach/minderMobieleBeheren", "Minder mobielen beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("Coach/nieuweRit", "Rit aanmaken", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("Coach/", "Minder mobielen beheren", 'class= "nav-link"') . '</li>';
                             break;
                         case 3: //vrijwilliger
                             echo '<li class="nav-item">' . anchor("Vrijwilliger/beschikbaarheidIngeven", "Beschikbaarheid ingeven", 'class= "nav-link"') . '</li>';
@@ -65,7 +68,11 @@
                 }
 
                 //2 linken die elke gebruiker ziet
-                echo '<li class="nav-item marginTop">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
+                if ($gebruiker->soortId!="2"){
+                    echo '<li class="nav-item marginTop">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
+                } else {
+                    echo '<li class="nav-item marginTop">' . anchor("Coach/accountsBeheren", "Accounts beheren", 'class= "nav-link"') . '</li>';
+                }
                 echo '<li class="nav-item">' . anchor("home/uitloggen", "Uitloggen", 'class= "nav-link"') . '</li>';
             }
         ?>
