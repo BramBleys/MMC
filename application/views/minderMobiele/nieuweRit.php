@@ -75,16 +75,20 @@
 </div>
 <hr>
 <div class="form-row" id="checkboxVertrek">
-    <?php
-    $dataVertrekPlaats = array('name' => 'vertrekPlaats',
-        'id' => 'vertrekPlaats',
-        'value' => 'accept',
-    );
-    echo form_checkbox($dataVertrekPlaats) . "\n";
-    echo form_labelpro('Ik vertrek niet vanaf thuis', 'vertrekPlaats');
-    ?>
+    <div class="custom-control custom-checkbox">
+        <?php
+        $dataVertrekPlaats = array('name' => 'vertrekPlaats',
+            'id' => 'vertrekPlaats',
+            'class' => 'custom-control-input',
+            'value' => 'accept',
+        );
+        echo form_checkbox($dataVertrekPlaats) . "\n";
+        $attributes = array('class' => 'custom-control-label');
+        echo form_label('Ik vertrek niet vanaf thuis', 'vertrekPlaats', $attributes);
+        ?>
+    </div>
 </div>
-<div id="vertrekGegevens">
+<div id="vertrekGegevens" class="marginTop">
     <div class="form-row">
         <div class="col-sm-6">
             <?php
@@ -191,17 +195,21 @@
 <hr>
 <h3 class="marginTop">Terug rit</h3>
 <div class="form-row"  id="checkboxTerugrit">
-    <?php
-    $dataTerugRit = array('name' => 'terugRit',
-        'id' => 'terugRit',
-        'value' => 'accept',
-    );
-    echo form_checkbox($dataTerugRit) . "\n";
-    echo form_labelpro('Heen en terug rit', 'terugRit', 'class="col-form-label"');
-    ?>
+    <div class="custom-control custom-checkbox">
+        <?php
+        $dataTerugRit = array('name' => 'terugRit',
+            'id' => 'terugRit',
+            'class' => 'custom-control-input',
+            'value' => 'accept',
+        );
+        echo form_checkbox($dataTerugRit) . "\n";
+        $attributes = array('class' => 'custom-control-label');
+        echo form_label('Heen en terug rit', 'terugRit', $attributes);
+        ?>
+    </div>
 </div>
 
-<div id="terugritGegevens">
+<div id="terugritGegevens" class="marginTop">
     <div class="form-row">
         <div class="col-sm-6">
             <?php
