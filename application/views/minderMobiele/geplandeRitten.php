@@ -1,3 +1,8 @@
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 <h2><?= $titel ?></h2>
 <?php
 $extraButton = array('class' => 'btn achtergrond');
@@ -8,8 +13,8 @@ $extraButton = array('class' => 'btn achtergrond');
 $button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
 echo anchor('minderMobiele/afgelopenRitten', $button) . '</p>';
 
-$wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\" title=\"rit bewerken\"></i>";
-$verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"  title=\"rit annuleren\"></i>";
+$wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\"></i>";
+$verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"></i>";
 
 if(count($ritten)!=0){
     echo "<table class=\"table table-hover marginTop\">\n";
@@ -38,8 +43,8 @@ if(count($ritten)!=0){
             . "</td>\n<td>"
             . "€5800"
             . "</td>\n<td>"
-            . anchor("minderMobiele/wijzig/$rit->id", $wijzigknop)
-            . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop)
+            . anchor("minderMobiele/wijzig/$rit->id", $wijzigknop, 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"')
+            . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"')
             . "</td>\n</tr>\n";
     }
     echo"    </tbody>\n";
