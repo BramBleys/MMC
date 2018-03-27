@@ -46,8 +46,8 @@
         $dataDatum = array('name' => 'datum',
             'id' => 'datum',
             'class' => 'form-control',
-            'placeholder' => "30/05/2018",
-            'required' => 'required'
+            'required' => 'required',
+            'type' => 'date'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataDatum) . "\n";
@@ -62,8 +62,8 @@
         $dataUur = array('name' => 'uur',
             'id' => 'uur',
             'class' => 'form-control',
-            'placeholder' => "18:30",
-            'required' => 'required'
+            'required' => 'required',
+            'type' => 'time'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataUur) . "\n";
@@ -217,7 +217,7 @@
             $dataDatumTerug = array('name' => 'datumTerug',
                 'id' => 'datumTerug',
                 'class' => 'form-control',
-                'placeholder' => "30/05/2018",
+                'type' => 'date'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataDatumTerug) . "\n";
@@ -232,7 +232,7 @@
             $dataUurTerug = array('name' => 'uurTerug',
                 'id' => 'uurTerug',
                 'class' => 'form-control',
-                'placeholder' => "18:30",
+                'type' => 'time'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataUurTerug) . "\n";
@@ -245,8 +245,17 @@
 </div>
 <hr>
 <div class="form-row marginTop">
-    <label for="opmerkingen">Opmerkingen</label>
-    <textarea class="form-control" id="opmerkingen" rows="3" placeholder="Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ..."></textarea>
+    <?php
+    echo form_labelpro('Opmerkingen', 'opmerkingen');
+    $dataOpmerkingen = array('name' => 'opmerkingen',
+        'id' => 'opmerkingen',
+        'class' => 'form-control',
+        'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+        'rows' => '3'
+                //,'value' => $gebruiker->voornaam
+    );
+    echo form_textarea($dataOpmerkingen);
+    ?>
 </div>
 <?php
     echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn achtergrond marginTop"');
