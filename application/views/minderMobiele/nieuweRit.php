@@ -9,23 +9,23 @@
                 $("#vertrekAdres").attr("required", "required");
                 $("#vertrekGemeente").attr("required", "required");
                 $("#vertrekPostcode").attr("required", "required");
-                $("#vertrekGegevens").show(500);
+                $("#vertrekGegevens").slideDown(500);
             } else {
                 $("#vertrekAdres").removeAttr("required");
                 $("#vertrekGemeente").removeAttr("required");
                 $("#vertrekPostcode").removeAttr("required");
-                $("#vertrekGegevens").hide(500);
+                $("#vertrekGegevens").slideUp(500);
             }
         });
         $("#checkboxTerugrit").click(function () {
             if ($("#terugRit").is(':checked')) {
                 $("#uurTerug").attr("required", "required");
                 $("#datumTerug").attr("required", "required");
-                $("#terugritGegevens").show(500);
+                $("#terugritGegevens").slideDown(500);
             } else {
                 $("#uurTerug").removeAttr("required");
                 $("#datumTerug").removeAttr("required");
-                $("#terugritGegevens").hide(500);
+                $("#terugritGegevens").slideUp(500);
             }
         });
     });
@@ -242,6 +242,11 @@
             </div>
         </div>
     </div>
+</div>
+<hr>
+<div class="form-row marginTop">
+    <label for="opmerkingen">Opmerkingen</label>
+    <textarea class="form-control" id="opmerkingen" rows="3" placeholder="Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ..."></textarea>
 </div>
 <?php
     echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn achtergrond marginTop"');
