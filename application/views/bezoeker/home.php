@@ -15,7 +15,7 @@
                     $inhoud = explode("-", $rij->inhoud);
                     echo '<div class="col-lg-12"><h3>' . $rij->titel . '</h3>';
                     echo '<ul>';
-                    for ($i = 0; $i < count($inhoud); $i++) {
+                    for ($i = 1; $i < count($inhoud); $i++) {
                         echo '<li>' . $inhoud[$i] . '</li>';
                     }
                     echo '</ul></div>';
