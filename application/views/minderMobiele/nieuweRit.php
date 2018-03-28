@@ -304,11 +304,24 @@ echo form_button($dataPopupKnop);
             </div>
             <div class="modal-body">
                <?php
-               echo "Beste $gebruiker->voornaam $gebruiker->naam, uw aanvraag wordt zo meteen verstuurd naar onze vrijwilligers!";
+               echo "Beste $gebruiker->voornaam $gebruiker->naam, uw aanvraag wordt zo meteen verstuurd naar onze medewerkers! U ";
                switch ($gebruiker->contactvorm){
-                   case "":
+                   case "email":
+                       echo "krijgt een e-mail toegestuurd naar $gebruiker->email wanneer uw afspraak is behandeld door een van onze medewerkers. ";
+                       break;
+
+                   case "telefonisch":
+                       echo "wordt gebeld op $gebruiker->telefoonnummer wanneer uw afspraak is behandeld door een van onze medewerkers. ";
+                       break;
+
+                   case "sms":
+                       echo "krijgt een sms op $gebruiker->telefoonnummer wanneer uw afspraak is behandeld door een van onze medewerkers. ";
+                       break;
+
+                   default:
+                       echo "hebt niet voor een verwittiging gekozen. ";
                }
-               echo "U krijgt een e-mail toegestuurd naar uw e-mail adres wanneer uw afspraak is behandeld door een van onze vrijwilligers.";
+               echo "<br>Wanneer uw afspraak is behandeld door een van onze vrijwilligers wordt er in het overzicht van uw geplande ritten een bestuurder weergeven.<br>Bevestig alstublieft deze rit.";
                ?>
             </div>
             <div class="modal-footer">
