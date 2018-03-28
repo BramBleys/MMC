@@ -11,13 +11,17 @@ class Administrator extends CI_Controller
 {
     public function __construct(){
         parent::__construct();
+        //De Template library inladen
         $this->load->library('Template');
     }
 
     public function index(){
+        //titel veranderen naar Parameters
         $data['titel'] = 'Parameters';
+        //Login nakijken
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
+        //Templates definieren en inladen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parameters');
         $this->template->load('main_master', $partials, $data);
     }
@@ -33,8 +37,8 @@ class Administrator extends CI_Controller
 
         $data['parameters'] = $parameters;
 
-        $this->load->model('administrator_model');
-        $this->administrator_model->update($parameters);
+        $this->load->model('ParametersModel');
+        $this->parameters_model->update($parameters);
 
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parametersBevestiging');
         $this->template->load('main_master', $partials, $data);
