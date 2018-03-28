@@ -37,7 +37,7 @@
     $attributenFormulier = array('id' => 'mijnFormulier',
         'class' => 'needs-validation',
         'novalidate' => 'novalidate');
-    echo form_open('minderMobiele/gegevensOpslaan', $attributenFormulier);
+    echo form_open('minderMobiele/ritToevoegen', $attributenFormulier);
 ?>
 <div class="form-row">
     <div class="col-sm-6">
@@ -129,6 +129,7 @@
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
                 'placeholder' => "2440",
+                'type' => 'number'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekPostcode) . "\n";
@@ -182,7 +183,8 @@
             'id' => 'aankomstPostcode',
             'class' => 'form-control',
             'placeholder' => "2440",
-            'required' => 'required'
+            'required' => 'required',
+            'type' => 'number'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstPostcode) . "\n";
@@ -245,17 +247,40 @@
 </div>
 <hr>
 <div class="form-row marginTop">
-    <?php
-    echo form_labelpro('Opmerkingen', 'opmerkingen');
-    $dataOpmerkingen = array('name' => 'opmerkingen',
-        'id' => 'opmerkingen',
-        'class' => 'form-control',
-        'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
-        'rows' => '3'
+    <div class="col-md-8">
+        <?php
+        echo form_labelpro('Opmerkingen', 'opmerkingen');
+        $dataOpmerkingen = array('name' => 'opmerkingen',
+            'id' => 'opmerkingen',
+            'class' => 'form-control',
+            'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+            'rows' => '3'
+                    //,'value' => $gebruiker->voornaam
+        );
+        echo form_textarea($dataOpmerkingen);
+        ?>
+    </div>
+    <div class="col-md-4">
+        <?php
+        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
+        ?>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">€</span>
+            </div>
+            <?php
+                    $dataUurTerug = array('name' => 'supplementaireKost',
+                'id' => 'supplementaireKost',
+                'class' => 'form-control',
+                'aria-describedby' => 'inputGroupPrepend',
+                'placeholder' => '5',
+                'type' => 'number'
                 //,'value' => $gebruiker->voornaam
-    );
-    echo form_textarea($dataOpmerkingen);
-    ?>
+            );
+            echo form_input($dataUurTerug) . "\n";
+            ?>
+        </div>
+    </div>
 </div>
 <?php
     echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn achtergrond marginTop"');

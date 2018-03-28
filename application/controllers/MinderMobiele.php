@@ -66,4 +66,18 @@ class MinderMobiele extends CI_Controller
             redirect('Home');
         }
     }
+
+    public function ritToevoegen() {
+
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        if($this->session->has_userdata('gebruiker_id')){
+            $rit = new stdClass();
+            $rit->gebruikerIdMinderMobiele = $this->session->userdata('gebruiker_id');
+
+            $this->load->model('MinderMobiele_model');
+            $this->MinderMobiele_model->insertRit($gebruikerId);
+        } else {
+            redirect('Home');
+        }
+    }
 }
