@@ -43,7 +43,7 @@ class Administrator extends CI_Controller
         $data['parameters'] = $parameters;
 
         //Parameters model laden en de database updaten
-        $this->load->model('ParametersModel');
+        $this->load->model('Parameters_model');
         $this->parameters_model->update($parameters);
 
         //bevestiging pagina tonen
