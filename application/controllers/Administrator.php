@@ -18,7 +18,7 @@ class Administrator extends CI_Controller
     public function index(){
         //titel veranderen naar Parameters
         $data['titel'] = 'Parameters';
-        //Login nakijken
+        //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
         //Templates definieren en inladen
@@ -49,7 +49,14 @@ class Administrator extends CI_Controller
         //bevestiging pagina tonen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parametersBevestiging');
         $this->template->load('main_master', $partials, $data);
+    }
 
+    public function mmcMedewerkerBeheren(){
+        $data['titel'] = 'MMC Medewerkers Beheren';
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
+        //Templates definieren en inladen
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/mmcMedewerkerBeheren');
+        $this->template->load('main_master', $partials, $data);
     }
 }
