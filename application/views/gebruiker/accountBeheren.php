@@ -68,9 +68,14 @@
         <input class="form-check-input" type="radio" name="contactvorm" value="telefonisch" id="telefonisch">
         Telefonisch </label>
 </div>
+<div class="form-check">
+    <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="contactvorm" value="sms" id="sms">
+        SMS </label>
+</div>
 <div class="form-check disabled">
     <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="contactvorm" value="beide" id="beide"> Beide </label>
+        <input class="form-check-input" type="radio" name="contactvorm" value="leeg" id="leeg"> Leeg </label>
 </div>
 
 <input type="hidden" value="<?php echo $gebruiker->id ?>" name="hidden"/>

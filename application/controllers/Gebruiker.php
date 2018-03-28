@@ -34,7 +34,13 @@
             $gegevens->gemeente = $this->input->post('gemeente');
             $gegevens->postcode = $this->input->post('postcode');
             $gegevens->straatEnNummer = $this->input->post('straatEnNummer');
-            $gegevens->contactvorm = $this->input->post('contactvorm');
+
+            $contactvorm = $this->input->post('contactvorm');
+            if($contactvorm === "leeg"){
+                $contactvorm = NULL;
+            }
+
+            $gegevens->contactvorm = $contactvorm;
 
             $data['gegevens'] = $gegevens;
 

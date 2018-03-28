@@ -36,7 +36,7 @@ class Authex {
         // gebruiker aanmelden met opgegeven gebruikersnaam en wachtwoord
         $CI = &get_instance();
 
-        $gebruiker = $CI->gebruiker_model->getGebruiker($gebruikersnaam, $wachtwoord);
+        $gebruiker = $CI->gebruiker_model->getGebruikerLogin($gebruikersnaam, $wachtwoord);
 
         if ($gebruiker == null) {
             return false;
