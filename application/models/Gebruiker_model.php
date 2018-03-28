@@ -10,14 +10,14 @@
         function get($id) {
             // geef gebruiker-object met opgegeven id
             $this->db->where('id', $id);
-            $query = $this->db->get('Gebruiker');
+            $query = $this->db->get('gebruiker');
             return $query->row();
         }
 
         function getGebruiker($gebruikersnaam, $wachtwoord) {
             // geef gebruiker-object met gebruikersnaam en wachtwoord
             $this->db->where('gebruikersnaam', $gebruikersnaam);
-            $query = $this->db->get('Gebruiker');
+            $query = $this->db->get('gebruiker');
 
             if ($query->num_rows() == 1) {
                 $gebruiker = $query->row();

@@ -9,23 +9,23 @@
                 $("#vertrekAdres").attr("required", "required");
                 $("#vertrekGemeente").attr("required", "required");
                 $("#vertrekPostcode").attr("required", "required");
-                $("#vertrekGegevens").show(500);
+                $("#vertrekGegevens").slideDown(500);
             } else {
                 $("#vertrekAdres").removeAttr("required");
                 $("#vertrekGemeente").removeAttr("required");
                 $("#vertrekPostcode").removeAttr("required");
-                $("#vertrekGegevens").hide(500);
+                $("#vertrekGegevens").slideUp(500);
             }
         });
         $("#checkboxTerugrit").click(function () {
             if ($("#terugRit").is(':checked')) {
                 $("#uurTerug").attr("required", "required");
                 $("#datumTerug").attr("required", "required");
-                $("#terugritGegevens").show(500);
+                $("#terugritGegevens").slideDown(500);
             } else {
                 $("#uurTerug").removeAttr("required");
                 $("#datumTerug").removeAttr("required");
-                $("#terugritGegevens").hide(500);
+                $("#terugritGegevens").slideUp(500);
             }
         });
     });
@@ -37,7 +37,7 @@
     $attributenFormulier = array('id' => 'mijnFormulier',
         'class' => 'needs-validation',
         'novalidate' => 'novalidate');
-    echo form_open('minderMobiele/gegevensOpslaan', $attributenFormulier);
+    echo form_open('minderMobiele/ritToevoegen', $attributenFormulier);
 ?>
 <div class="form-row">
     <div class="col-sm-6">
@@ -46,8 +46,8 @@
         $dataDatum = array('name' => 'datum',
             'id' => 'datum',
             'class' => 'form-control',
-            'placeholder' => "30/05/2018",
-            'required' => 'required'
+            'required' => 'required',
+            'type' => 'date'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataDatum) . "\n";
@@ -62,8 +62,8 @@
         $dataUur = array('name' => 'uur',
             'id' => 'uur',
             'class' => 'form-control',
-            'placeholder' => "18:30",
-            'required' => 'required'
+            'required' => 'required',
+            'type' => 'time'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataUur) . "\n";
@@ -75,16 +75,20 @@
 </div>
 <hr>
 <div class="form-row" id="checkboxVertrek">
-    <?php
-    $dataVertrekPlaats = array('name' => 'vertrekPlaats',
-        'id' => 'vertrekPlaats',
-        'value' => 'accept',
-    );
-    echo form_checkbox($dataVertrekPlaats) . "\n";
-    echo form_labelpro('Ik vertrek niet vanaf thuis', 'vertrekPlaats');
-    ?>
+    <div class="custom-control custom-checkbox">
+        <?php
+        $dataVertrekPlaats = array('name' => 'vertrekPlaats',
+            'id' => 'vertrekPlaats',
+            'class' => 'custom-control-input',
+            'value' => 'accept',
+        );
+        echo form_checkbox($dataVertrekPlaats) . "\n";
+        $attributes = array('class' => 'custom-control-label');
+        echo form_label('Ik vertrek niet vanaf thuis', 'vertrekPlaats', $attributes);
+        ?>
+    </div>
 </div>
-<div id="vertrekGegevens">
+<div id="vertrekGegevens" class="marginTop">
     <div class="form-row">
         <div class="col-sm-6">
             <?php
@@ -124,7 +128,8 @@
             $dataVertrekPostcode = array('name' => 'vertrekPostcode',
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
-                'placeholder' => "Geel",
+                'placeholder' => "2440",
+                'type' => 'number'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekPostcode) . "\n";
@@ -177,8 +182,9 @@
         $dataAankomstPostcode = array('name' => 'aankomstPostcode',
             'id' => 'aankomstPostcode',
             'class' => 'form-control',
-            'placeholder' => "Geel",
-            'required' => 'required'
+            'placeholder' => "2440",
+            'required' => 'required',
+            'type' => 'number'
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstPostcode) . "\n";
@@ -191,17 +197,21 @@
 <hr>
 <h3 class="marginTop">Terug rit</h3>
 <div class="form-row"  id="checkboxTerugrit">
-    <?php
-    $dataTerugRit = array('name' => 'terugRit',
-        'id' => 'terugRit',
-        'value' => 'accept',
-    );
-    echo form_checkbox($dataTerugRit) . "\n";
-    echo form_labelpro('Heen en terug rit', 'terugRit', 'class="col-form-label"');
-    ?>
+    <div class="custom-control custom-checkbox">
+        <?php
+        $dataTerugRit = array('name' => 'terugRit',
+            'id' => 'terugRit',
+            'class' => 'custom-control-input',
+            'value' => 'accept',
+        );
+        echo form_checkbox($dataTerugRit) . "\n";
+        $attributes = array('class' => 'custom-control-label');
+        echo form_label('Heen en terug rit', 'terugRit', $attributes);
+        ?>
+    </div>
 </div>
 
-<div id="terugritGegevens">
+<div id="terugritGegevens" class="marginTop">
     <div class="form-row">
         <div class="col-sm-6">
             <?php
@@ -209,7 +219,7 @@
             $dataDatumTerug = array('name' => 'datumTerug',
                 'id' => 'datumTerug',
                 'class' => 'form-control',
-                'placeholder' => "30/05/2018",
+                'type' => 'date'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataDatumTerug) . "\n";
@@ -224,7 +234,7 @@
             $dataUurTerug = array('name' => 'uurTerug',
                 'id' => 'uurTerug',
                 'class' => 'form-control',
-                'placeholder' => "18:30",
+                'type' => 'time'
                 //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataUurTerug) . "\n";
@@ -232,6 +242,43 @@
             <div class="invalid-feedback">
                 Geef een correct uur in.
             </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="form-row marginTop">
+    <div class="col-md-8">
+        <?php
+        echo form_labelpro('Opmerkingen', 'opmerkingen');
+        $dataOpmerkingen = array('name' => 'opmerkingen',
+            'id' => 'opmerkingen',
+            'class' => 'form-control',
+            'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+            'rows' => '3'
+                    //,'value' => $gebruiker->voornaam
+        );
+        echo form_textarea($dataOpmerkingen);
+        ?>
+    </div>
+    <div class="col-md-4">
+        <?php
+        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
+        ?>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">€</span>
+            </div>
+            <?php
+                    $dataUurTerug = array('name' => 'supplementaireKost',
+                'id' => 'supplementaireKost',
+                'class' => 'form-control',
+                'aria-describedby' => 'inputGroupPrepend',
+                'placeholder' => '5',
+                'type' => 'number'
+                //,'value' => $gebruiker->voornaam
+            );
+            echo form_input($dataUurTerug) . "\n";
+            ?>
         </div>
     </div>
 </div>
