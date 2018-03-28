@@ -27,19 +27,26 @@ class Administrator extends CI_Controller
     }
 
     public function parametersOpslagen(){
+        //titel veranderen naar Opgeslagen
         $data['titel'] = 'Opgeslagen';
+        //Login nakijken
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        //Variabel aanmaken om parameters in op te slagen
         $parameters = new stdClass();
 
+        //Ingevulde parameters opslagen in het variabel
         $parameters->maxRitten = $this->input->post('maxRitten');
         $parameters->prijsPerKM = $this->input->post('prijsPerKM');
         $parameters->annulatieTijd = $this->input->post('annulatieTijd');
 
+        //in data stoppen
         $data['parameters'] = $parameters;
 
+        //Parameters model laden en de database updaten
         $this->load->model('ParametersModel');
         $this->parameters_model->update($parameters);
 
+        //bevestiging pagina tonen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parametersBevestiging');
         $this->template->load('main_master', $partials, $data);
 

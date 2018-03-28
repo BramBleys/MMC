@@ -14,7 +14,7 @@
             return $query->row();
         }
 
-        function getGebruiker($gebruikersnaam, $wachtwoord) {
+        function getGebruikerLogin($gebruikersnaam, $wachtwoord) {
             // geef gebruiker-object met gebruikersnaam en wachtwoord
             $this->db->where('gebruikersnaam', $gebruikersnaam);
             $query = $this->db->get('gebruiker');
@@ -49,5 +49,48 @@
             $this->db->order_by('soortId', 'asc');
             $query = $this->db->get('gebruiker');
             return $query->result();
+        }
+        
+        function getGebruiker($gebruikerId){
+            $this->db->where('id', $gebruikerId);
+            $query = $this->db->get('gebruiker');
+            $gebruiker = $query->row();
+            return $gebruiker;
+        }
+
+        function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId)
+        {
+            // geef gebruiker-object met opgegeven $id met de geplande ritten
+            $nu = date('Y-m-d H:i:s');
+            $this->db->order_by('vertrekTijdstip');
+            $this->db->where('gebruikerIdMinderMobiele', $gebruikerId);
+            $this->db->where('vertrekTijdstip >', $nu);
+            $query = $this->db->get('rit');
+            $ritten = $query->result();
+
+            foreach ($ritten as $rit){
+                $rit->chauffeur = $this->MinderMobiele_model->getGebruiker($rit->gebruikerIdVrijwilliger);
+                $rit->vertrekAdres = $this->MinderMobiele_model->getAdres($rit->adresIdVertrek);
+                $rit->bestemmingAdres = $this->MinderMobiele_model->getAdres($rit->adresIdBestemming);
+            }
+            return $ritten;
+        }
+
+        function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId)
+        {
+            // geef gebruiker-object met opgegeven $id met de geplande ritten
+            $nu = date('Y-m-d H:i:s');
+            $this->db->order_by('vertrekTijdstip');
+            $this->db->where('gebruikerIdMinderMobiele', $gebruikerId);
+            $this->db->where('vertrekTijdstip <', $nu);
+            $query = $this->db->get('Rit');
+            $ritten = $query->result();
+
+            foreach ($ritten as $rit){
+                $rit->chauffeur = $this->MinderMobiele_model->getGebruiker($rit->gebruikerIdVrijwilliger);
+                $rit->vertrekAdres = $this->MinderMobiele_model->getAdres($rit->adresIdVertrek);
+                $rit->bestemmingAdres = $this->MinderMobiele_model->getAdres($rit->adresIdBestemming);
+            }
+            return $ritten;
         }
     }

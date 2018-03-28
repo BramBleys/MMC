@@ -6,9 +6,6 @@
  * Time: 3:32 PM
  */
 class ParametersModel extends CI_Model {
-
-
-
     function __construct()
     {
         parent::__construct();

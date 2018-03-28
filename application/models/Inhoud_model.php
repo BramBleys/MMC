@@ -1,6 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Kix
+ * Date: 3/28/2018
+ * Time: 12:17 PM
+ */
 
-class Bezoeker_model extends CI_Model {
+class Inhoud_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -13,5 +19,5 @@ class Bezoeker_model extends CI_Model {
 
         return $query->result();
     }
-}
 
+}
