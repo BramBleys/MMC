@@ -23,8 +23,8 @@ class MinderMobiele extends CI_Controller
         if($this->session->has_userdata('gebruiker_id')){
             $gebruikerId = $this->session->userdata('gebruiker_id');
 
-            $this->load->model('gebruiker_model');
-            $data['ritten'] = $this->gebruiker_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId);
+            $this->load->model('Rit_model');
+            $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId);
 
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'minderMobiele/geplandeRitten');
@@ -41,8 +41,8 @@ class MinderMobiele extends CI_Controller
         if($this->session->has_userdata('gebruiker_id')){
             $gebruikerId = $this->session->userdata('gebruiker_id');
 
-            $this->load->model('gebruiker_model');
-            $data['ritten'] = $this->gebruiker_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId);
+            $this->load->model('Rit_model');
+            $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId);
 
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'minderMobiele/afgelopenRitten');
