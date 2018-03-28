@@ -47,7 +47,7 @@
         function getAllGebruikers() {
             // geef alle gebruiker-objecten
             $this->db->order_by('soortId', 'asc');
-            $query = $this->db->get('gebruikers');
+            $query = $this->db->get('gebruiker');
             return $query->result();
         }
     }

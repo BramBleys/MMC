@@ -26,15 +26,21 @@
                 <th>E-mail</th>
                 <th></th>
             </tr>
-            <tr>
-                <td>Tekst</td>
-                <td>Tekst</td>
-                <td>Tekst</td>
-                <td>
-                    <i class="material-icons"><a href="">edit</a></i>
-                    <i class="material-icons"><a href="">directions_car</a></i>
-                </td>
-            </tr>
+            <?php
+
+            foreach ($gebruikers as $gebruiker) {
+                echo "<tr>\n" .
+                    "<td>" . $gebruiker->voornaam . "</td>\n" .
+                    "<td>" . $gebruiker->naam . "</td>\n" .
+                    "<td>" . $gebruiker->email . "</td>\n" .
+                    "<td>" .
+                    "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
+                    "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
+                    "</td>\n" .
+                    "</tr>\n";
+            }
+
+            ?>
         </table>
     </div>
 </div>
