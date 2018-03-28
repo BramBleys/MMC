@@ -283,8 +283,45 @@
     </div>
 </div>
 <?php
-    echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn achtergrond marginTop"');
-    echo form_close();
+$dataPopupKnop = array('name' => 'popupKnop',
+    'id' => 'popupKnop',
+    'class' => 'btn btn-primary marginTop',
+    'data-toggle' => 'modal',
+    'data-target' => '#bevestigingPopup',
+    'content' => 'Opslaan'
+);
+echo form_button($dataPopupKnop);
+?>
+<!-- Modal -->
+<div class="modal fade" id="bevestigingPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bevestigingPopupTitle">Aanvraag bevestigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <?php
+               echo "Beste $gebruiker->voornaam $gebruiker->naam, uw aanvraag wordt zo meteen verstuurd naar onze vrijwilligers!";
+               switch ($gebruiker->contactvorm){
+                   case "":
+               }
+               echo "U krijgt een e-mail toegestuurd naar uw e-mail adres wanneer uw afspraak is behandeld door een van onze vrijwilligers.";
+               ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+                <?php
+                echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn btn-primary"');
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+        echo form_close();
 ?>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields

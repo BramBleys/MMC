@@ -12,8 +12,8 @@
             $data['titel'] = 'Home';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
-            $this->load->model('gebruiker_model');
-            $data['inhoud'] = $this->gebruiker_model->getInhoud("1");
+            $this->load->model('inhoud_model');
+            $data['inhoud'] = $this->inhoud_model->getInhoud("1");
 
             $partials = array(
                 'navigatie' => 'main_menu',
@@ -26,8 +26,8 @@
             $data['titel'] = 'Contact';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
-            $this->load->model('gebruiker_model');
-            $data['inhoud'] = $this->gebruiker_model->getInhoud("5");
+            $this->load->model('inhoud_model');
+            $data['inhoud'] = $this->inhoud_model->getInhoud("5");
 
             $partials = array(
                 'navigatie' => 'main_menu',
