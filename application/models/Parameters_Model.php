@@ -16,7 +16,7 @@ class ParametersModel extends CI_Model {
 
     function update($parameters)
     {
-        $this->db->update('Parameters', $parameters);
+        $this->db->update('parameters', $parameters);
     }
 
 }

@@ -17,7 +17,21 @@
 
             $partials = array(
                 'navigatie' => 'main_menu',
-                'inhoud' => 'gebruiker/home'
+                'inhoud' => 'bezoeker/home'
+            );
+            $this->template->load('main_master', $partials, $data);
+        }
+
+        public function contact(){
+            $data['titel'] = 'Contact';
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            $this->load->model('bezoeker_model');
+            $data['inhoud'] = $this->bezoeker_model->getInhoud("5");
+
+            $partials = array(
+                'navigatie' => 'main_menu',
+                'inhoud' => 'bezoeker/contact'
             );
             $this->template->load('main_master', $partials, $data);
         }
