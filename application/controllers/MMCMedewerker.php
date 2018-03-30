@@ -27,4 +27,13 @@ class MMCMedewerker extends CI_Controller {
             redirect('Home');
         }
     }
+
+    public function haalAjaxOp_Gebruikers() {
+        $data['soortId'] = $this->input->get('soortId');
+
+        $this->load->model('Gebruiker_model');
+        $data['gebruikers'] = $this->Gebruiker_model->getAllGebruikers();
+
+        $this->load->view("MMCMedewerker/ajax_gebruikers", $data);
+    }
 }

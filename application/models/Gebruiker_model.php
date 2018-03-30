@@ -50,6 +50,20 @@
             $query = $this->db->get('gebruiker');
             return $query->result();
         }
+
+        function getAllGebruikersWithSoort($soortId) {
+            // geef alle gebruiker-objecten met soort
+            $this->db->where('soortId',$soortId);
+            $query = $this->db->get('gebruiker');
+            $gebruikers = $query->result();
+
+            $this->load->model('soort_model');
+            foreach ($gebruikers as $gebruiker) {
+                $gebruiker->soort = $this->soort_model->getSoort($gebruiker->soortId);
+            }
+
+            return $gebruikers;
+        }
         
         function getGebruiker($gebruikerId){
             $this->db->where('id', $gebruikerId);

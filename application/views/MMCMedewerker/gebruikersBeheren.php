@@ -1,3 +1,32 @@
+<script>
+
+    function haalGebruikersOp(soortId)
+    {
+        $.ajax({type : "GET",
+            url : site_url + "/MMCMedewerker/haalAjaxOp_Gebruikers",
+            data : { soortId : soortId },
+            success : function(result){
+                $("#gebruikers").html(result);
+
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        $(".gebruikerOphalen").click(function (e) {
+            e.preventDefault();
+            var soortId = $(this).data('id');
+            haalGebruikersOp(soortId);
+        });
+
+    });
+
+</script>
+
 <h2><?php echo $titel; ?></h2>
 
 <div class="row">
@@ -13,88 +42,20 @@
 </div>
 <div class="row">
     <div class="col-3">
-        <a href="#MinderMobielen" class="btn btn-primary" data-toggle="collapse" data-target="" data-parent="#accordion">Minder Mobielen</a>
-        <a href="#Coaches" class="btn btn-primary" data-toggle="collapse" data-target="" data-parent="#accordion">Coaches</a>
-        <a href="#Vrijwilligers" class="btn btn-primary" data-toggle="collapse" data-target="" data-parent="#accordion">Vrijwilligers</a>
-        <a href="" class="btn btn-primary">Gebruiker toevoegen</a>
+        <?php
+
+        echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '1')) . "\n";
+        echo anchor('', 'Coaches', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '2')) . "\n";
+        echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '3')) . "\n";
+
+        ?>
     </div>
     <div class="col-9">
-        <div id="accordion">
-            <div class="collapse" id="MinderMobielen">
-                <table class="table">
-                    <tr>
-                        <th>Voornaam</th>
-                        <th>Naam</th>
-                        <th>E-mail</th>
-                        <th></th>
-                    </tr>
-                    <?php
-
-                    foreach ($gebruikers as $gebruiker) {
-                        echo "<tr>\n" .
-                            "<td>" . $gebruiker->voornaam . "</td>\n" .
-                            "<td>" . $gebruiker->naam . "</td>\n" .
-                            "<td>" . $gebruiker->email . "</td>\n" .
-                            "<td>" .
-                            "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
-                            "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
-                            "</td>\n" .
-                            "</tr>\n";
-                    }
-
-                    ?>
-                </table>
-            </div>
-            <div class="collapse" id="Coaches">
-                <table class="table">
-                    <tr>
-                        <th>Voornaam</th>
-                        <th>Naam</th>
-                        <th>E-mail</th>
-                        <th></th>
-                    </tr>
-                    <?php
-
-                    foreach ($gebruikers as $gebruiker) {
-                        echo "<tr>\n" .
-                            "<td>" . $gebruiker->voornaam . "</td>\n" .
-                            "<td>" . $gebruiker->naam . "</td>\n" .
-                            "<td>" . $gebruiker->email . "</td>\n" .
-                            "<td>" .
-                            "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
-                            "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
-                            "</td>\n" .
-                            "</tr>\n";
-                    }
-
-                    ?>
-                </table>
-            </div>
-            <div class="collapse" id="Vrijwilligers">
-                <table class="table">
-                    <tr>
-                        <th>Voornaam</th>
-                        <th>Naam</th>
-                        <th>E-mail</th>
-                        <th></th>
-                    </tr>
-                    <?php
-
-                    foreach ($gebruikers as $gebruiker) {
-                        echo "<tr>\n" .
-                            "<td>" . $gebruiker->voornaam . "</td>\n" .
-                            "<td>" . $gebruiker->naam . "</td>\n" .
-                            "<td>" . $gebruiker->email . "</td>\n" .
-                            "<td>" .
-                            "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
-                            "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
-                            "</td>\n" .
-                            "</tr>\n";
-                    }
-
-                    ?>
-                </table>
-            </div>
+        <div id="gebruikers">
         </div>
     </div>
 </div>
+
+<script>
+    $('.collapse').addClass('no-transition').collapse('toggle');
+</script>
