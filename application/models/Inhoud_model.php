@@ -20,4 +20,12 @@ class Inhoud_model extends CI_Model {
         return $query->result();
     }
 
+    function getInhoudWhereTypeInhoudId($typeInhoudId){
+        $this->db->order_by('id', 'ASC');
+        $this->db->where('typeInhoudId', $typeInhoudId);
+        $query = $this->db->get('inhoud');
+
+        return $query->result();
+    }
+
 }

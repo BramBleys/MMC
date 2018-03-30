@@ -59,4 +59,22 @@ class Administrator extends CI_Controller
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/mmcMedewerkerBeheren');
         $this->template->load('main_master', $partials, $data);
     }
+
+    public function sjablonenBeheren(){
+        //titel veranderen naar Sjablonen
+        $data['titel'] = 'Sjablonen';
+        //Gebruikersinformatie ophalen
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+        //Variabel aanmaken om sjablonen in op te slagen
+        $sjablonen = new stdClass();
+
+        //Parameters model laden en inhoud ophalen waar het typeInhoudId 3 is, dit zijn sjablonen
+        $this->load->model('Inhoud_model');
+        $sjablonen = $this->Inhoud_model->getInhoudWhereTypeInhoudId("3");
+
+        //bevestiging pagina tonen
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/sjabloonBeheren');
+        $this->template->load('main_master', $partials, $data);
+    }
 }
