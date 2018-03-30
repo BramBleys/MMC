@@ -30,9 +30,13 @@ if(count($ritten)!=0){
             . $rit->vertrekAdres->straatEnNummer . ", " . $rit->vertrekAdres->postcode . " " . $rit->vertrekAdres->gemeente
             . "</td>\n<td>"
             . $rit->bestemmingAdres->straatEnNummer . ", " . $rit->bestemmingAdres->postcode . " " . $rit->bestemmingAdres->gemeente
-            . "</td>\n<td>"
-            . $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam
-            . "</td>\n<td>"
+            . "</td>\n<td>";
+            if ($rit->chauffeur){
+                echo $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam;
+            } else {
+                echo "Er is nog geen chauffeur toegewezen";
+            }
+            echo "</td>\n<td>"
             . "€5800"
             . "</td>\n</tr>\n";
     }

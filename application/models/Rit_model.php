@@ -8,6 +8,10 @@
 
 class Rit_model extends CI_Model {
 
+    function get($id){
+
+    }
+
     function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId)
     {
         // geef gebruiker-object met opgegeven $id met de geplande ritten
@@ -46,5 +50,11 @@ class Rit_model extends CI_Model {
             $rit->bestemmingAdres = $this->Adres_model->getAdres($rit->adresIdBestemming);
         }
         return $ritten;
+    }
+
+    function insert($rit)
+    {
+        $this->db->insert('rit', $rit);
+        return $this->db->insert_id();
     }
 }

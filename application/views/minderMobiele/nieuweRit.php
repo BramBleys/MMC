@@ -47,7 +47,8 @@
             'id' => 'datum',
             'class' => 'form-control',
             'required' => 'required',
-            'type' => 'date'
+            'type' => 'date',
+            'min' => date("Y-m-d", strtotime("+3 Days"))
             //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataDatum) . "\n";
@@ -194,6 +195,45 @@
         </div>
     </div>
 </div>
+
+<hr>
+<div class="form-row marginTop">
+    <div class="col-md-8">
+        <?php
+        echo form_labelpro('Opmerkingen', 'opmerkingen');
+        $dataOpmerkingen = array('name' => 'opmerkingen',
+            'id' => 'opmerkingen',
+            'class' => 'form-control',
+            'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+            'rows' => '3'
+                    //,'value' => $gebruiker->voornaam
+        );
+        echo form_textarea($dataOpmerkingen);
+        ?>
+    </div>
+    <div class="col-md-4">
+        <?php
+        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
+        ?>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend">€</span>
+            </div>
+            <?php
+                    $dataUurTerug = array('name' => 'supplementaireKost',
+                'id' => 'supplementaireKost',
+                'class' => 'form-control',
+                'aria-describedby' => 'inputGroupPrepend',
+                'placeholder' => '5',
+                'type' => 'number'
+                //,'value' => $gebruiker->voornaam
+            );
+            echo form_input($dataUurTerug) . "\n";
+            ?>
+        </div>
+    </div>
+</div>
+
 <hr>
 <h3 class="marginTop">Terug rit</h3>
 <div class="form-row"  id="checkboxTerugrit">
@@ -202,7 +242,7 @@
         $dataTerugRit = array('name' => 'terugRit',
             'id' => 'terugRit',
             'class' => 'custom-control-input',
-            'value' => 'accept',
+            'value' => 'accept'
         );
         echo form_checkbox($dataTerugRit) . "\n";
         $attributes = array('class' => 'custom-control-label');
@@ -244,41 +284,41 @@
             </div>
         </div>
     </div>
-</div>
-<hr>
-<div class="form-row marginTop">
-    <div class="col-md-8">
-        <?php
-        echo form_labelpro('Opmerkingen', 'opmerkingen');
-        $dataOpmerkingen = array('name' => 'opmerkingen',
-            'id' => 'opmerkingen',
-            'class' => 'form-control',
-            'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
-            'rows' => '3'
-                    //,'value' => $gebruiker->voornaam
-        );
-        echo form_textarea($dataOpmerkingen);
-        ?>
-    </div>
-    <div class="col-md-4">
-        <?php
-        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
-        ?>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend">€</span>
-            </div>
+    <hr>
+    <div class="form-row marginTop">
+        <div class="col-md-8">
             <?php
-                    $dataUurTerug = array('name' => 'supplementaireKost',
-                'id' => 'supplementaireKost',
+            echo form_labelpro('Opmerkingen', 'opmerkingenTerug');
+            $dataOpmerkingen = array('name' => 'opmerkingenTerug',
+                'id' => 'opmerkingenTerug',
                 'class' => 'form-control',
-                'aria-describedby' => 'inputGroupPrepend',
-                'placeholder' => '5',
-                'type' => 'number'
+                'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+                'rows' => '3'
                 //,'value' => $gebruiker->voornaam
             );
-            echo form_input($dataUurTerug) . "\n";
+            echo form_textarea($dataOpmerkingen);
             ?>
+        </div>
+        <div class="col-md-4">
+            <?php
+            echo form_labelpro('Totaal van extra kosten', 'supplementaireKostTerug');
+            ?>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend">€</span>
+                </div>
+                <?php
+                $dataUurTerug = array('name' => 'supplementaireKostTerug',
+                    'id' => 'supplementaireKostTerug',
+                    'class' => 'form-control',
+                    'aria-describedby' => 'inputGroupPrepend',
+                    'placeholder' => '5',
+                    'type' => 'number'
+                    //,'value' => $gebruiker->voornaam
+                );
+                echo form_input($dataUurTerug) . "\n";
+                ?>
+            </div>
         </div>
     </div>
 </div>
@@ -321,12 +361,17 @@ echo form_button($dataPopupKnop);
                    default:
                        echo "hebt niet voor een verwittiging gekozen. ";
                }
-               echo "<br>Wanneer uw afspraak is behandeld door een van onze vrijwilligers wordt er in het overzicht van uw geplande ritten een bestuurder weergeven.<br>Bevestig alstublieft deze rit.";
+               echo "<br>Wanneer uw afspraak is behandeld door een van onze vrijwilligers wordt er in het overzicht van uw geplande ritten de bestuurder getoond die deze rit zal uitvoeren.<br>Bevestig alstublieft deze rit.";
                ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
                 <?php
+                $dataAnnuleer = array(
+                    'class' => 'btn btn-secondary',
+                    'data-dismiss' => 'modal',
+                    'content' => 'Annuleer'
+                );
+                echo form_button($dataAnnuleer);
                 echo form_submit('Rit aanmaken', 'Opslaan', 'class="btn btn-primary"');
                 ?>
             </div>
@@ -352,6 +397,13 @@ echo form_button($dataPopupKnop);
                     }
                     form.classList.add('was-validated');
                 }, false);
+                $("#popupKnop").click(function () {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                });
             });
         }, false);
     })();

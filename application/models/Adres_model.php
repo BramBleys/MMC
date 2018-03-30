@@ -20,4 +20,20 @@ class Adres_model extends CI_Model {
         return $adres;
     }
 
+    function getIdWhereStraatEnGemeenteEnPostcode($adres){
+        $this->db->where('straatEnNummer', $adres->straatEnNummer);
+        $this->db->where('gemeente', $adres->gemeente);
+        $this->db->where('postcode', $adres->postcode);
+        $query = $this->db->get('adres');
+        $adres = $query->row();
+        if($adres!=NULL){
+            return $adres->id;
+        }
+    }
+
+    function insert($adres)
+    {
+        $this->db->insert('adres', $adres);
+        return $this->db->insert_id();
+    }
 }
