@@ -66,7 +66,7 @@ class MinderMobiele extends CI_Controller
         }
     }
 
-    public function ritToevoegen() {
+        public function ritToevoegen() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $minderMobiele = $data['gebruiker'];
         if($this->session->has_userdata('gebruiker_id')){
@@ -168,10 +168,75 @@ class MinderMobiele extends CI_Controller
     }
 
     public function wijzigingOpslaan(){
-
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $minderMobiele = $data['gebruiker'];
+        if($this->session->has_userdata('gebruiker_id')){
+            $oudeId = $this->input->post('heenritId');
+            $oudeTerugRitId = $this->input->post('terugRitId');
+            $this->load->model('rit_model');
+            $this->rit_model->delete($oudeId);
+            $this->rit_model->delete($oudeTerugRitId);
+            $rit = new stdClass();
+            $rit->gebruikerIdMinderMobiele = $this->session->userdata('gebruiker_id');
+            $adres = new stdClass();
+            if($this->input->post('vertrekPlaats')!="" && $this->input->post('vertrekPlaats')!=NULL){
+                $adres->straatEnNummer = $this->input->post('vertrekAdres');
+                $adres->gemeente = $this->input->post('vertrekGemeente');
+                $adres->postcode = $this->input->post('vertrekPostcode');
+            } else{
+                $adres->straatEnNummer = $minderMobiele->straatEnNummer;
+                $adres->gemeente = $minderMobiele->gemeente;
+                $adres->postcode = $minderMobiele->postcode;
+            }
+            $this->load->model('adres_model');
+            $adresId = $this->adres_model->getIdWhereStraatEnGemeenteEnPostcode($adres);
+            if($adresId){
+                $rit->adresIdVertrek = $adresId;
+            } else {
+                $rit->adresIdVertrek = $this->adres_model->insert($adres);
+            }
+            $adres->straatEnNummer = $this->input->post('aankomstAdres');
+            $adres->gemeente = $this->input->post('aankomstGemeente');
+            $adres->postcode = $this->input->post('aankomstPostcode');
+            $adresId = $this->adres_model->getIdWhereStraatEnGemeenteEnPostcode($adres);
+            if($adresId){
+                $rit->adresIdBestemming = $adresId;
+            } else {
+                $rit->adresIdBestemming = $this->adres_model->insert($adres);
+            }
+            $datum = $this->input->post('datum');
+            $uur = $this->input->post('uur');
+            $rit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
+            $rit->supplementaireKost = ($this->input->post('supplementaireKost')=='0' || $this->input->post('supplementaireKost')=='' ? NULL : $this->input->post('supplementaireKost'));
+            $rit->opmerking = ($this->input->post('opmerkingen') == '' || $this->input->post('opmerkingen') == ' ' ? NULL : $this->input->post('opmerkingen'));
+            $this->load->model('rit_model');
+            $heenRitId = $this->rit_model->insert($rit);
+            if ($this->input->post('terugRit')!="" && $this->input->post('terugRit')!=NULL){
+                $terugRit = new stdClass();
+                $terugRit->gebruikerIdMinderMobiele = $this->session->userdata('gebruiker_id');
+                $terugRit->adresIdVertrek = $rit->adresIdBestemming;
+                $terugRit->adresIdBestemming = $rit->adresIdVertrek;
+                $datum = $this->input->post('datumTerug');
+                $uur = $this->input->post('uurTerug');
+                $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';;
+                $terugRit->supplementaireKost = ($this->input->post('supplementaireKostTerug')=='0' || $this->input->post('supplementaireKostTerug')=='' ? NULL : $this->input->post('supplementaireKostTerug'));
+                $terugRit->opmerking = ($this->input->post('opmerkingenTerug') == '' || $this->input->post('opmerkingenTerug') == ' ' ? NULL : $this->input->post('opmerkingenTerug'));
+                $terugRit->ritIdHeenrit = $heenRitId;
+                $terugRitId = $this->rit_model->insert($terugRit);
+            }
+            redirect('MinderMobiele');
+        } else {
+            redirect('Home');
+        }
     }
     
     public function schrap($id){
-
+        $this->load->model('rit_model');
+        if ($this->rit_model->getByHeenRit($id)){
+            $terugRit = $this->rit_model->getByHeenRit($id);
+            $this->rit_model->delete($terugRit->id);
+        }
+        $this->rit_model->delete($id);
+        redirect('MinderMobiele');
     }
 }

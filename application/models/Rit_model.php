@@ -67,4 +67,9 @@ class Rit_model extends CI_Model {
         $this->db->insert('rit', $rit);
         return $this->db->insert_id();
     }
+
+    function delete($id){
+        $this->db->where('id', $id);
+        $this->db->delete('rit');
+    }
 }

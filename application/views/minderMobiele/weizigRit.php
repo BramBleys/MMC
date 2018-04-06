@@ -34,7 +34,7 @@
     $attributenFormulier = array('id' => 'mijnFormulier',
         'class' => 'needs-validation',
         'novalidate' => 'novalidate');
-    echo form_open('minderMobiele/ritToevoegen', $attributenFormulier);
+    echo form_open('minderMobiele/wijzigingOpslaan', $attributenFormulier);
 ?>
 <?php
 echo form_hidden('heenritId', $heenrit->id) . "\n";
@@ -123,7 +123,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                'pattern' => '[A-Za-z]{2,}'
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+'
             );
             if(!$vertrekThuis){
                 $dataVertrekGemeente['value'] = $heenrit->adres->gemeente;
@@ -184,7 +184,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             'id' => 'aankomstGemeente',
             'class' => 'form-control',
             'placeholder' => "Geel",
-            'pattern' => '[A-Za-z]{2,}',
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
             'required' => 'required',
             'value' => $heenrit->bestemming->gemeente
         );
