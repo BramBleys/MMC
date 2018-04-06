@@ -107,7 +107,7 @@
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                'pattern' => '[A-Za-z]{2,}',
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
             );
             echo form_input($dataVertrekGemeente) . "\n";
             ?>
@@ -161,7 +161,7 @@
             'id' => 'aankomstGemeente',
             'class' => 'form-control',
             'placeholder' => "Geel",
-            'pattern' => '[A-Za-z]{2,}',
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
             'required' => 'required'
         );
         echo form_input($dataAankomstGemeente) . "\n";
