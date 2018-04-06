@@ -47,7 +47,7 @@ if(count($ritten)!=0){
             echo "</td>\n<td>"
             . "€5800"
             . "</td>\n<td>"
-            . anchor("minderMobiele/wijzig/$rit->id", $wijzigknop, 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"')
+            . anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"')
             . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"')
             . "</td>\n</tr>\n";
     }

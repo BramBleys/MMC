@@ -1,30 +1,27 @@
 <script>
     $(document).ready(function () {
-
-        $("#vertrekGegevens").hide();
-        $("#terugritGegevens").hide();
+        if (!$("#vertrekPlaats").is(':checked')){
+            $("#vertrekGegevens").hide();
+        }
+        if (!$("#terugRit").is(':checked')){
+            $("#terugritGegevens").hide();
+        }
 
         $("#checkboxVertrek").click(function () {
             if ($("#vertrekPlaats").is(':checked')) {
-                $("#vertrekAdres").attr("required", "required");
-                $("#vertrekGemeente").attr("required", "required");
-                $("#vertrekPostcode").attr("required", "required");
+                $("#vertrekGegevens input").attr("required", "required");
                 $("#vertrekGegevens").slideDown(500);
             } else {
-                $("#vertrekAdres").removeAttr("required");
-                $("#vertrekGemeente").removeAttr("required");
-                $("#vertrekPostcode").removeAttr("required");
+                $("#vertrekGegevens input").removeAttr("required");
                 $("#vertrekGegevens").slideUp(500);
             }
         });
         $("#checkboxTerugrit").click(function () {
             if ($("#terugRit").is(':checked')) {
-                $("#uurTerug").attr("required", "required");
-                $("#datumTerug").attr("required", "required");
+                $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").attr("required", "required");
                 $("#terugritGegevens").slideDown(500);
             } else {
-                $("#uurTerug").removeAttr("required");
-                $("#datumTerug").removeAttr("required");
+                $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").removeAttr("required");
                 $("#terugritGegevens").slideUp(500);
             }
         });
@@ -39,6 +36,10 @@
         'novalidate' => 'novalidate');
     echo form_open('minderMobiele/ritToevoegen', $attributenFormulier);
 ?>
+<?php
+echo form_hidden('heenritId', $heenrit->id) . "\n";
+echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
+?>
 <div class="form-row">
     <div class="col-sm-6">
         <?php
@@ -48,8 +49,8 @@
             'class' => 'form-control',
             'required' => 'required',
             'type' => 'date',
-            'min' => date("Y-m-d", strtotime("+3 Days"))
-            //,'value' => $gebruiker->voornaam
+            'min' => date("Y-m-d", strtotime("+3 Days")),
+            'value' => substr($heenrit->vertrekTijdstip,0, strpos($heenrit->vertrekTijdstip, " "))
         );
         echo form_input($dataDatum) . "\n";
         ?>
@@ -64,8 +65,8 @@
             'id' => 'uur',
             'class' => 'form-control',
             'required' => 'required',
-            'type' => 'time'
-            //,'value' => $gebruiker->voornaam
+            'type' => 'time',
+            'value' => substr($heenrit->vertrekTijdstip, strpos($heenrit->vertrekTijdstip, " ")+1, 5)
         );
         echo form_input($dataUur) . "\n";
         ?>
@@ -78,11 +79,15 @@
 <div class="form-row" id="checkboxVertrek">
     <div class="custom-control custom-checkbox">
         <?php
+
         $dataVertrekPlaats = array('name' => 'vertrekPlaats',
             'id' => 'vertrekPlaats',
             'class' => 'custom-control-input',
-            'value' => 'accept',
+            'value' => 'accept'
         );
+        if(!$vertrekThuis){
+            $dataVertrekPlaats['checked'] = 'checked';
+        }
         echo form_checkbox($dataVertrekPlaats) . "\n";
         $attributes = array('class' => 'custom-control-label');
         echo form_label('Ik vertrek niet vanaf thuis', 'vertrekPlaats', $attributes);
@@ -98,8 +103,11 @@
                 'id' => 'vertrekAdres',
                 'class' => 'form-control',
                 'placeholder' => "Schoolstraat 36",
-                //,'value' => $gebruiker->voornaam
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*'
             );
+            if(!$vertrekThuis){
+                $dataVertrekAdres['value'] = $heenrit->adres->straatEnNummer;
+            }
             echo form_input($dataVertrekAdres) . "\n";
             ?>
             <div class="invalid-feedback">
@@ -115,8 +123,11 @@
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                //,'value' => $gebruiker->voornaam
+                'pattern' => '[A-Za-z]{2,}'
             );
+            if(!$vertrekThuis){
+                $dataVertrekGemeente['value'] = $heenrit->adres->gemeente;
+            }
             echo form_input($dataVertrekGemeente) . "\n";
             ?>
             <div class="invalid-feedback">
@@ -130,9 +141,13 @@
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
                 'placeholder' => "2440",
+                'min' => '1000',
+                'max' => '9999',
                 'type' => 'number'
-                //,'value' => $gebruiker->voornaam
             );
+            if(!$vertrekThuis){
+                $dataVertrekPostcode['value'] = $heenrit->adres->postcode;
+            }
             echo form_input($dataVertrekPostcode) . "\n";
             ?>
             <div class="invalid-feedback">
@@ -150,8 +165,9 @@
             'id' => 'aankomstAdres',
             'class' => 'form-control',
             'placeholder' => "Schoolstraat 36",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+            'required' => 'required',
+            'value' => $heenrit->bestemming->straatEnNummer
         );
         echo form_input($dataAankomstAdres) . "\n";
         ?>
@@ -168,8 +184,9 @@
             'id' => 'aankomstGemeente',
             'class' => 'form-control',
             'placeholder' => "Geel",
-            'required' => 'required'
-            //,'value' => $gebruiker->voornaam
+            'pattern' => '[A-Za-z]{2,}',
+            'required' => 'required',
+            'value' => $heenrit->bestemming->gemeente
         );
         echo form_input($dataAankomstGemeente) . "\n";
         ?>
@@ -185,8 +202,10 @@
             'class' => 'form-control',
             'placeholder' => "2440",
             'required' => 'required',
-            'type' => 'number'
-            //,'value' => $gebruiker->voornaam
+            'min' => '1000',
+            'max' => '9999',
+            'type' => 'number',
+            'value' => $heenrit->bestemming->postcode
         );
         echo form_input($dataAankomstPostcode) . "\n";
         ?>
@@ -205,8 +224,8 @@
             'id' => 'opmerkingen',
             'class' => 'form-control',
             'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
-            'rows' => '3'
-                    //,'value' => $gebruiker->voornaam
+            'rows' => '3',
+            'value' => $heenrit->opmerking
         );
         echo form_textarea($dataOpmerkingen);
         ?>
@@ -225,8 +244,10 @@
                 'class' => 'form-control',
                 'aria-describedby' => 'inputGroupPrepend',
                 'placeholder' => '5',
-                'type' => 'number'
-                //,'value' => $gebruiker->voornaam
+                'min' => '0',
+                'step' => '0.01',
+                'type' => 'number',
+                'value' => $heenrit->supplementaireKost
             );
             echo form_input($dataUurTerug) . "\n";
             ?>
@@ -244,6 +265,9 @@
             'class' => 'custom-control-input',
             'value' => 'accept'
         );
+        if($heenrit->terugRit->id != ""){
+            $dataTerugRit['checked'] = 'checked';
+        }
         echo form_checkbox($dataTerugRit) . "\n";
         $attributes = array('class' => 'custom-control-label');
         echo form_label('Heen en terug rit', 'terugRit', $attributes);
@@ -259,8 +283,9 @@
             $dataDatumTerug = array('name' => 'datumTerug',
                 'id' => 'datumTerug',
                 'class' => 'form-control',
-                'type' => 'date'
-                //,'value' => $gebruiker->voornaam
+                'type' => 'date',
+                'min' => date("Y-m-d", strtotime("+3 Days")),
+                'value' => substr($heenrit->terugRit->vertrekTijdstip,0, strpos($heenrit->terugRit->vertrekTijdstip, " "))
             );
             echo form_input($dataDatumTerug) . "\n";
             ?>
@@ -274,8 +299,8 @@
             $dataUurTerug = array('name' => 'uurTerug',
                 'id' => 'uurTerug',
                 'class' => 'form-control',
-                'type' => 'time'
-                //,'value' => $gebruiker->voornaam
+                'type' => 'time',
+                'value' => substr($heenrit->terugRit->vertrekTijdstip, strpos($heenrit->terugRit->vertrekTijdstip, " ")+1, 5)
             );
             echo form_input($dataUurTerug) . "\n";
             ?>
@@ -293,8 +318,8 @@
                 'id' => 'opmerkingenTerug',
                 'class' => 'form-control',
                 'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
-                'rows' => '3'
-                //,'value' => $gebruiker->voornaam
+                'rows' => '3',
+                'value' => $heenrit->terugRit->opmerking
             );
             echo form_textarea($dataOpmerkingen);
             ?>
@@ -313,8 +338,10 @@
                     'class' => 'form-control',
                     'aria-describedby' => 'inputGroupPrepend',
                     'placeholder' => '5',
-                    'type' => 'number'
-                    //,'value' => $gebruiker->voornaam
+                    'min' => '0',
+                    'step' => '0.01',
+                    'type' => 'number',
+                    'value' => $heenrit->terugRit->supplementaireKost
                 );
                 echo form_input($dataUurTerug) . "\n";
                 ?>

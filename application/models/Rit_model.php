@@ -9,7 +9,17 @@
 class Rit_model extends CI_Model {
 
     function get($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('rit');
+        $rit = $query->row();
+        return $rit;
+    }
 
+    function getByHeenRit($id){
+        $this->db->where('ritIdHeenrit', $id);
+        $query = $this->db->get('rit');
+        $rit = $query->row();
+        return $rit;
     }
 
     function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId)

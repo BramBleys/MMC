@@ -6,25 +6,19 @@
 
         $("#checkboxVertrek").click(function () {
             if ($("#vertrekPlaats").is(':checked')) {
-                $("#vertrekAdres").attr("required", "required");
-                $("#vertrekGemeente").attr("required", "required");
-                $("#vertrekPostcode").attr("required", "required");
+                $("#vertrekGegevens input").attr("required", "required");
                 $("#vertrekGegevens").slideDown(500);
             } else {
-                $("#vertrekAdres").removeAttr("required");
-                $("#vertrekGemeente").removeAttr("required");
-                $("#vertrekPostcode").removeAttr("required");
+                $("#vertrekGegevens input").removeAttr("required");
                 $("#vertrekGegevens").slideUp(500);
             }
         });
         $("#checkboxTerugrit").click(function () {
             if ($("#terugRit").is(':checked')) {
-                $("#uurTerug").attr("required", "required");
-                $("#datumTerug").attr("required", "required");
+                $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").attr("required", "required");
                 $("#terugritGegevens").slideDown(500);
             } else {
-                $("#uurTerug").removeAttr("required");
-                $("#datumTerug").removeAttr("required");
+                $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").removeAttr("required");
                 $("#terugritGegevens").slideUp(500);
             }
         });
@@ -49,7 +43,6 @@
             'required' => 'required',
             'type' => 'date',
             'min' => date("Y-m-d", strtotime("+3 Days"))
-            //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataDatum) . "\n";
         ?>
@@ -65,7 +58,6 @@
             'class' => 'form-control',
             'required' => 'required',
             'type' => 'time'
-            //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataUur) . "\n";
         ?>
@@ -98,7 +90,7 @@
                 'id' => 'vertrekAdres',
                 'class' => 'form-control',
                 'placeholder' => "Schoolstraat 36",
-                //,'value' => $gebruiker->voornaam
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
             );
             echo form_input($dataVertrekAdres) . "\n";
             ?>
@@ -115,7 +107,7 @@
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                //,'value' => $gebruiker->voornaam
+                'pattern' => '[A-Za-z]{2,}',
             );
             echo form_input($dataVertrekGemeente) . "\n";
             ?>
@@ -130,8 +122,9 @@
                 'id' => 'vertrekPostcode',
                 'class' => 'form-control',
                 'placeholder' => "2440",
+                'min' => '1000',
+                'max' => '9999',
                 'type' => 'number'
-                //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataVertrekPostcode) . "\n";
             ?>
@@ -150,8 +143,8 @@
             'id' => 'aankomstAdres',
             'class' => 'form-control',
             'placeholder' => "Schoolstraat 36",
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
             'required' => 'required'
-            //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstAdres) . "\n";
         ?>
@@ -168,8 +161,8 @@
             'id' => 'aankomstGemeente',
             'class' => 'form-control',
             'placeholder' => "Geel",
+            'pattern' => '[A-Za-z]{2,}',
             'required' => 'required'
-            //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstGemeente) . "\n";
         ?>
@@ -185,8 +178,9 @@
             'class' => 'form-control',
             'placeholder' => "2440",
             'required' => 'required',
+            'min' => '1000',
+            'max' => '9999',
             'type' => 'number'
-            //,'value' => $gebruiker->voornaam
         );
         echo form_input($dataAankomstPostcode) . "\n";
         ?>
@@ -206,7 +200,6 @@
             'class' => 'form-control',
             'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
             'rows' => '3'
-                    //,'value' => $gebruiker->voornaam
         );
         echo form_textarea($dataOpmerkingen);
         ?>
@@ -225,8 +218,9 @@
                 'class' => 'form-control',
                 'aria-describedby' => 'inputGroupPrepend',
                 'placeholder' => '5',
+                'min' => '0',
+                'step' => '0.01',
                 'type' => 'number'
-                //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataUurTerug) . "\n";
             ?>
@@ -259,8 +253,8 @@
             $dataDatumTerug = array('name' => 'datumTerug',
                 'id' => 'datumTerug',
                 'class' => 'form-control',
-                'type' => 'date'
-                //,'value' => $gebruiker->voornaam
+                'type' => 'date',
+                'min' => date("Y-m-d", strtotime("+3 Days"))
             );
             echo form_input($dataDatumTerug) . "\n";
             ?>
@@ -275,7 +269,6 @@
                 'id' => 'uurTerug',
                 'class' => 'form-control',
                 'type' => 'time'
-                //,'value' => $gebruiker->voornaam
             );
             echo form_input($dataUurTerug) . "\n";
             ?>
@@ -294,7 +287,6 @@
                 'class' => 'form-control',
                 'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
                 'rows' => '3'
-                //,'value' => $gebruiker->voornaam
             );
             echo form_textarea($dataOpmerkingen);
             ?>
@@ -313,8 +305,9 @@
                     'class' => 'form-control',
                     'aria-describedby' => 'inputGroupPrepend',
                     'placeholder' => '5',
+                    'min' => '0',
+                    'step' => '0.01',
                     'type' => 'number'
-                    //,'value' => $gebruiker->voornaam
                 );
                 echo form_input($dataUurTerug) . "\n";
                 ?>
