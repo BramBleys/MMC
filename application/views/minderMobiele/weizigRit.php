@@ -2,9 +2,14 @@
     $(document).ready(function () {
         if (!$("#vertrekPlaats").is(':checked')){
             $("#vertrekGegevens").hide();
+        } else {
+            $("#vertrekGegevens input").attr("required", "required");
         }
+
         if (!$("#terugRit").is(':checked')){
             $("#terugritGegevens").hide();
+        } else {
+            $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").attr("required", "required");
         }
 
         $("#checkboxVertrek").click(function () {
@@ -103,7 +108,8 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'id' => 'vertrekAdres',
                 'class' => 'form-control',
                 'placeholder' => "Schoolstraat 36",
-                'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*'
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+                'maxlength' => '100',
             );
             if(!$vertrekThuis){
                 $dataVertrekAdres['value'] = $heenrit->adres->straatEnNummer;
@@ -123,7 +129,8 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'id' => 'vertrekGemeente',
                 'class' => 'form-control',
                 'placeholder' => "Geel",
-                'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+'
+                'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
+                'maxlength' => '100',
             );
             if(!$vertrekThuis){
                 $dataVertrekGemeente['value'] = $heenrit->adres->gemeente;
@@ -166,6 +173,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             'class' => 'form-control',
             'placeholder' => "Schoolstraat 36",
             'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+            'maxlength' => '100',
             'required' => 'required',
             'value' => $heenrit->bestemming->straatEnNummer
         );
@@ -185,6 +193,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             'class' => 'form-control',
             'placeholder' => "Geel",
             'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
+            'maxlength' => '100',
             'required' => 'required',
             'value' => $heenrit->bestemming->gemeente
         );
@@ -225,6 +234,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             'class' => 'form-control',
             'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
             'rows' => '3',
+            'maxlength' => '500',
             'value' => $heenrit->opmerking
         );
         echo form_textarea($dataOpmerkingen);
@@ -319,6 +329,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'class' => 'form-control',
                 'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
                 'rows' => '3',
+                'maxlength' => '500',
                 'value' => $heenrit->terugRit->opmerking
             );
             echo form_textarea($dataOpmerkingen);

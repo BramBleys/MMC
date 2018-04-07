@@ -91,6 +91,7 @@
                 'class' => 'form-control',
                 'placeholder' => "Schoolstraat 36",
                 'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+                'maxlength' => '100',
             );
             echo form_input($dataVertrekAdres) . "\n";
             ?>
@@ -108,6 +109,7 @@
                 'class' => 'form-control',
                 'placeholder' => "Geel",
                 'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
+                'maxlength' => '100',
             );
             echo form_input($dataVertrekGemeente) . "\n";
             ?>
@@ -144,6 +146,7 @@
             'class' => 'form-control',
             'placeholder' => "Schoolstraat 36",
             'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+            'maxlength' => '100',
             'required' => 'required'
         );
         echo form_input($dataAankomstAdres) . "\n";
@@ -162,6 +165,7 @@
             'class' => 'form-control',
             'placeholder' => "Geel",
             'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
+            'maxlength' => '100',
             'required' => 'required'
         );
         echo form_input($dataAankomstGemeente) . "\n";
@@ -199,6 +203,7 @@
             'id' => 'opmerkingen',
             'class' => 'form-control',
             'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+            'maxlength' => '500',
             'rows' => '3'
         );
         echo form_textarea($dataOpmerkingen);
@@ -286,6 +291,7 @@
                 'id' => 'opmerkingenTerug',
                 'class' => 'form-control',
                 'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+                'maxlength' => '500',
                 'rows' => '3'
             );
             echo form_textarea($dataOpmerkingen);
