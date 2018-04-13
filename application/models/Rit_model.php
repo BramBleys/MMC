@@ -15,6 +15,12 @@ class Rit_model extends CI_Model {
         return $rit;
     }
 
+    function getAllRitten($gebruikerId){
+        $this->db->where('gebruikerIdVrijwilliger', $gebruikerId);
+        $query = $this->db->get('rit');
+        return $query->result();
+    }
+
     function getByHeenRit($id){
         $this->db->where('ritIdHeenrit', $id);
         $query = $this->db->get('rit');
