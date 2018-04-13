@@ -25,6 +25,11 @@ class MinderMobiele extends CI_Controller
 
             $this->load->model('Rit_model');
             $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId);
+            $rittenWeek = $this->Rit_model->getWhereDatum($gebruikerId);
+            $this->load->model('Parameters_model');
+            $parameters = $this->Parameters_model->get();
+            $data['beschikbaar'] = $parameters->maxRitten - count($rittenWeek);
+            $data['parameters'] = $parameters;
 
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'minderMobiele/geplandeRitten');
@@ -32,6 +37,22 @@ class MinderMobiele extends CI_Controller
         } else {
             redirect('Home');
         }
+    }
+
+    public function haalJsonOp_GeplandeRitten(){
+            $gebruikerId = $this->input->get('gebruikerId');
+            $this->load->model('Rit_model');
+            $ritten = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId);
+
+            echo json_encode($ritten);
+    }
+
+    public function haalJsonOp_AfgelopenRitten(){
+        $gebruikerId = $this->input->get('gebruikerId');
+        $this->load->model('Rit_model');
+        $ritten = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId);
+
+        echo json_encode($ritten);
     }
 
     public function afgelopenRitten() {
@@ -43,6 +64,8 @@ class MinderMobiele extends CI_Controller
 
             $this->load->model('Rit_model');
             $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId);
+            $this->load->model('Parameters_model');
+            $data['parameters'] = $this->Parameters_model->get();
 
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'minderMobiele/afgelopenRitten');

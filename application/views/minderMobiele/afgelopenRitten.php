@@ -1,5 +1,47 @@
+<script>
+    function haalRittenOp(id) {
+        $.ajax({type: "GET",
+            url: site_url + "/MinderMobiele/haalJsonOp_AfgelopenRitten",
+            data: {gebruikerId: id},
+            success: function (result) {
+                try {
+                    var ritten = jQuery.parseJSON(result);
+                    $.each(ritten, function () {
+                        var rit = this;
+                        var vertrekStraat = this.vertrekAdres.straatEnNummer.trim();
+                        var vertrekGemeente = this.vertrekAdres.gemeente.trim();
+                        var vertrek = vertrekStraat.replace(' ', '+') + ',' + vertrekGemeente;
+                        var bestemmingStraat = this.bestemmingAdres.straatEnNummer.trim();
+                        var bestemmingGemeente = this.bestemmingAdres.gemeente.trim();
+                        var bestemming = bestemmingStraat.replace(' ', '+') + ',' + bestemmingGemeente;
+                        $.getJSON('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + vertrek + '&destinations=' + bestemming + '&key=AIzaSyC0400WkUDYmE7pOI4J4FuhPSCUhuWu2X4', function (data) {
+                            console.log(data);
+                            var spatie = data.rows[0].elements[0].distance.text.indexOf(' ');
+                            var afstand = parseFloat(data.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
+                            var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                            console.log(rit.id);
+                            console.log(prijs);
+                            $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
+                        });
+                    })
+                } catch (error) {
+                    alert("-- ERROR IN JSON --\n" + result);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+    }
+    $(document).ready(function(){
+        var id = $('input[name="gebruikerId"').val();
+        haalRittenOp(id);
+    });
+</script>
 <h2><?= $titel ?></h2>
 <?php
+echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
+echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
 $extraButton = array('class' => 'btn achtergrond margin-top');
 $button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
 echo '<p>' . anchor('minderMobiele/nieuweRit', $button) . ' ';

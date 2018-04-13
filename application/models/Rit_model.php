@@ -68,6 +68,25 @@ class Rit_model extends CI_Model {
         return $ritten;
     }
 
+    function getWhereDatum($gebruikerId)
+    {
+        // geef gebruiker-object met opgegeven $id met de geplande ritten
+        $nu = date('Y-m-d H:i:s');
+        $startdate = strtotime("last monday");
+        $enddate = strtotime("monday");
+        $enddate = strtotime("-1 second", $enddate);
+        $startdate = date('Y-m-d H:i:s', $startdate);
+        $enddate = date('Y-m-d H:i:s', $enddate) ;
+        $this->db->order_by('vertrekTijdstip');
+        $this->db->where('gebruikerIdMinderMobiele', $gebruikerId);
+        $this->db->where('vertrekTijdstip >', $startdate);
+        $this->db->where('vertrekTijdstip <', $enddate);
+        $query = $this->db->get('rit');
+        $ritten = $query->result();
+
+        return $ritten;
+    }
+
     function insert($rit)
     {
         $this->db->insert('rit', $rit);

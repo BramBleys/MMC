@@ -8,6 +8,10 @@
             $this->db->update('parameters', $parameters);
         }
 
+        function get(){
+            $query = $this->db->get('Parameters');
+            return $query->row();
+        }
     }
 
 ?>
