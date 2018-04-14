@@ -66,19 +66,20 @@ $wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\"></i>";
 $verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"></i>";
 
 if(count($ritten)!=0){
-    echo "<table class=\"table table-hover marginTop\">\n";
-    echo "   <thead>\n";
-    echo "    <tr>\n";
-    echo "        <th>Datum</th>\n";
-    echo "        <th>Uur</th>\n";
-    echo "        <th>Vertrek adres</th>\n";
-    echo "        <th>Bestemming</th>\n";
-    echo "        <th>Bestuurder</th>\n";
-    echo "        <th>Bedrag</th>\n";
-    echo "        <th></th>\n";
-    echo "    </tr>\n";
-    echo "    </thead>\n";
-    echo "    <tbody>\n";
+    echo "<div class=\"table-responsive\">\n";
+    echo "    <table class=\"table table-hover marginTop\">\n";
+    echo "        <thead>\n";
+    echo "        <tr>\n";
+    echo "            <th>Datum</th>\n";
+    echo "            <th>Uur</th>\n";
+    echo "            <th>Vertrek adres</th>\n";
+    echo "            <th>Bestemming</th>\n";
+    echo "            <th>Bestuurder</th>\n";
+    echo "            <th>Bedrag</th>\n";
+    echo "            <th></th>\n";
+    echo "        </tr>\n";
+    echo "        </thead>\n";
+    echo "        <tbody>\n";
 
     foreach ($ritten as $rit) {
         $spatie = strpos($rit->vertrekTijdstip, " ");
@@ -107,8 +108,9 @@ if(count($ritten)!=0){
             . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, $attributesSchrap)
             . "</td>\n</tr>\n";
     }
-    echo"    </tbody>\n";
-    echo"</table>\n";
+    echo"        </tbody>\n";
+    echo"    </table>\n";
+    echo"</div>\n";
 }
 else{
     echo "<p>Je hebt geen geplande ritten.</p>\n";

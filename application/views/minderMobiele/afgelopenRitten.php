@@ -63,18 +63,20 @@ echo anchor('minderMobiele', $button) . '</p>';
 
 
 if(count($ritten)!=0){
-    echo "<table class=\"table table-hover\">\n";
-    echo "   <thead>\n";
-    echo "    <tr>\n";
-    echo "        <th>Datum</th>\n";
-    echo "        <th>Uur</th>\n";
-    echo "        <th>Vertrek adres</th>\n";
-    echo "        <th>Bestemming</th>\n";
-    echo "        <th>Bestuurder</th>\n";
-    echo "        <th>Bedrag</th>\n";
-    echo "    </tr>\n";
-    echo "    </thead>\n";
-    echo "    <tbody>\n";
+    echo "<div class=\"table-responsive\">\n";
+    echo "    <table class=\"table table-hover marginTop\">\n";
+    echo "        <thead>\n";
+    echo "        <tr>\n";
+    echo "            <th>Datum</th>\n";
+    echo "            <th>Uur</th>\n";
+    echo "            <th>Vertrek adres</th>\n";
+    echo "            <th>Bestemming</th>\n";
+    echo "            <th>Bestuurder</th>\n";
+    echo "            <th>Bedrag</th>\n";
+    echo "            <th></th>\n";
+    echo "        </tr>\n";
+    echo "        </thead>\n";
+    echo "        <tbody>\n";
 
     foreach ($ritten as $rit) {
         $spatie = strpos($rit->vertrekTijdstip, " ");
@@ -93,8 +95,9 @@ if(count($ritten)!=0){
             . "€5800"
             . "</td>\n</tr>\n";
     }
-    echo"    </tbody>\n";
-    echo"</table>\n";
+    echo"        </tbody>\n";
+    echo"    </table>\n";
+    echo"</div>\n";
 }
 else{
     echo "<p>Je hebt geen afgelopen ritten.</p>\n";
