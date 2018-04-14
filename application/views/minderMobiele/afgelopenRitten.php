@@ -14,15 +14,26 @@
                         var bestemmingStraat = this.bestemmingAdres.straatEnNummer.trim();
                         var bestemmingGemeente = this.bestemmingAdres.gemeente.trim();
                         var bestemming = bestemmingStraat.replace(' ', '+') + ',' + bestemmingGemeente;
-                        $.getJSON('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + vertrek + '&destinations=' + bestemming + '&key=AIzaSyC0400WkUDYmE7pOI4J4FuhPSCUhuWu2X4', function (data) {
-                            console.log(data);
-                            var spatie = data.rows[0].elements[0].distance.text.indexOf(' ');
-                            var afstand = parseFloat(data.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
-                            var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
-                            console.log(rit.id);
-                            console.log(prijs);
-                            $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
-                        });
+                        var service = new google.maps.DistanceMatrixService();
+                        service.getDistanceMatrix(
+                            {
+                                origins: [vertrek],
+                                destinations: [bestemming],
+                                travelMode: 'DRIVING',
+                            }, callback);
+
+                        function callback(response, status) {
+                            console.log(response);
+                            if (status == 'OK'){
+                                if (response.rows[0].elements[0].status == 'OK') {
+                                    var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
+                                    var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
+                                    var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                                    console.log(prijs);
+                                    $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
+                                }
+                            }
+                        }
                     })
                 } catch (error) {
                     alert("-- ERROR IN JSON --\n" + result);

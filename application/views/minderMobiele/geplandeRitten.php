@@ -14,15 +14,26 @@
                         var bestemmingStraat = this.bestemmingAdres.straatEnNummer.trim();
                         var bestemmingGemeente = this.bestemmingAdres.gemeente.trim();
                         var bestemming = bestemmingStraat.replace(' ', '+') + ',' + bestemmingGemeente;
-                        $.getJSON('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + vertrek + '&destinations=' + bestemming + '&key=AIzaSyC0400WkUDYmE7pOI4J4FuhPSCUhuWu2X4', function (data) {
-                            console.log(data);
-                            var spatie = data.rows[0].elements[0].distance.text.indexOf(' ');
-                            var afstand = parseFloat(data.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
-                            var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
-                            console.log(rit.id);
-                            console.log(prijs);
-                            $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
-                        });
+                        var service = new google.maps.DistanceMatrixService();
+                        service.getDistanceMatrix(
+                            {
+                                origins: [vertrek],
+                                destinations: [bestemming],
+                                travelMode: 'DRIVING',
+                            }, callback);
+
+                        function callback(response, status) {
+                            console.log(response);
+                            if (status == 'OK'){
+                                if (response.rows[0].elements[0].status == 'OK') {
+                                    var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
+                                    var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
+                                    var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                                    console.log(prijs);
+                                    $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
+                                }
+                            }
+                        }
                     })
                 } catch (error) {
                     alert("-- ERROR IN JSON --\n" + result);
@@ -43,16 +54,7 @@
 <?php
 echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
 echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
-$extraButton = array('class' => 'btn achtergrond',
-    'data-toggle' => 'tooltip',
-    'data-placement' => 'bottom'
-    );
-if ($beschikbaar <= '0'){
-    $extraButton['disabled'] = 'disabled';
-    $extraButton['title'] = "Je heb jouw $parameters->maxRitten ritten voor deze week al gebruikt.";
-} else {
-    $extraButton['title'] = "Je hebt nog $beschikbaar ritten in deze week over.";
-}
+$extraButton = array('class' => 'btn achtergrond');
 $button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
 echo '<p class="marginTop">' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
@@ -98,7 +100,7 @@ if(count($ritten)!=0){
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker." disabled="disabled"';
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker." disabled="disabled"';
             } else {
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
+                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
             }
             echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)

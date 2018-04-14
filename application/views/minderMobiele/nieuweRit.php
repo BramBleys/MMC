@@ -1,6 +1,34 @@
 <script>
+    function haalRittenWeekOp(id, datum) {
+        $.ajax({type: "GET",
+            url: site_url + "/MinderMobiele/haalJsonOp_RittenWeek",
+            data: {gebruikerId: id,
+                datum: datum},
+            success: function (result) {
+                try {
+                    var ritten = jQuery.parseJSON(result);
+                    var aantalRitten = ritten.length;
+                    var maxRitten = $('input[name="maxRitten"').val();
+                    console.log(aantalRitten);
+                    console.log(maxRitten);
+                    console.log(maxRitten - aantalRitten);
+                    if(maxRitten - aantalRitten <= 0){
+                        $('#popupKnop').attr("disabled", "disabled");
+                        $('#popupKnop').attr("title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
+                    } else {
+                        $('#popupKnop').removeAttr("disabled");
+                        $('#popupKnop').removeAttr("title");
+                    }
+                } catch (error) {
+                    alert("-- ERROR IN JSON --\n" + result);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+    }
     $(document).ready(function () {
-
         $("#vertrekGegevens").hide();
         $("#terugritGegevens").hide();
 
@@ -22,12 +50,19 @@
                 $("#terugritGegevens").slideUp(500);
             }
         });
+        $("#datum").blur(function () {
+            var datum = $(this).val();
+            var id = $('input[name="gebruikerId"').val();
+            haalRittenWeekOp(id, datum);
+        });
     });
 </script>
 
 <h2><?= $titel ?></h2>
 <h3 class="marginTop">Rit gegevens</h3>
 <?php
+    echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
+    echo form_hidden('maxRitten', $parameters->maxRitten) . "\n";
     $attributenFormulier = array('id' => 'mijnFormulier',
         'class' => 'needs-validation',
         'novalidate' => 'novalidate');
