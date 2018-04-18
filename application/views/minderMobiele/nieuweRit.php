@@ -77,7 +77,7 @@
             'class' => 'form-control',
             'required' => 'required',
             'type' => 'date',
-            'min' => date("Y-m-d", strtotime("+3 Days"))
+            'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours")))
         );
         echo form_input($dataDatum) . "\n";
         ?>
@@ -253,7 +253,7 @@
                 <span class="input-group-text" id="inputGroupPrepend">€</span>
             </div>
             <?php
-                    $dataUurTerug = array('name' => 'supplementaireKost',
+            $dataSupplementaireKost = array('name' => 'supplementaireKost',
                 'id' => 'supplementaireKost',
                 'class' => 'form-control',
                 'aria-describedby' => 'inputGroupPrepend',
@@ -262,7 +262,7 @@
                 'step' => '0.01',
                 'type' => 'number'
             );
-            echo form_input($dataUurTerug) . "\n";
+            echo form_input($dataSupplementaireKost) . "\n";
             ?>
         </div>
     </div>
@@ -294,7 +294,7 @@
                 'id' => 'datumTerug',
                 'class' => 'form-control',
                 'type' => 'date',
-                'min' => date("Y-m-d", strtotime("+3 Days"))
+                'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours")))
             );
             echo form_input($dataDatumTerug) . "\n";
             ?>
@@ -341,7 +341,7 @@
                     <span class="input-group-text" id="inputGroupPrepend">€</span>
                 </div>
                 <?php
-                $dataUurTerug = array('name' => 'supplementaireKostTerug',
+                $dataSupplementaireKostTerug = array('name' => 'supplementaireKostTerug',
                     'id' => 'supplementaireKostTerug',
                     'class' => 'form-control',
                     'aria-describedby' => 'inputGroupPrepend',
@@ -350,7 +350,7 @@
                     'step' => '0.01',
                     'type' => 'number'
                 );
-                echo form_input($dataUurTerug) . "\n";
+                echo form_input($dataSupplementaireKostTerug) . "\n";
                 ?>
             </div>
         </div>

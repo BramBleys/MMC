@@ -98,15 +98,17 @@ if(count($ritten)!=0){
             . "</td>\n<td>";
             $annulatieTijd = date('Y-m-d H:i:s', strtotime("+$parameters->annulatieTijd hours"));
             if($rit->vertrekTijdstip < $annulatieTijd){
-                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker." disabled="disabled"';
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker." disabled="disabled"';
+                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker."';
+                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker."';
+                echo anchor("minderMobiele", $wijzigknop, $attributesWijzig)
+                    . " " . anchor("minderMobiele", $verwijderknop, $attributesSchrap);
             } else {
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
+                echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
+                    . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, $attributesSchrap);
             }
-            echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
-            . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, $attributesSchrap)
-            . "</td>\n</tr>\n";
+            echo "</td>\n</tr>\n";
     }
     echo"        </tbody>\n";
     echo"    </table>\n";

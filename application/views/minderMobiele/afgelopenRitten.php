@@ -80,7 +80,7 @@ if(count($ritten)!=0){
 
     foreach ($ritten as $rit) {
         $spatie = strpos($rit->vertrekTijdstip, " ");
-        echo "<tr>\n<td>" . zetOmNaarDDMMYYYY(substr($rit->vertrekTijdstip,0, $spatie)) . "</td>\n<td>"
+        echo "<tr data-id='$rit->id'>\n<td>" . zetOmNaarDDMMYYYY(substr($rit->vertrekTijdstip,0, $spatie)) . "</td>\n<td>"
             . substr($rit->vertrekTijdstip, $spatie+1, 5) . "</td>\n<td>"
             . $rit->vertrekAdres->straatEnNummer . ", " . $rit->vertrekAdres->postcode . " " . $rit->vertrekAdres->gemeente
             . "</td>\n<td>"
@@ -92,8 +92,7 @@ if(count($ritten)!=0){
                 echo "Er is nog geen chauffeur toegewezen";
             }
             echo "</td>\n<td>"
-            . "€5800"
-            . "</td>\n</tr>\n";
+                . "</td>\n</tr>\n";
     }
     echo"        </tbody>\n";
     echo"    </table>\n";

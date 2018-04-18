@@ -91,7 +91,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             'class' => 'form-control',
             'required' => 'required',
             'type' => 'date',
-            'min' => date("Y-m-d", strtotime("+3 Days")),
+            'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours"))),
             'value' => substr($heenrit->vertrekTijdstip,0, strpos($heenrit->vertrekTijdstip, " "))
         );
         echo form_input($dataDatum) . "\n";
@@ -286,7 +286,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 <span class="input-group-text" id="inputGroupPrepend">€</span>
             </div>
             <?php
-                    $dataUurTerug = array('name' => 'supplementaireKost',
+                    $dataSupplementaireKost = array('name' => 'supplementaireKost',
                 'id' => 'supplementaireKost',
                 'class' => 'form-control',
                 'aria-describedby' => 'inputGroupPrepend',
@@ -296,7 +296,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'type' => 'number',
                 'value' => $heenrit->supplementaireKost
             );
-            echo form_input($dataUurTerug) . "\n";
+            echo form_input($dataSupplementaireKost) . "\n";
             ?>
         </div>
     </div>
@@ -331,7 +331,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                 'id' => 'datumTerug',
                 'class' => 'form-control',
                 'type' => 'date',
-                'min' => date("Y-m-d", strtotime("+3 Days")),
+                'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours"))),
                 'value' => substr($heenrit->terugRit->vertrekTijdstip,0, strpos($heenrit->terugRit->vertrekTijdstip, " "))
             );
             echo form_input($dataDatumTerug) . "\n";
@@ -381,7 +381,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                     <span class="input-group-text" id="inputGroupPrepend">€</span>
                 </div>
                 <?php
-                $dataUurTerug = array('name' => 'supplementaireKostTerug',
+                $dataSupplementaireKostTerug = array('name' => 'supplementaireKostTerug',
                     'id' => 'supplementaireKostTerug',
                     'class' => 'form-control',
                     'aria-describedby' => 'inputGroupPrepend',
@@ -391,7 +391,7 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
                     'type' => 'number',
                     'value' => $heenrit->terugRit->supplementaireKost
                 );
-                echo form_input($dataUurTerug) . "\n";
+                echo form_input($dataSupplementaireKostTerug) . "\n";
                 ?>
             </div>
         </div>
