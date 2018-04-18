@@ -44,14 +44,14 @@ class Administrator extends CI_Controller
 
         //Parameters model laden en de database updaten
         $this->load->model('Parameters_model');
-        $this->parameters_model->update($parameters);
+        $this->Parameters_model->update($parameters);
 
         //bevestiging pagina tonen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parametersBevestiging');
         $this->template->load('main_master', $partials, $data);
     }
 
-    public function mmcMedewerkerBeheren(){
+    public function mmcMedewerkersBeheren(){
         $data['titel'] = 'MMC Medewerkers Beheren';
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
 
@@ -62,10 +62,9 @@ class Administrator extends CI_Controller
 
     public function sjablonenBeheren(){
         //titel veranderen naar Sjablonen
-        $data['titel'] = 'Sjablonen';
+        $data['titel'] = 'Sjablonen beheren';
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
-
         //Variabel aanmaken om sjablonen in op te slagen
         $sjablonen = new stdClass();
 
@@ -73,8 +72,29 @@ class Administrator extends CI_Controller
         $this->load->model('Inhoud_model');
         $sjablonen = $this->Inhoud_model->getInhoudWhereTypeInhoudId("3");
 
+        $data['sjablonen'] = $sjablonen;
+
         //bevestiging pagina tonen
-        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/sjabloonBeheren');
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/sjablonenBeheren');
+        $this->template->load('main_master', $partials, $data);
+    }
+
+    public function sjabloonwijzigen($id){
+        //titel veranderen naar Sjablonen
+        $data['titel'] = 'Sjablonen wijzigen';
+        //Gebruikersinformatie ophalen
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        //Variabel aanmaken om het sjabloon in op te slagen
+        $sjabloon = new stdClass();
+
+        //Geselecteerde sjabloon van Sjablonen beheren ophalen
+        $this->load->model('Inhoud_model');
+        $sjabloon = $this->Inhoud_model->getInhoudWhereId($id);
+
+        $data['sjabloon'] = $sjabloon;
+
+        //bevestiging pagina tonen
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/sjabloonWijzigen');
         $this->template->load('main_master', $partials, $data);
     }
 }

@@ -28,4 +28,12 @@ class Inhoud_model extends CI_Model {
         return $query->result();
     }
 
+    function getInhoudWhereId($id){
+        $this->db->order_by('id', 'ASC');
+        $this->db->where('id', $id);
+        $query = $this->db->get('inhoud');
+
+        return $query->row();
+    }
+
 }
