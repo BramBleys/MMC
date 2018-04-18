@@ -80,3 +80,7 @@ main{
 .no-transition {
     transition: none !important;
 }
+
+.gebruikerOphalen {
+    margin-bottom: 0.5rem;
+}

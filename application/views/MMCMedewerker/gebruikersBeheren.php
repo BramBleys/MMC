@@ -21,21 +21,35 @@
             e.preventDefault();
             var soortId = $(this).data('id');
             haalGebruikersOp(soortId);
+
+            $(".gebruikerOphalen").removeClass().addClass("btn btn-light gebruikerOphalen");
+
+            switch (soortId) {
+                case 1:
+                    $(".gebruikerOphalen[data-id=1]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                    break;
+                case 2:
+                    $(".gebruikerOphalen[data-id=2]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                    break;
+                case 3:
+                    $(".gebruikerOphalen[data-id=3]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                    break;
+            }
         });
 
     });
 
 </script>
 
-<h2><?php echo $titel; ?></h2>
+<h2 class="mb-4"><?php echo $titel; ?></h2>
 
-<div class="row">
+<div class="row mb-4">
     <div class="col-3">
         <?php
 
         echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '1')) . "\n";
-        echo anchor('', 'Coaches', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '2')) . "\n";
-        echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '3')) . "\n";
+        echo anchor('', 'Coaches', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '2')) . "\n";
+        echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '3')) . "\n";
 
         ?>
     </div>
@@ -94,6 +108,17 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <?php
+
+        // Knop: gebruiker toevoegen
+        echo anchor('/MMCMedewerker/gebruikerToevoegen', 'Gebruiker toevoegen', array('class' => 'btn btn-primary mb-4')) . "\n";
+
+        ?>
     </div>
 </div>
 
