@@ -13,4 +13,11 @@ class Coach_model extends CI_Model {
         parent::__construct();
     }
 
+    function getGebruikerWhereCoach($coachId){
+        $this->db->where('gebruikerIdCoach',$coachId);
+        $query = $this->db->get('coach');
+        $gebruikerIds = $query->result();
+        return $gebruikerIds;
+    }
+
 }

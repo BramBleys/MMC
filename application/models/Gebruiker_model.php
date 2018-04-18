@@ -71,4 +71,15 @@
             $gebruiker = $query->row();
             return $gebruiker;
         }
+
+        function getGebruikerWhereCoach($coachId){
+            $this->load->model('coach_model');
+            $gebruikerIds = $this->coach_model->getGebruikerWhereCoach($coachId);
+            $gebruikers = array();
+            $this->load->model('gebruiker_model');
+            foreach ($gebruikerIds as $gebruikerId){
+                $gebruikers[] = $this->gebruiker_model->get($gebruikerId->gebruikerIdMinderMobiele);
+            }
+            return $gebruikers;
+        }
     }
