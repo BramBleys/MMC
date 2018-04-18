@@ -3,6 +3,7 @@
         <?php
             //als er niemand aangemeld is
             if ($gebruiker == null) {
+                echo '<li class="nav-item">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
                 echo '<li class="nav-item">' . anchor("home/inloggen", "Inloggen", 'class= "nav-link"') . '</li>';
             } else {
                 //controleren of de gebruiker meer als 1 type gebruiker is. (Bv Coach en vrijwilliger)
@@ -68,10 +69,12 @@
                 }
 
                 //2 linken die elke gebruiker ziet
+                echo '<li class="nav-item marginTop">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
+
                 if ($gebruiker->soortId!="2"){
-                    echo '<li class="nav-item marginTop">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
+                    echo '<li class="nav-item">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
                 } else {
-                    echo '<li class="nav-item marginTop">' . anchor("Coach/accountsBeheren", "Accounts beheren", 'class= "nav-link"') . '</li>';
+                    echo '<li class="nav-item">' . anchor("Coach/accountsBeheren", "Accounts beheren", 'class= "nav-link"') . '</li>';
                 }
                 echo '<li class="nav-item">' . anchor("home/uitloggen", "Uitloggen", 'class= "nav-link"') . '</li>';
             }

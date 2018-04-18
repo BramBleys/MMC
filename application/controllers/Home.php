@@ -54,6 +54,20 @@
             redirect('home/index');
         }
 
+        public function faq(){
+            $data['titel'] = 'FAQ';
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            $this->load->model('parameters_model');
+            $data['parameters'] = $this->parameters_model->get();
+
+            $partials = array(
+                'navigatie' => 'main_menu',
+                'inhoud' => 'bezoeker/faq'
+            );
+            $this->template->load('main_master', $partials, $data);
+        }
+
         public function controleerInloggen() {
             //haal email en wachtwoord uit formulier op
             $gebruikersnaam = $this->input->post('gebruikersnaam');
@@ -76,7 +90,7 @@
 
             $partials = array(
                 'navigatie' => 'main_menu',
-                'inhoud' => 'home_fout'
+                'inhoud' => 'bezoeker/home_fout'
             );
 
             $this->template->load('main_master', $partials, $data);
