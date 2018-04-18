@@ -10,7 +10,12 @@
             //titel veranderen naar Parameters
             $data['titel'] = 'Beschikbaarheid ingeven';
             //Login nakijken
-            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $gebruiker = $this->authex->getGebruikerInfo();
+            $data['gebruiker'] = $gebruiker;
+
+            //Beschikbaarheid van de gebruiker ophalen
+            $this->load->model('beschikbaarheid_model');
+            $data['beschikbaarheid'] = $this->beschikbaarheid_model->getBeschikbaarheid($gebruiker->id);
 
             //Templates definieren en inladen
             $partials = array('navigatie' => 'main_menu', 'inhoud' => 'vrijwilliger/beschikbaarheidIngeven');

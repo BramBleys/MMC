@@ -20,11 +20,51 @@
             });
             $("#day-schedule").on('selected.artsy.dayScheduleSelector', function (e, selected) {
                 console.log(selected);
-            })
-            $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
-                '0': [['09:30', '11:00'], ['13:00', '16:30']]
             });
+
         })($);
     </script>
-    
+    <script>
+        function toonBeschikbaarheid(dag, startUur, eindUur) {
+            if (dag === "Monday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '0': [[startUur, eindUur]]
+                });
+            } else if (dag === "Tuesday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '1': [[startUur, eindUur]]
+                });
+            } else if (dag === "Wednesday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '2': [[startUur, eindUur]]
+                });
+            } else if (dag === "Thursday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '3': [[startUur, eindUur]]
+                });
+            } else if (dag === "Friday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '4': [[startUur, eindUur]]
+                });
+            } else if (dag === "Saturday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '5': [[startUur, eindUur]]
+                });
+            } else if (dag === "Sunday") {
+                $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+                    '6': [[startUur, eindUur]]
+                });
+            }
+
+        }
+    </script>
+    <?php
+        foreach ($beschikbaarheid as $tijd) {
+            $dag = date('l', strtotime($tijd->beschikbaarVan));
+            $startUur = date("H:i", strtotime($tijd->beschikbaarVan));
+            $eindUur = date("H:i", strtotime($tijd->beschikbaarTot));
+
+            echo '<script> toonBeschikbaarheid("' . $dag . '","' . $startUur . '","' . $eindUur . '"); </script>';
+        }
+    ?>
 </div>
