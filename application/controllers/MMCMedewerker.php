@@ -9,7 +9,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     public function gebruikersBeheren() {
-        $data['titel'] = 'MMC Medewerker';
+        $data['titel'] = 'Gebruikers beheren';
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')){
@@ -18,7 +18,7 @@ class MMCMedewerker extends CI_Controller {
             $this->load->model('Gebruiker_model');
             $data['gebruikers'] = $this->Gebruiker_model->getAllGebruikers();
 
-            $data['inhoud'] = 'Jos Bos';
+            $data['soortId'] = 1;
 
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'MMCMedewerker/gebruikersBeheren');
