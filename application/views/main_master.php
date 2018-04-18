@@ -16,6 +16,7 @@
 
     <!-- Eigen CSS -->
     <?php echo haalCssOp("mmc.css"); ?>
+    <?php echo haalCssOp("plugin.css");?>
 
 
     <title>MMC - <?php echo $titel; ?></title>

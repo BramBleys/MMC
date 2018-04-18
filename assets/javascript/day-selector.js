@@ -10,11 +10,11 @@
   }
 
   DayScheduleSelector.DEFAULTS = {
-    days        : [0, 1, 2, 3, 4, 5, 6],  // Sun - Sat
+    days        : [0,1, 2, 3, 4, 5, 6],  // Sun - Sat
     startTime   : '08:00',                // HH:mm format
     endTime     : '20:00',                // HH:mm format
     interval    : 30,                     // minutes
-    stringDays  : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    stringDays  : ['Ma', 'Din', 'Woe', 'Don', 'Vrij', 'Zat','Zon'],
     template    : '<div class="day-schedule-selector">'         +
                     '<table class="schedule-table">'            +
                       '<thead class="schedule-header"></thead>' +
@@ -257,7 +257,7 @@
   function hmmAmPm(date) {
     var hours = date.getHours()
       , minutes = date.getMinutes()
-      , ampm = hours >= 12 ? 'pm' : 'am';
+      , ampm = hours >= 12 ? '' : '';
     return hours + ':' + ('0' + minutes).slice(-2) + ampm;
   }
 
