@@ -3,7 +3,7 @@
     height: 30px;
     margin: 3px;
     padding: 5px;
-    background-color: #3498DB;
+    background-color: #c5c5c5;
     cursor: pointer;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .schedule-rows td[data-selected],
-.schedule-rows td[data-selecting] { background-color: #E74C3C; }
+.schedule-rows td[data-selecting] { background-color: #0B5B99; }
 
 .schedule-rows td[data-disabled] { opacity: 0.55; }
 
