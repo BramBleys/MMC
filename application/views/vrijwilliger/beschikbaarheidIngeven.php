@@ -16,12 +16,27 @@
 
     inputField.datetimepicker().on('dp.hide', function () {
         var week = weekpicker.getWeek();
-
-        /*TODO: Dit moeten we in een php variabele kunnen steken -> week nodig voor volgende plugin*/
-        <?php /*$week = '<script>weekpicker.getWeek();</script>';
-        echo $week;
-        */?>
+        var jaar = weekpicker.getYear();
+        haalDatumsOp(week, jaar);
     });
+
+    function haalDatumsOp(week, jaar) {
+        $.ajax({
+            type: "GET",
+            url: site_url + "/Vrijwilliger/haalJsonOp_Datums",
+            data: {week: week, jaar: jaar, id: <?php echo $gebruiker->id?>},
+            success: function (result) {
+                try {
+                     console.log(result);
+                } catch (error) {
+                    alert("-- ERROR IN JSON --\n" + result);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+    }
 </script>
 
 
@@ -79,7 +94,10 @@
     }
 </script>
 <?php
-    foreach ($beschikbaarheid as $tijd) {
+    foreach ($datums as $tijd) {
+
+//loopen in de try blok?
+
         $dag = date('l', strtotime($tijd->beschikbaarVan));
         $startUur = date("H:i", strtotime($tijd->beschikbaarVan));
         $eindUur = date("H:i", strtotime($tijd->beschikbaarTot));
