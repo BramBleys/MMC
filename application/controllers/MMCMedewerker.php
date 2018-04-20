@@ -42,6 +42,7 @@ class MMCMedewerker extends CI_Controller {
         $data['titel'] = "Gebruiker toevoegen";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
         if($this->session->has_userdata('gebruiker_id')) {
 
             $partials = array( 'navigatie' => 'main_menu',
@@ -53,7 +54,26 @@ class MMCMedewerker extends CI_Controller {
             redirect('Home');
 
         }
+    }
 
+    public function gebruikerBewerken($gebruikerId) {
+        $data['titel'] = "Gebruiker bewerken";
 
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+        if($this->session->has_userdata('gebruiker_id')) {
+
+            $this->load->model('Gebruiker_model');
+            $data['account'] = $this->Gebruiker_model->get($gebruikerId);
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'MMCMedewerker/gebruikerBewerken');
+            $this->template->load('main_master', $partials, $data);
+
+        } else {
+
+            redirect('Home');
+
+        }
     }
 }
