@@ -1,11 +1,7 @@
-
-<!--TODO nog controleren op string/int + juiste bolletje nog selecteren in script hierboven + custom tooltip error message-->
-
-<h2>Account gegevens wijzigen</h2>
 <h3 class="marginTop">Contactgegevens</h3>
 <?php
     $attributes = array('name' => 'formulier');
-    echo form_open('Gebruiker/gegevensOpslaan', $attributes);
+    echo form_open('coach/accountGegevensOpslaan', $attributes);
 ?>
 <div class="form-group row">
     <?php echo form_label('Voornaam', 'voornaam', 'class="col-sm-6 col-form-label"'); ?>
@@ -50,29 +46,29 @@
 
 <?php
     $attributes = "class=\"form-check-input\" type=\"radio\" name=\"contactvorm\"";
-    $attributesEmail = $attributes + "  value=\"email\" id=\"email\"";
-    $attributesTelefoon = $attributes + " value=\"telefonisch\" id=\"telefonisch\"";
-    $attributesSms = $attributes + " value=\"sms\" id=\"sms\"";
-    $attributesLeeg = $attributes + " value=\"leeg\" id=\"leeg\"";
+    $attributesEmail = "$attributes value=\"email\" id=\"email\"";
+    $attributesTelefoon = "$attributes value=\"telefonisch\" id=\"telefonisch\"";
+    $attributesSms = "$attributes value=\"sms\" id=\"sms\"";
+    $attributesLeeg = "$attributes value=\"leeg\" id=\"leeg\"";
     switch ($account->contactvorm) {
         case "email":
-            $attributesEmail += " checked=\"checked\"";
+            $attributesEmail = "$attributesEmail checked=\"checked\"";
             break;
         case "telefonisch":
-            $attributesTelefoon += " checked=\"checked\"";
+            $attributesTelefoon = "$attributesTelefoon checked=\"checked\"";
             break;
         case "sms":
-            $attributesSms += " checked=\"checked\"";
+            $attributesSms = "$attributesSms checked=\"checked\"";
             break;
         default:
-            $attributesTelefoon += " checked=\"checked\"";
+            $attributesLeeg = "$attributesLeeg checked=\"checked\"";
             break;
     }
 ?>
 <h3 class="marginTop">Voorkeur herinnering</h3>
 <div class="form-check">
     <label class="form-check-label">
-        <input <?= $attributesEmail ?> > E-mail </label>
+        <input <?=$attributesEmail ?> > E-mail </label>
 </div>
 <div class="form-check">
     <label class="form-check-label">
@@ -89,7 +85,7 @@
         <input <?= $attributesLeeg ?> > Leeg </label>
 </div>
 
-<input type="hidden" value="<?php echo $account->id ?>" name="hidden"/>
+<input type="hidden" value="<?= $account->id ?>" name="getoondAccountId"/>
 
 <?php
     echo form_submit('opslaan', 'Opslaan', 'class="btn achtergrond marginTop"');
