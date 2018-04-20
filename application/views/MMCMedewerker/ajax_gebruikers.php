@@ -26,7 +26,9 @@
                         "<td>" . $gebruiker->naam . "</td>\n" .
                         "<td>" . $gebruiker->email . "</td>\n" .
                         "<td>" .
-                        "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
+                        "<i class=\"material-icons\">" .
+                        anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
+                        "</i>\n" .
                         "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
                         "</td>\n" .
                         "</tr>\n";
@@ -41,7 +43,9 @@
                 "<td>" . $gebruiker->naam . "</td>\n" .
                 "<td>" . $gebruiker->email . "</td>\n" .
                 "<td>" .
-                "<i class=\"material-icons\"><a href=\"\">edit</a></i>\n" .
+                "<i class=\"material-icons\">" .
+                anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
+                "</i>\n" .
                 "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
                 "</td>\n" .
                 "</tr>\n";

@@ -67,6 +67,13 @@ main{
     border-color: #0B5B99;
 }
 
+.btn-outline-primary {
+    color: #0B5B99;
+    background-color: transparent;
+    background-image: none;
+    border-color: #0B5B99;
+}
+
 .custom-toggler.navbar-toggler {
     border-color: rgba(255,255,255, 0.7);
     border-width: 1.5px;

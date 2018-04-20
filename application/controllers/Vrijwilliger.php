@@ -48,8 +48,8 @@
 
                 //Zet datum en tijd in correct formaat in het nieuwe object
                 $datum = strtotime($ritten[$i]->vertrekTijdstip);
-                $nieuweRitten[$i]->datum = date('d/m/Y',$datum);
-                $nieuweRitten[$i]->vertrekTijdstip = date('H:i',$datum);
+                $nieuweRitten[$i]->datum = date('d/m/Y', $datum);
+                $nieuweRitten[$i]->vertrekTijdstip = date('H:i', $datum);
 
                 //Haal vertrek adres op uit adres_model met adresId van de rit en zet het in het nieuwe object
                 $vertrekAdres = $this->adres_model->getAdres($ritten[$i]->adresIdVertrek);
@@ -59,7 +59,7 @@
                 $bestemming = $this->adres_model->getAdres($ritten[$i]->adresIdBestemming);
                 $nieuweRitten[$i]->bestemming = $bestemming->straatEnNummer . ' ' . $vertrekAdres->gemeente;
 
-                //Voeg suuplmentaire kost, heenrit en opmerking toe aan nieuwe object
+                //Voeg suplmentaire kost, heenrit en opmerking toe aan nieuwe object
                 $nieuweRitten[$i]->supplementaireKost = $ritten[$i]->supplementaireKost;
                 $nieuweRitten[$i]->heenrit = $ritten[$i]->ritIdHeenrit;
                 $nieuweRitten[$i]->opmerking = $ritten[$i]->opmerking;
@@ -68,5 +68,21 @@
             $data['ritten'] = $nieuweRitten;
             $partials = array('navigatie' => 'main_menu', 'inhoud' => 'vrijwilliger/agendaBekijken');
             $this->template->load('main_master', $partials, $data);
+        }
+
+        public function haalJsonOp_Datums() {
+            $week = $this->input->get('week');
+            $jaar = $this->input->get('jaar');
+            $gebruikerId = $this->input->get('id');
+
+            $week_start = new DateTime();
+            $week_start->setISODate($jaar, $week);
+            $week_start = $week_start->format('Y-m-d');
+            $week_einde = date('Y-m-d', strtotime($week_start. ' + 6 days'));
+
+            $this->load->model('beschikbaarheid_model');
+            $datums = $this->beschikbaarheid_model->getBeschikbaarheidWhereStartDatumEnEindDatum($gebruikerId, $week_start, $week_einde);
+
+            echo json_encode($datums);
         }
     }
