@@ -9,7 +9,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
 <script src="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<script src="/assets/javascript/bootstrap-weekpicker.js" type="text/javascript"></script>
+<?php echo haalJavascriptOp("bootstrap-weekpicker.js"); ?>
 <script type="text/javascript">
     var weekpicker = $("#weekpicker").weekpicker();
     var inputField = $("#weekpicker").find("input");
@@ -27,7 +27,7 @@
 
 <!--Uurpicker-->
 <div id="day-schedule" class="mt-4"></div>
-<script src="/assets/javascript/day-selector.js"></script>
+<?php echo haalJavascriptOp("day-selector.js"); ?>
 <script>
     (function ($) {
         $("#day-schedule").dayScheduleSelector({

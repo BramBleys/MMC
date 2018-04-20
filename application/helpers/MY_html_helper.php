@@ -20,5 +20,5 @@
         $CI = & get_instance();
         $CI->load->helper('url');
 
-        return "<script src=\"" . base_url("assets/js/" . $js) . "\"></script>";
+        return "<script src=\"" . base_url("assets/javascript/" . $js) . "\"></script>";
     }
