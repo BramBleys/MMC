@@ -11,6 +11,7 @@
             //laat de home pagina zien
             $data['titel'] = 'Home';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             $this->load->model('inhoud_model');
             $data['inhoud'] = $this->inhoud_model->getInhoud("1");
@@ -25,6 +26,7 @@
         public function contact(){
             $data['titel'] = 'Contact';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             $this->load->model('inhoud_model');
             $data['inhoud'] = $this->inhoud_model->getInhoud("5");
@@ -39,6 +41,7 @@
         public function inloggen() {
             $data['titel'] = "Inloggen";
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             $partials = array(
                 'navigatie' => 'main_menu',
@@ -57,6 +60,7 @@
         public function faq(){
             $data['titel'] = 'FAQ';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             $this->load->model('parameters_model');
             $data['parameters'] = $this->parameters_model->get();
@@ -87,6 +91,7 @@
             //laad de view Home_fout
             $data['titel'] = 'Fout';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             $partials = array(
                 'navigatie' => 'main_menu',

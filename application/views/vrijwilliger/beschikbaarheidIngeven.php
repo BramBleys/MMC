@@ -134,7 +134,7 @@
 </script>
 
 <script>
-    /*function toonBeschikbaarheid(dag, startUur, eindUur) {
+    function toonBeschikbaarheid(dag, startUur, eindUur) {
         if (dag === "1") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '0': [[startUur, eindUur]]
@@ -165,6 +165,6 @@
                 '6': [[startUur, eindUur]]
             });
         }
-    }*/
+    }
 </script>
 

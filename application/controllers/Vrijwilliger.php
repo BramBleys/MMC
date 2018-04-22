@@ -12,6 +12,8 @@
             //Login nakijken
             $gebruiker = $this->authex->getGebruikerInfo();
             $data['gebruiker'] = $gebruiker;
+            $data['gemaaktDoor'] = "Bram Bleys";
+
 
             //Beschikbaarheid van de gebruiker ophalen
             $this->load->model('vrijwilliger_model');
@@ -27,6 +29,8 @@
 
             $gebruiker = $this->authex->getGebruikerInfo();
             $data['gebruiker'] = $gebruiker;
+            $data['gemaaktDoor'] = "Bram Bleys";
+
 
             //Laad rit_model en geef alle ritten voor de aangemelde vrijwilliger
             $this->load->model('rit_model');

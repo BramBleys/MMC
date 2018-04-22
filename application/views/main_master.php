@@ -70,8 +70,8 @@
         <div class="footer-main d-flex align-items-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6">
-
+                    <div class="col-lg-6 text-left">
+                        Deze pagina is gemaakt door <?php echo $gemaaktDoor ?>
                     </div>
                     <div class="col-lg-6 text-right">
                         <h3>Contactgegevens</h3>

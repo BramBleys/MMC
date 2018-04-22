@@ -11,6 +11,8 @@
             //laad de view accountBeheren
             $data['titel'] = 'Account beheren';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
+
 
             $partials = array(
                 'navigatie' => 'main_menu',
