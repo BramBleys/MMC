@@ -14,8 +14,8 @@
             $data['gebruiker'] = $gebruiker;
 
             //Beschikbaarheid van de gebruiker ophalen
-            $this->load->model('beschikbaarheid_model');
-            $data['beschikbaarheid'] = $this->beschikbaarheid_model->getBeschikbaarheid($gebruiker->id);
+            $this->load->model('vrijwilliger_model');
+            $data['beschikbaarheid'] = $this->vrijwilliger_model->getBeschikbaarheid($gebruiker->id);
 
             //Templates definieren en inladen
             $partials = array('navigatie' => 'main_menu', 'inhoud' => 'vrijwilliger/beschikbaarheidIngeven');
@@ -78,11 +78,61 @@
             $week_start = new DateTime();
             $week_start->setISODate($jaar, $week);
             $week_start = $week_start->format('Y-m-d');
-            $week_einde = date('Y-m-d', strtotime($week_start. ' + 6 days'));
+            $week_einde = date('Y-m-d', strtotime($week_start . ' + 6 days'));
 
-            $this->load->model('beschikbaarheid_model');
-            $datums = $this->beschikbaarheid_model->getBeschikbaarheidWhereStartDatumEnEindDatum($gebruikerId, $week_start, $week_einde);
+            $this->load->model('vrijwilliger_model');
+            $datums = $this->vrijwilliger_model->getBeschikbaarheidWhereStartDatumEnEindDatum($gebruikerId, $week_start, $week_einde);
 
             echo json_encode($datums);
+        }
+
+        public function haalDatumsOp() {
+            $week = $this->input->get('week');
+            $jaar = $this->input->get('jaar');
+
+            $week_start = new DateTime();
+            $week_start->setISODate($jaar, $week);
+            $week_start = $week_start->format('Y-m-d');
+            $week_einde = date('Y-m-d', strtotime($week_start . ' + 6 days'));
+
+            $weekStartEnEinde[0] = $week_start;
+            $weekStartEnEinde[1] = $week_einde;
+
+            echo json_encode($weekStartEnEinde);
+        }
+
+        public function schrijfNieuweUrenWeg() {
+            $beginWeek = $this->input->get('beginWeek');
+            $dagNummer = $this->input->get('dagNummer');
+            $startUur = $this->input->get('startUur');
+            $eindUur = $this->input->get('eindUur');
+            $gebruikerId = $this->input->get('id');
+
+            switch ($dagNummer) {
+                case "0":
+                    $dag = $beginWeek;
+                    break;
+                case "1":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 1 days'));
+                    break;
+                case "2":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 2 days'));
+                    break;
+                case "3":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 3 days'));
+                    break;
+                case "4":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 4 days'));
+                    break;
+                case "5":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 5 days'));
+                    break;
+                case "6":
+                    $dag = date('Y-m-d', strtotime($beginWeek . ' + 6 days'));
+                    break;
+            }
+
+            $this->load->model('vrijwilliger_model');
+            $this->vrijwilliger_model->schrijfNieuweUrenWeg($gebruikerId, $dag, $startUur, $eindUur);
         }
     }

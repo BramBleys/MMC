@@ -5,9 +5,10 @@
 
 <div class="input-group date align-items-center">
     <div id="weekpicker"></div>
+    <button class="btn btn-primary ml-3" id="urenOpslaan">Opslaan</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+<?php echo haalJavascriptOp("moment.min.js"); ?>
 <script src="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <?php echo haalJavascriptOp("bootstrap-weekpicker.js"); ?>
 <script type="text/javascript">
@@ -24,10 +25,18 @@
         $.ajax({
             type: "GET",
             url: site_url + "/Vrijwilliger/haalJsonOp_Datums",
-            data: {week: week, jaar: jaar, id: <?php echo $gebruiker->id?>},
+            data: {week: week, jaar: jaar, id: <?php echo $gebruiker->id ?>},
             success: function (result) {
                 try {
-                     console.log(result);
+                    var dagen = jQuery.parseJSON(result);
+
+                    if (!isLeeg(dagen[0])) {
+                        for (var i = 0; i < dagen.length; i++) {
+                            var datum = new Date(dagen[i].dag);
+                            var dag = datum.getDay().toString();
+                            toonBeschikbaarheid(dag, dagen[i].startUur, dagen[i].eindUur);
+                        }
+                    }
                 } catch (error) {
                     alert("-- ERROR IN JSON --\n" + result);
                 }
@@ -37,8 +46,16 @@
             }
         });
     }
-</script>
 
+    function isLeeg(object) {
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
 
 <!--Uurpicker-->
 <div id="day-schedule" class="mt-4"></div>
@@ -53,55 +70,101 @@
             endTime: '21:06'
             */
         });
-        $("#day-schedule").on('selected.artsy.dayScheduleSelector', function (e, selected) {
-            console.log(selected);
+
+        $("#urenOpslaan").click(function () {
+            <?php $this->load->model('vrijwilliger_model'); ?>
+            var nieuweUren = $("#day-schedule").data('artsy.dayScheduleSelector').serialize();
+            for (var key in nieuweUren) {
+                if (nieuweUren.hasOwnProperty(key)) {
+                    for (var i = 0; i < nieuweUren[key].length; i++) {
+                        (function () {
+                            var dag = key;
+                            var startUur = nieuweUren[key][i][0];
+                            var eindUur = nieuweUren[key][i][1];
+
+                            var week = weekpicker.getWeek();
+                            var jaar = weekpicker.getYear();
+
+                            $.ajax({
+                                type: "GET",
+                                url: site_url + "/Vrijwilliger/haalDatumsOp",
+                                data: {week: week, jaar: jaar},
+                                success: function (result) {
+                                    var dagen = jQuery.parseJSON(result);
+                                    try {
+                                        schrijfWeg(dagen[0], dag, startUur, eindUur);
+                                    } catch (error) {
+                                        alert("-- ERROR IN JSON --\n" + result);
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+                                }
+                            });
+                        })();
+                    }
+                }
+            }
         });
 
+
+        function schrijfWeg(beginWeek, dagNummer, startUur, eindUur) {
+            $.ajax({
+                type: "GET",
+                url: site_url + "/Vrijwilliger/schrijfNieuweUrenWeg",
+                data: {
+                    beginWeek: beginWeek,
+                    dagNummer: dagNummer,
+                    startUur: startUur,
+                    eindUur: eindUur,
+                    id: <?php echo $gebruiker->id ?>},
+                success: function (result) {
+                    try {
+
+                    } catch (error) {
+                        alert("-- ERROR IN JSON --\n" + result);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+                }
+            });
+        }
     })($);
 </script>
+
 <script>
-    function toonBeschikbaarheid(dag, startUur, eindUur) {
-        if (dag === "Monday") {
+    /*function toonBeschikbaarheid(dag, startUur, eindUur) {
+        if (dag === "1") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '0': [[startUur, eindUur]]
             });
-        } else if (dag === "Tuesday") {
-            $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
+        } else if (dag === "2") {
+            $("#day-schedule").data('.artsy.dayScheduleSelector').deserialize({
                 '1': [[startUur, eindUur]]
             });
-        } else if (dag === "Wednesday") {
+        }
+        else if (dag === "3") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '2': [[startUur, eindUur]]
             });
-        } else if (dag === "Thursday") {
+        } else if (dag === "4") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '3': [[startUur, eindUur]]
             });
-        } else if (dag === "Friday") {
+        } else if (dag === "5") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '4': [[startUur, eindUur]]
             });
-        } else if (dag === "Saturday") {
+        } else if (dag === "6") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '5': [[startUur, eindUur]]
             });
-        } else if (dag === "Sunday") {
+        } else if (dag === "7") {
             $("#day-schedule").data('artsy.dayScheduleSelector').deserialize({
                 '6': [[startUur, eindUur]]
             });
         }
-
-    }
+    }*/
 </script>
-<?php
-    foreach ($datums as $tijd) {
 
-//loopen in de try blok?
-
-        $dag = date('l', strtotime($tijd->beschikbaarVan));
-        $startUur = date("H:i", strtotime($tijd->beschikbaarVan));
-        $eindUur = date("H:i", strtotime($tijd->beschikbaarTot));
-
-        echo '<script> toonBeschikbaarheid("' . $dag . '","' . $startUur . '","' . $eindUur . '"); </script>';
-    }
-?>
