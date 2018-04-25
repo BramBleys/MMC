@@ -12,7 +12,7 @@
   DayScheduleSelector.DEFAULTS = {
     days        : [0,1, 2, 3, 4, 5, 6],  // Sun - Sat
     startTime   : '08:00',                // HH:mm format
-    endTime     : '20:00',                // HH:mm format
+    endTime     : '22:00',                // HH:mm format
     interval    : 30,                     // minutes
     stringDays  : ['Ma', 'Din', 'Woe', 'Don', 'Vrij', 'Zat','Zon'],
     template    : '<div class="day-schedule-selector">'         +
