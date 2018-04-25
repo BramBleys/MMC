@@ -106,7 +106,7 @@ if(count($ritten)!=0){
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
                 echo anchor("coach/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("coach/schrap/$rit->id", $verwijderknop, $attributesSchrap);
+                    . " " . anchor("coach/schrap/" . $account->id . "/" . $rit->id, $verwijderknop, $attributesSchrap);
             }
             echo "</td>\n</tr>\n";
     }

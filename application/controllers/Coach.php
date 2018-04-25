@@ -151,7 +151,7 @@
                 $datum = $this->input->post('datum');
                 if (!$parameters->maxRitten - count($this->Rit_model->getWhereDatum($minderMobiele->id, $datum)) <= 0) {
                     $rit = new stdClass();
-                    $rit->gebruikerIdMinderMobiele = $this->session->userdata('gebruiker_id');
+                    $rit->gebruikerIdMinderMobiele = $minderMobiele->id;
                     $adres = new stdClass();
                     if ($this->input->post('vertrekPlaats') != "" && $this->input->post('vertrekPlaats') != NULL) {
                         $adres->straatEnNummer = $this->input->post('vertrekAdres');
@@ -187,7 +187,7 @@
                     $heenRitId = $this->rit_model->insert($rit);
                     if ($this->input->post('terugRit') != "" && $this->input->post('terugRit') != NULL) {
                         $terugRit = new stdClass();
-                        $terugRit->gebruikerIdMinderMobiele = $this->session->userdata('gebruiker_id');
+                        $terugRit->gebruikerIdMinderMobiele = $minderMobiele->id;
                         $terugRit->adresIdVertrek = $rit->adresIdBestemming;
                         $terugRit->adresIdBestemming = $rit->adresIdVertrek;
                         $datum = $this->input->post('datumTerug');
@@ -203,6 +203,16 @@
             } else {
                 redirect('Home');
             }
+        }
+
+        public function schrap($accountId, $ritId){
+            $this->load->model('rit_model');
+            if ($this->rit_model->getByHeenRit($ritId)){
+                $terugRit = $this->rit_model->getByHeenRit($ritId);
+                $this->rit_model->delete($terugRit->id);
+            }
+            $this->rit_model->delete($ritId);
+            redirect('coach/rittenBeheren/' . $accountId);
         }
 
         public function accountsBeheren($accountId) {

@@ -19,7 +19,7 @@
                                 }
                                 break;
                             case 2: //coach
-                                if(!in_array('1', $idArray)){
+                                if(in_array('1', $idArray)){
                                     echo '<li class="nav-item">' . anchor("Coach/rittenBeheren/$gebruiker->id", "Ritten beheren", 'class= "nav-link"') . '</li>';
                                     echo '<li class="nav-item">' . anchor("Coach/nieuweRit/$gebruiker->id", "Rit aanmaken", 'class= "nav-link"') . '</li>';
                                 } else{

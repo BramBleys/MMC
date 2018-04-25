@@ -46,7 +46,7 @@ if(count($minderMobielen)!=0) {
     }
     echo form_dropdown('minderMobielen', $dataDropdown, $gekozenAccount->id, array('class' => 'form-control')) . "\n";
     echo "</div>\n</div>";
-    echo +form_hidden('accountId', $gekozenAccount->id);
+    echo form_hidden('accountId', $gekozenAccount->id);
     echo "<div id=\"ritGegevens\"></div>";
 } else {
     echo "<p>Je beheert nog geen minder mobielen.</p>\n";
