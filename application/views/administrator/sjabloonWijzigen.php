@@ -8,28 +8,44 @@
 ?>
 <html>
 <head>
-
 </head>
 <body>
-    <?php
-       echo '<p>' . $sjabloon->titel . '</p>';
-    ?>
 <?php
     echo form_open('administrator/sjabloonOpslagen');
     ?>
     <div class="form-group">
-        <label for="exampleInputEmail1">Maximum aantal ritten</label>
-        <input type="number" class="form-control" name="maxRitten" id="maxRitten" placeholder="Per week">
+        <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $sjabloon[0]->id ?>" >
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Prijs</label>
-        <input type="number" step="0.01" class="form-control" name="prijsPerKM" id="prijsPerKM" placeholder="Per kilometer">
+        <input type="text" class="form-control" name="titel" id="titel" value="<?php echo $sjabloon[0]->titel ?>" >
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Tijd voor annulatie</label>
-        <input type="number" class="form-control" name="annulatieTijd" id="annulatieTijd" placeholder="In werkdagen">
+        <textarea class="form-control" name="inhoud" id="inhoud" rows="7"><?php echo $sjabloon[0]->inhoud ?></textarea>
     </div>
-    <?php echo form_submit('knop', 'Opslaan', array('class' =>'btn achtergrond')); ?>
-    <?php echo form_close(); ?>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Opslaan
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Sjabloon opslagen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ben je zeker dat je het sjabloon wilt opslagen ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
+                <?php echo form_submit('knop', 'Opslaan', array('class' =>'btn achtergrond')); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo form_close(); ?>
 </body>
 </html>

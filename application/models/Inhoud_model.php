@@ -28,12 +28,31 @@ class Inhoud_model extends CI_Model {
         return $query->result();
     }
 
+    function getInhoudWherePaginaId($paginaId){
+        $this->db->order_by('id', 'ASC');
+        $this->db->where('paginaId', $paginaId);
+        $query = $this->db->get('inhoud');
+
+        return $query->result();
+    }
+
     function getInhoudWhereId($id){
         $this->db->order_by('id', 'ASC');
         $this->db->where('id', $id);
         $query = $this->db->get('inhoud');
 
-        return $query->row();
+        return $query->result();
+    }
+
+    function update($sjabloon) {
+        //update het sjabloon waar de gebruiker aanpassingen aan heeft gedaan
+        $this->db->where('id', $sjabloon->id);
+        $this->db->update('inhoud', $sjabloon);
+    }
+
+    function leegMaken($sjabloon){
+        $this->db->where('id', $sjabloon->id);
+        $this->db->update('inhoud', $sjabloon);
     }
 
 }
