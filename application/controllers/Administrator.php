@@ -163,16 +163,16 @@ class Administrator extends CI_Controller
         //Variabel aanmaken om sjablonen in op te slagen
 
 
-        //Administrator model laden en inhoud ophalen waar het typeInhoudId 3 is, dit zijn sjablonen
+        //Administrator model laden en inhoud ophalen waar het paginaId juist is
         $this->load->model('Inhoud_model');
         $homePagina = $this->Inhoud_model->getInhoudWherePaginaId("1");
-        $contactPagina = $this->inhoud_model->getInhoudWherePaginaId("2");
+        $contactPagina = $this->Inhoud_model->getInhoudWherePaginaId("2");
 
         $data['homePagina'] = $homePagina;
         $data['contactPagina'] = $contactPagina;
 
         //bevestiging pagina tonen
-        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/sjablonenBeheren');
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/websiteBeheren');
         $this->template->load('main_master', $partials, $data);
     }
 }

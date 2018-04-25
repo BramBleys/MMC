@@ -56,10 +56,10 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Terug</button>
                 <?php echo form_submit('knop', 'Verwijderen', array('class' =>'btn achtergrond')); ?>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-    </div>
+</div>
 
     <?php
 
