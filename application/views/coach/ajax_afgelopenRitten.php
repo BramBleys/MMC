@@ -1,7 +1,7 @@
 <script>
     function berekenPrijs(id) {
         $.ajax({type: "GET",
-            url: site_url + "/MinderMobiele/haalJsonOp_GeplandeRitten",
+            url: site_url + "/MinderMobiele/haalJsonOp_AfgelopenRitten",
             data: {gebruikerId: id},
             success: function (result) {
                 try {
@@ -47,7 +47,6 @@
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
         var id = $('input[name="getoondAccountId"').val();
-
         berekenPrijs(id);
     });
 </script>
@@ -59,8 +58,8 @@ $button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
 echo '<p class="marginTop">' . anchor('coach/nieuweRit/' . $account->id, $button) . ' ';
 
 $extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
-echo anchor('coach/afgelopenRitten/' . $account->id, $button) . '</p>';
+$button = form_button("knopGepland", "Geplande ritten", $extraButton);
+echo anchor('coach/rittenBeheren/' . $account->id, $button) . '</p>';
 
 $wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\"></i>";
 $verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"></i>";
@@ -89,32 +88,19 @@ if(count($ritten)!=0){
             . "</td>\n<td>"
             . $rit->bestemmingAdres->straatEnNummer . ", " . $rit->bestemmingAdres->postcode . " " . $rit->bestemmingAdres->gemeente
             . "</td>\n<td>";
-            if ($rit->chauffeur){
-                echo $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam;
-            } else {
-                echo "Er is nog geen chauffeur toegewezen";
-            }
-            echo "</td>\n<td>"
-            . "</td>\n<td>";
-            $annulatieTijd = date('Y-m-d H:i:s', strtotime("+$parameters->annulatieTijd hours"));
-            if($rit->vertrekTijdstip < $annulatieTijd){
-                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker."';
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker."';
-                echo anchor("coach/rittenBeheren/$account->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("coach/rittenBeheren/$account->id", $verwijderknop, $attributesSchrap);
-            } else {
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
-                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
-                echo anchor("coach/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("coach/schrap/$rit->id", $verwijderknop, $attributesSchrap);
-            }
-            echo "</td>\n</tr>\n";
+        if ($rit->chauffeur){
+            echo $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam;
+        } else {
+            echo "Er is nog geen chauffeur toegewezen";
+        }
+        echo "</td>\n<td>"
+            . "</td>\n</tr>\n";
     }
     echo"        </tbody>\n";
     echo"    </table>\n";
     echo"</div>\n";
 }
 else{
-    echo "<p>Je hebt geen geplande ritten.</p>\n";
+    echo "<p>Je hebt geen afgelopen ritten.</p>\n";
 }
 ?>
