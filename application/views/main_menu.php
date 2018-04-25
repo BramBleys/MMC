@@ -31,7 +31,6 @@
                             case 3: //vrijwilliger
                                 echo '<li class="nav-item">' . anchor("Vrijwilliger/beschikbaarheidIngeven", "Beschikbaarheid ingeven", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("Vrijwilliger/agendaBekijken", "Agenda bekijken", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Vrijwilliger/ondersteuning", 'Ondersteuning', 'class= "nav-link"') . '</li>';
                                 break;
                             case 4: //mmc medewerker
                                 echo '<li class="nav-item">' . anchor("MMCMedewerker/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
@@ -61,7 +60,6 @@
                         case 3: //vrijwilliger
                             echo '<li class="nav-item">' . anchor("Vrijwilliger/beschikbaarheidIngeven", "Beschikbaarheid ingeven", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Vrijwilliger/agendaBekijken", "Agenda bekijken", 'class= "nav-link"') . '</li>';
-                            echo '<li class="nav-item">' . anchor("Vrijwilliger/ondersteuning", 'Ondersteuning', 'class= "nav-link"') . '</li>';
                             break;
                         case 4: //mmc medewerker
                             echo '<li class="nav-item">' . anchor("MMCMedewerker/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
