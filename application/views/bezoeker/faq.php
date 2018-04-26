@@ -16,7 +16,7 @@
 </div>
 
 <h3 class="mt-4">Minder Mobiele</h3>
-<div>
+<div id="accordion">
     <div class="card">
         <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo">
             <h6 class="mb-0">Waarom kan ik geen nieuwe rit meer aanmaken?</h6>
@@ -42,7 +42,6 @@
         </div>
     </div>
 </div>
-<h3 class="mt-4">Coach (nog doen)</h3>
 <h3 class="mt-4">Vrijwilliger</h3>
 <div>
     <div class="card">
@@ -52,10 +51,9 @@
 
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
             <div class="card-body">
-                Om de agenda makkelijk te kunnen gebruiken hebben wij een tutorial voorzien. Door op de knop met het
-                vraagteken in de menubalk te klikken kan je deze tutorial bekijken.
+                Om de agenda makkelijk te kunnen gebruiken hebben wij een hulpfunctie voorzien. Door op de knop "Help
+                en ondersteuning" te klikken die op de pagina van de agenda staat kan je deze hulpfunctie bekijken.
             </div>
         </div>
     </div>
 </div>
-<h3 class="mt-4">MMC medewerker (nog doen)</h3>
