@@ -20,6 +20,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Parameters';
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
 
         //Templates definieren en inladen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parameters');
@@ -31,6 +32,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Parameters Opgeslagen';
         //Login nakijken
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om parameters in op te slagen
         $parameters = new stdClass();
 
@@ -54,6 +56,7 @@ class Administrator extends CI_Controller
     public function mmcMedewerkersBeheren(){
         $data['titel'] = 'MMC Medewerkers Beheren';
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
 
         //Templates definieren en inladen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/mmcMedewerkerBeheren');
@@ -65,6 +68,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Sjablonen beheren';
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om sjablonen in op te slagen
 
 
@@ -84,6 +88,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Sjabloon wijzigen';
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om het sjabloon in op te slagen
         $sjabloon = new stdClass();
 
@@ -103,6 +108,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Sjabloon opgeslagen';
         //Login nakijken
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om sjabloon in op te slagen
         $sjabloon = new stdClass();
 
@@ -132,6 +138,7 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Sjabloon verwijderen';
         //Login nakijken
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om sjabloon in op te slagen
         $sjabloon = new stdClass();
 
@@ -160,16 +167,62 @@ class Administrator extends CI_Controller
         $data['titel'] = 'Website beheren';
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
         //Variabel aanmaken om sjablonen in op te slagen
 
 
         //Administrator model laden en inhoud ophalen waar het paginaId juist is
         $this->load->model('Inhoud_model');
-        $homePagina = $this->Inhoud_model->getInhoudWherePaginaId("1");
-        $contactPagina = $this->Inhoud_model->getInhoudWherePaginaId("2");
+        $teBeherenText = $this->Inhoud_model->getInhoudWhereTypeInhoudId("1");
 
-        $data['homePagina'] = $homePagina;
-        $data['contactPagina'] = $contactPagina;
+        $data['teBeherenText'] = $teBeherenText;
+
+        //bevestiging pagina tonen
+        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/websiteBeheren');
+        $this->template->load('main_master', $partials, $data);
+    }
+
+    public function websiteOpslagen(){
+        //titel veranderen naar Website Beheren
+        $data['titel'] = 'Website beheren';
+        //Gebruikersinformatie ophalen
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+        $data['gemaaktDoor'] = "Kilian Fastenakels";
+        $teBeherenText1 = new stdClass();
+        $teBeherenText2 = new stdClass();
+        $teBeherenText3 = new stdClass();
+        $teBeherenText4 = new stdClass();
+        $teBeherenText5 = new stdClass();
+        $teBeherenText6 = new stdClass();
+        $teBeherenText7 = new stdClass();
+
+        $teBeherenText1->id = $this->input->post('id1');
+        $teBeherenText1->titel = $this->input->post('titel1');
+        $teBeherenText1->inhoud = $this->input->post('inhoud1');
+        $teBeherenText2->id = $this->input->post('id2');
+        $teBeherenText2->titel = $this->input->post('titel2');
+        $teBeherenText2->inhoud = $this->input->post('inhoud2');
+        $teBeherenText3->id = $this->input->post('id3');
+        $teBeherenText3->titel = $this->input->post('titel3');
+        $teBeherenText3->inhoud = $this->input->post('inhoud3');
+        $teBeherenText4->id = $this->input->post('id4');
+        $teBeherenText4->titel = $this->input->post('titel4');
+        $teBeherenText4->inhoud = $this->input->post('inhoud4');
+        $teBeherenText5->id = $this->input->post('id5');
+        $teBeherenText5->titel = $this->input->post('titel5');
+        $teBeherenText5->inhoud = $this->input->post('inhoud5');
+        $teBeherenText6->id = $this->input->post('id6');
+        $teBeherenText6->titel = $this->input->post('titel6');
+        $teBeherenText6->inhoud = $this->input->post('inhoud6');
+        $teBeherenText7->id = $this->input->post('id7');
+        $teBeherenText7->inhoud = $this->input->post('inhoud7');
+
+        //Inhoud model laden en de database updaten
+        $this->load->model('Inhoud_model');
+        $this->Inhoud_model->updateText($teBeherenText1, $teBeherenText2, $teBeherenText3, $teBeherenText4, $teBeherenText5, $teBeherenText6, $teBeherenText7);
+        $nieuweText = $this->Inhoud_model->getInhoudWhereTypeInhoudId("1");
+
+        $data['teBeherenText'] = $nieuweText;
 
         //bevestiging pagina tonen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/websiteBeheren');

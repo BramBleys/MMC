@@ -55,4 +55,20 @@ class Inhoud_model extends CI_Model {
         $this->db->update('inhoud', $sjabloon);
     }
 
+    function updateText($teBeherenText1, $teBeherenText2, $teBeherenText3, $teBeherenText4, $teBeherenText5, $teBeherenText6, $teBeherenText7) {
+        $this->db->where('id', $teBeherenText1->id);
+        $this->db->update('inhoud', $teBeherenText1);
+        $this->db->where('id', $teBeherenText2->id);
+        $this->db->update('inhoud', $teBeherenText2);
+        $this->db->where('id', $teBeherenText3->id);
+        $this->db->update('inhoud', $teBeherenText3);
+        $this->db->where('id', $teBeherenText4->id);
+        $this->db->update('inhoud', $teBeherenText4);
+        $this->db->where('id', $teBeherenText5->id);
+        $this->db->update('inhoud', $teBeherenText5);
+        $this->db->where('id', $teBeherenText6->id);
+        $this->db->update('inhoud', $teBeherenText6);
+        $this->db->where('id', $teBeherenText7->id);
+        $this->db->update('inhoud', $teBeherenText7);
+    }
 }

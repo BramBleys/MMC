@@ -8,12 +8,40 @@
 ?>
 <?php
     echo form_open('administrator/websiteOpslagen');
-    ?>
+?>
     <div class="form-group">
-        <input type="text" class="form-control" name="titel" id="titel" value="<?php echo $sjabloon[0]->titel ?>" >
+        <input type="hidden" class="form-control" name="id1" id="id1" value="<?php echo $teBeherenText[0]->id ?>">
+        <input type="text" class="form-control" name="titel1" id="titel1" value="<?php echo $teBeherenText[0]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud1" id="inhoud1"><?php echo $teBeherenText[0]->inhoud  ?> </textarea>
     </div>
     <div class="form-group">
-        <textarea class="form-control" name="inhoud" id="inhoud" rows="7"><?php echo $sjabloon[0]->inhoud ?></textarea>
+        <input type="hidden" class="form-control" name="id2" id="id2" value="<?php echo $teBeherenText[1]->id ?>">
+        <input type="text" class="form-control" name="titel2" id="titel2" value="<?php echo $teBeherenText[1]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud2" id="inhoud2"><?php echo $teBeherenText[1]->inhoud  ?> </textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="id3" id="id3" value="<?php echo $teBeherenText[2]->id ?>">
+        <input type="text" class="form-control" name="titel3" id="titel3" value="<?php echo $teBeherenText[2]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud3" id="inhoud3"><?php echo $teBeherenText[2]->inhoud  ?> </textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="id4" id="id4" value="<?php echo $teBeherenText[3]->id ?>">
+        <input type="text" class="form-control" name="titel4" id="titel4" value="<?php echo $teBeherenText[3]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud4" id="inhoud4"><?php echo $teBeherenText[3]->inhoud  ?> </textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="id5" id="id5" value="<?php echo $teBeherenText[4]->id ?>">
+        <input type="text" class="form-control" name="titel5" id="titel5" value="<?php echo $teBeherenText[4]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud5" id="inhoud5"><?php echo $teBeherenText[4]->inhoud  ?> </textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="id6" id="id6" value="<?php echo $teBeherenText[5]->id ?>">
+        <input type="text" class="form-control" name="titel6" id="titel6" value="<?php echo $teBeherenText[5]->titel ?>">
+        <textarea rows="3" class="form-control" name="inhoud6" id="inhoud6"><?php echo $teBeherenText[5]->inhoud  ?> </textarea>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="id17" id="id7" value="<?php echo $teBeherenText[6]->id ?>">
+        <textarea rows="3" class="form-control" name="inhoud7" id="inhoud7"><?php echo $teBeherenText[6]->inhoud  ?> </textarea>
     </div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
     Opslaan
