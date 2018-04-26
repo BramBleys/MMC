@@ -9,7 +9,7 @@
         }
 
         function get(){
-            $query = $this->db->get('Parameters');
+            $query = $this->db->get('parameters');
             return $query->row();
         }
     }

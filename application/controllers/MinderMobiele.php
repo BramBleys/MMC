@@ -18,6 +18,7 @@ class MinderMobiele extends CI_Controller
     public function index()
     {
         $data['titel'] = 'Mijn geplande ritten';
+        $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')){
@@ -64,6 +65,7 @@ class MinderMobiele extends CI_Controller
 
     public function afgelopenRitten() {
         $data['titel'] = 'Mijn afgelopen ritten';
+        $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')){
@@ -84,6 +86,7 @@ class MinderMobiele extends CI_Controller
 
     public function nieuweRit() {
         $data['titel'] = 'Rit aanmaken';
+        $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')){
@@ -165,6 +168,7 @@ class MinderMobiele extends CI_Controller
     public function wijzigRit($id){
 
         $data['titel'] = 'Rit wijzigen';
+        $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $minderMobiele = $data['gebruiker'];

@@ -1,6 +1,12 @@
 <?php
 
     class Gebruiker_model extends CI_Model {
+        function insert($gegevens) {
+            //voeg een nieuwe gebruiker toe
+            $this->db->insert('gebruiker', $gegevens);
+            return $this->db->insert_id();
+        }
+
         function update($gegevens) {
             //update de gegevens van de gebruiker waar je aanpassingen voor hebt gedaan
             $this->db->where('id', $gegevens->id);
@@ -11,6 +17,7 @@
             // geef gebruiker-object met opgegeven id
             $this->db->where('id', $id);
             $query = $this->db->get('gebruiker');
+
             return $query->row();
         }
 
@@ -81,5 +88,12 @@
                 $gebruikers[] = $this->gebruiker_model->get($gebruikerId->gebruikerIdMinderMobiele);
             }
             return $gebruikers;
+        }
+
+        function getHighestMmcNummer() {
+            $this->db->select_max('mmcNummer');
+            $query = $this->db->get('gebruiker');
+
+            return $query->row();
         }
     }

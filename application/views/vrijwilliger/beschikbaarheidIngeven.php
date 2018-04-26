@@ -13,7 +13,9 @@
     <div id="weekpicker"></div>
     <button class="btn btn-primary ml-3" id="urenOpslaan">Opslaan</button>
     <?php echo anchor('vrijwilliger/beschikbaarheidIngeven', '<button class="btn btn-primary ml-3" id="refresh">Refresh</button>'); ?>
-    <button class="btn btn-primary ml-5" id="Ondersteuning" data-toggle="modal" data-target="#ondersteuningModal" >Help en ondersteuning</button>
+    <button class="btn btn-primary ml-5" id="Ondersteuning" data-toggle="modal" data-target="#ondersteuningModal">Help
+        en ondersteuning
+    </button>
 </div>
 
 <!--Uurpicker-->
@@ -24,13 +26,52 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Hoe werken met de kalender? </h5>
+                <h2 class="modal-title" id="exampleModalLongTitle">Hoe werken met de kalender? </h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Ben je zeker dat je het sjabloon wilt verwijderen ?
+                <p>Klik op 1 van onderstaande knoppen voor meer informatie.</p>
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">
+                            <h5 class="mb-0"> Je planning bekijken </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                Om te bekijken welke uren je reeds hebt doorgegeven klik je eerst op het vakje waarin de
+                                huidige week
+                                staat.
+                                <?php echo toonAfbeelding("Weekpicker.png", 'style="width: 100%"') ?>Als je hierop klikt
+                                zie je een kalender. Hierin kan je er voor kiezen om een week verder/terug te gaan. Je
+                                klikt op een dag in de week die je wilt bekijken. Hierna worden je uren getoond in de
+                                kalender. <br> Wanneer je een nieuwe week wilt bekijken moet je eerst op de "Refresh"
+                                knop klikken. <?php echo toonAfbeelding("Refresh.png", 'style="width: 100%"') ?>Dit
+                                zorgt ervoor dat de kalender leeg gemaakt wordt. Hierna herhaal je de eerste stappen.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo">
+                            <h5 class="mb-0">Nieuwe uren doorgeven</h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                Om te beginnen klik je op het vakje waarin de huidige week staat.
+                                <?php echo toonAfbeelding("Weekpicker.png", 'style="width: 100%"') ?>Als je hierop klikt
+                                zie je een kalender. Selecteer een dag van de week waarvoor je nieuwe uren wilt
+                                doorgeven. Nu kan je voor de geselecteerde week je uren doorgeven. Dit doe je door 1
+                                grijs vakje van een bepaalde dag aan te klikken. Nu kan je je muis naar onder/boven
+                                slepen. Je ziet dat de vakjes een blauwe kleur krijgen. Om te stoppen met selecteren
+                                klik je nogmaals op 1 van de grijze vakjes. Bijvoorbeeld:
+                                <br><?php echo toonAfbeelding("Uren.png", 'style="height: 15rem" class="mb-4"') ?>
+                                <br><b>Vergeet niet om je gegevens voor die week op te slaan door op de knop "Opslaan"
+                                    te klikken!</b> <?php echo toonAfbeelding("Opslaan.png", 'style="width: 100%"') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

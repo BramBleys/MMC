@@ -14,10 +14,10 @@
                     console.log(maxRitten - aantalRitten);
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
-                        $('#popupKnop').attr("title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
+                        $('#popupKnopTooltip').attr("data-original-title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
                     } else {
                         $('#popupKnop').removeAttr("disabled");
-                        $('#popupKnop').removeAttr("title");
+                        $('#popupKnopTooltip').attr("data-original-title", "Je heb nog " + (maxRitten - aantalRitten) + " ritten voor de gekozen week over.");
                     }
                 } catch (error) {
                     alert("-- ERROR IN JSON --\n" + result);
@@ -29,6 +29,7 @@
         });
     }
     $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
         if (!$("#vertrekPlaats").is(':checked')){
             $("#vertrekGegevens").hide();
         } else {
@@ -397,16 +398,19 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
         </div>
     </div>
 </div>
+<span id="popupKnopTooltip" class="d-inline-block marginTop" tabindex="0" data-toggle="tooltip">
 <?php
 $dataPopupKnop = array('name' => 'popupKnop',
     'id' => 'popupKnop',
-    'class' => 'btn btn-primary marginTop',
+    'class' => 'btn btn-primary',
     'data-toggle' => 'modal',
     'data-target' => '#bevestigingPopup',
-    'content' => 'Opslaan'
+    'content' => 'Opslaan',
+    'style' => "pointer-events: none;"
 );
 echo form_button($dataPopupKnop);
 ?>
+</span>
 <!-- Modal -->
 <div class="modal fade" id="bevestigingPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

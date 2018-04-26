@@ -92,7 +92,7 @@
                     </div>
                     <div class="col">
                         <p class="text-left">Made with <i class="material-icons">favorite</i> by
-                            <a href="#">Brogrammers</a></p>
+                            Brogrammers</p>
                     </div>
                     <div class="col">
                         <p class="text-right">&copy; MMC - 2018</p>
