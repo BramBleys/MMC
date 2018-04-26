@@ -1,6 +1,12 @@
 <?php
 
     class Gebruiker_model extends CI_Model {
+        function insert($gegevens) {
+            //voeg een nieuwe gebruiker toe
+            $this->db->insert('gebruiker', $gegevens);
+            return $this->db->insert_id();
+        }
+
         function update($gegevens) {
             //update de gegevens van de gebruiker waar je aanpassingen voor hebt gedaan
             $this->db->where('id', $gegevens->id);

@@ -34,11 +34,11 @@
                                 break;
                             case 4: //mmc medewerker
                                 echo '<li class="nav-item">' . anchor("MMCMedewerker/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                                 break;
                             case 5: //administrator
                                 echo '<li class="nav-item">' . anchor("Administrator/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("Administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("Administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("Administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
@@ -63,11 +63,11 @@
                             break;
                         case 4: //mmc medewerker
                             echo '<li class="nav-item">' . anchor("MMCMedewerker/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
-                            echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                             break;
                         case 5: //administrator
                             echo '<li class="nav-item">' . anchor("Administrator/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
-                            echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';

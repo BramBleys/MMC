@@ -17,6 +17,22 @@
 
     $(document).ready(function () {
 
+        $(".gebruikerOphalen").removeClass().addClass("btn btn-light gebruikerOphalen");
+
+        var soortId = <?php echo $soortId; ?>;
+
+        switch (soortId) {
+            case 1:
+                $(".gebruikerOphalen[data-id=1]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                break;
+            case 2:
+                $(".gebruikerOphalen[data-id=2]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                break;
+            case 3:
+                $(".gebruikerOphalen[data-id=3]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                break;
+        }
+
         $(".gebruikerOphalen").click(function (e) {
             e.preventDefault();
             var soortId = $(this).data('id');
@@ -47,7 +63,7 @@
     <div class="col-3">
         <?php
 
-        echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-primary gebruikerOphalen', 'data-id' => '1')) . "\n";
+        echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '1')) . "\n";
         echo anchor('', 'Coaches', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '2')) . "\n";
         echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '3')) . "\n";
 

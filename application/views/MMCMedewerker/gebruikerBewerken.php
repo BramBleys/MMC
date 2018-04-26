@@ -120,7 +120,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
     <div class="col-12">
         <?php
 
-        echo anchor('','Annuleren','class="btn btn-outline-primary mr-2"');
+        echo anchor('MMCMedewerker/gebruikersBeheren/' . $account->soortId,'Annuleren','class="btn btn-outline-primary mr-2"');
         echo form_submit('submit','Wijzigingen opslaan', 'class="btn btn-primary"');
         echo form_close();
 
