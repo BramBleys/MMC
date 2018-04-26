@@ -12,11 +12,29 @@
 <div class="input-group date align-items-center">
     <div id="weekpicker"></div>
     <button class="btn btn-primary ml-3" id="urenOpslaan">Opslaan</button>
-    <?php echo anchor('vrijwilliger/beschikbaarheidIngeven','<button class="btn btn-primary ml-3" id="refresh">Refresh</button>'); ?>
+    <?php echo anchor('vrijwilliger/beschikbaarheidIngeven', '<button class="btn btn-primary ml-3" id="refresh">Refresh</button>'); ?>
+    <button class="btn btn-primary ml-5" id="Ondersteuning" data-toggle="modal" data-target="#ondersteuningModal" >Help en ondersteuning</button>
 </div>
 
 <!--Uurpicker-->
 <div id="day-schedule" class="mt-4"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="ondersteuningModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Hoe werken met de kalender? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ben je zeker dat je het sjabloon wilt verwijderen ?
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     (function ($) {
