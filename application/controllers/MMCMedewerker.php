@@ -47,6 +47,9 @@ class MMCMedewerker extends CI_Controller {
 
         if($this->session->has_userdata('gebruiker_id')) {
 
+            $this->load->model('Gebruiker_model');
+            $data['hoogsteNummer'] = $this->Gebruiker_model->getHighestMmcNummer();
+
             $partials = array( 'navigatie' => 'main_menu',
                 'inhoud' => 'MMCMedewerker/gebruikerToevoegen');
             $this->template->load('main_master', $partials, $data);

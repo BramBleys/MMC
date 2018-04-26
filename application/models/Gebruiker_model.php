@@ -17,6 +17,7 @@
             // geef gebruiker-object met opgegeven id
             $this->db->where('id', $id);
             $query = $this->db->get('gebruiker');
+
             return $query->row();
         }
 
@@ -87,5 +88,12 @@
                 $gebruikers[] = $this->gebruiker_model->get($gebruikerId->gebruikerIdMinderMobiele);
             }
             return $gebruikers;
+        }
+
+        function getHighestMmcNummer() {
+            $this->db->select_max('mmcNummer');
+            $query = $this->db->get('gebruiker');
+
+            return $query->row();
         }
     }
