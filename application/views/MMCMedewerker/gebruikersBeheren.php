@@ -50,6 +50,9 @@
                 case 3:
                     $(".gebruikerOphalen[data-id=3]").removeClass().addClass("btn btn-primary gebruikerOphalen");
                     break;
+                case 6:
+                    $(".gebruikerOphalen[data-id=6]").removeClass().addClass("btn btn-primary gebruikerOphalen");
+                    break;
             }
         });
 
@@ -62,12 +65,13 @@
 <div class="row mb-4">
     <div class="col-3">
         <?php
-
         echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '1')) . "\n";
         echo anchor('', 'Coaches', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '2')) . "\n";
         echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '3')) . "\n";
-
         ?>
+        <div class="mt-4">
+            <?php echo anchor('', 'Inactief', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '6')) . "\n"; ?>
+        </div>
     </div>
     <div class="col-9">
         <div id="gebruikers">

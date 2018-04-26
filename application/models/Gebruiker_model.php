@@ -96,4 +96,26 @@
 
             return $query->row();
         }
+
+        function controleerErkenningsNummerVrij($nummer) {
+            $this->db->where('erkenningsNummer', $nummer);
+            $query = $this->db->get('gebruiker');
+
+            if ($query->num_rows() == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function controleerGebruikersNaamVrij($naam) {
+            $this->db->where('gebruikersnaam', $naam);
+            $query = $this->db->get('gebruiker');
+
+            if ($query->num_rows() == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
