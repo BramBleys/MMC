@@ -68,10 +68,8 @@
         echo anchor('', 'Minder Mobielen', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '1')) . "\n";
         echo anchor('', 'Coaches', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '2')) . "\n";
         echo anchor('', 'Vrijwilligers', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '3')) . "\n";
+        echo anchor('', 'Inactief', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '6')) . "\n";
         ?>
-        <div class="mt-4">
-            <?php echo anchor('', 'Inactief', array('class' => 'btn btn-light gebruikerOphalen', 'data-id' => '6')) . "\n"; ?>
-        </div>
     </div>
     <div class="col-9">
         <div id="gebruikers">
