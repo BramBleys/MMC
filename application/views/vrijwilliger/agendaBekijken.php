@@ -7,10 +7,15 @@
         <th> Vertrek adres</th>
         <th> Bestemming</th>
         <th> Vertrek tijdstip</th>
-        <th> Supplementaire kost</th>
-        <th> Heenrit</th>
-        <th> Opmerking</th>
+        <th></th>
+        <th></th>
     </tr>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     <?php
         foreach ($ritten as $rit) {
             echo '<tr>' .
@@ -19,9 +24,8 @@
                 '<td>' .$rit->vertrekAdres . '</td>' .
                 '<td>' .$rit->bestemming . '</td>' .
                 '<td>' .$rit->vertrekTijdstip . '</td>' .
-                '<td>' .$rit->supplementaireKost . '</td>' .
-                '<td>' .$rit->heenrit . '</td>' .
-                '<td>' .$rit->opmerking . '</td>' .
+                '<td><i class="material-icons" data-toggle="tooltip" title="' . $rit->supplementaireKost . '">attach_money</i></td>' .
+                '<td><i class="material-icons" data-toggle="tooltip" title="' . $rit->opmerking . '">lightbulb_outline</i></td>' .
                 '</tr>';
         }
     ?>
