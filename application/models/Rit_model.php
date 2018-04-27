@@ -55,7 +55,7 @@ class Rit_model extends CI_Model {
         $this->db->order_by('vertrekTijdstip');
         $this->db->where('gebruikerIdMinderMobiele', $gebruikerId);
         $this->db->where('vertrekTijdstip <', $nu);
-        $query = $this->db->get('Rit');
+        $query = $this->db->get('rit');
         $ritten = $query->result();
 
         foreach ($ritten as $rit){

@@ -14,9 +14,11 @@
                     console.log(maxRitten - aantalRitten);
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
+                        $('#popupKnop').attr("style", "pointer-events: none;");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
                     } else {
                         $('#popupKnop').removeAttr("disabled");
+                        $('#popupKnop').removeAttr("style");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb nog " + (maxRitten - aantalRitten) + " ritten voor de gekozen week over.");
                     }
                 } catch (error) {
@@ -405,8 +407,7 @@ $dataPopupKnop = array('name' => 'popupKnop',
     'class' => 'btn btn-primary',
     'data-toggle' => 'modal',
     'data-target' => '#bevestigingPopup',
-    'content' => 'Opslaan',
-    'style' => "pointer-events: none;"
+    'content' => 'Opslaan'
 );
 echo form_button($dataPopupKnop);
 ?>
