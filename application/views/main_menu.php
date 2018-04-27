@@ -37,12 +37,11 @@
                                 echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                                 break;
                             case 5: //administrator
-                                echo '<li class="nav-item">' . anchor("Administrator/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("MMCMedewerker/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("Administrator/MMCMedewerkersBeheren", "MMC medewerkers beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/aanvragenBeheren", "Aanvragen beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
                                 break;
                         }
                     }
