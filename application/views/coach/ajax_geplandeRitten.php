@@ -49,6 +49,10 @@
         var id = $('input[name="getoondAccountId"').val();
 
         berekenPrijs(id);
+
+        $('.verwijderKnop').click(function () {
+            $('#annuleerKnop').closest('a').attr('href', $(this).attr('href'));
+        });
     });
 </script>
 <?php
@@ -105,8 +109,9 @@ if(count($ritten)!=0){
             } else {
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
-                echo anchor("coach/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("coach/schrap/" . $account->id . "/" . $rit->id, $verwijderknop, $attributesSchrap);
+                echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig);
+                echo "<span id=\"popupKnopTooltip\" class=\"d-inline-block\" tabindex=\"0\" $attributesSchrap>\n";
+                echo anchor("minderMobiele/schrap/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
             }
             echo "</td>\n</tr>\n";
     }
@@ -118,3 +123,32 @@ else{
     echo "<p>Je hebt geen geplande ritten.</p>\n";
 }
 ?>
+
+<!-- Modal -->
+<div class="modal fade" id="bevestigingPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bevestigingPopupTitle">Annulering rit bevestigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ben je zeker dat je de rit wilt annuleren?
+            </div>
+            <div class="modal-footer">
+                <?php
+                $dataAnnuleer = array(
+                    'class' => 'btn btn-secondary',
+                    'data-dismiss' => 'modal',
+                    'content' => 'Rit behouden'
+                );
+                echo form_button($dataAnnuleer);
+                $annuleerKnop = form_button('Rit annuleren', 'Rit annuleren', 'class="btn btn-primary" id="annuleerKnop"');
+                echo anchor('', $annuleerKnop);
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

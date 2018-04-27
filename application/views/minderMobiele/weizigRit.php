@@ -280,29 +280,6 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
         echo form_textarea($dataOpmerkingen);
         ?>
     </div>
-    <div class="col-md-4">
-        <?php
-        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
-        ?>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend">€</span>
-            </div>
-            <?php
-                    $dataSupplementaireKost = array('name' => 'supplementaireKost',
-                'id' => 'supplementaireKost',
-                'class' => 'form-control',
-                'aria-describedby' => 'inputGroupPrepend',
-                'placeholder' => '5',
-                'min' => '0',
-                'step' => '0.01',
-                'type' => 'number',
-                'value' => $heenrit->supplementaireKost
-            );
-            echo form_input($dataSupplementaireKost) . "\n";
-            ?>
-        </div>
-    </div>
 </div>
 
 <hr>
@@ -375,29 +352,6 @@ echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
             );
             echo form_textarea($dataOpmerkingen);
             ?>
-        </div>
-        <div class="col-md-4">
-            <?php
-            echo form_labelpro('Totaal van extra kosten', 'supplementaireKostTerug');
-            ?>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">€</span>
-                </div>
-                <?php
-                $dataSupplementaireKostTerug = array('name' => 'supplementaireKostTerug',
-                    'id' => 'supplementaireKostTerug',
-                    'class' => 'form-control',
-                    'aria-describedby' => 'inputGroupPrepend',
-                    'placeholder' => '5',
-                    'min' => '0',
-                    'step' => '0.01',
-                    'type' => 'number',
-                    'value' => $heenrit->terugRit->supplementaireKost
-                );
-                echo form_input($dataSupplementaireKostTerug) . "\n";
-                ?>
-            </div>
         </div>
     </div>
 </div>
