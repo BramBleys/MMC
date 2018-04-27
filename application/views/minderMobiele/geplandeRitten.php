@@ -48,6 +48,10 @@
         $('[data-toggle="tooltip"]').tooltip();
         var id = $('input[name="gebruikerId"').val();
         haalRittenOp(id);
+
+        $('.verwijderKnop').click(function () {
+            $('#annuleerKnop').closest('a').attr('href', $(this).attr('href'));
+        });
     });
 </script>
 <h2><?= $titel ?></h2>
@@ -55,11 +59,11 @@
 echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
 echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
 $extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
+$button = form_button("knopNieuw", "Nieuwe rit aanvragen", $extraButton);
 echo '<p class="marginTop">' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
 $extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
+$button = form_button("knopAfgelopen", "Afgelopen ritten bekijken", $extraButton);
 echo anchor('minderMobiele/afgelopenRitten', $button) . '</p>';
 
 $wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\"></i>";
@@ -105,8 +109,9 @@ if(count($ritten)!=0){
             } else {
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
-                echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("minderMobiele/schrap/$rit->id", $verwijderknop, $attributesSchrap);
+                echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig);
+                echo "<span id=\"popupKnopTooltip\" class=\"d-inline-block\" tabindex=\"0\" $attributesSchrap>\n";
+                echo anchor("minderMobiele/schrap/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
             }
             echo "</td>\n</tr>\n";
     }
@@ -118,3 +123,32 @@ else{
     echo "<p>Je hebt geen geplande ritten.</p>\n";
 }
 ?>
+
+<!-- Modal -->
+<div class="modal fade" id="bevestigingPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bevestigingPopupTitle">Aanvraag bevestigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ben je zeker dat je de rit wilt annuleren?
+            </div>
+            <div class="modal-footer">
+                <?php
+                $dataAnnuleer = array(
+                    'class' => 'btn btn-secondary',
+                    'data-dismiss' => 'modal',
+                    'content' => 'Rit behouden'
+                );
+                echo form_button($dataAnnuleer);
+                $annuleerKnop = form_button('Rit annuleren', 'Rit annuleren', 'class="btn btn-primary" id="annuleerKnop"');
+                echo anchor('', $annuleerKnop);
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

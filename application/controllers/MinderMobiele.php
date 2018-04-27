@@ -85,7 +85,7 @@ class MinderMobiele extends CI_Controller
     }
 
     public function nieuweRit() {
-        $data['titel'] = 'Rit aanmaken';
+        $data['titel'] = 'Rit aanvragen';
         $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();

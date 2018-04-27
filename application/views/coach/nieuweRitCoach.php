@@ -298,7 +298,7 @@ if(count($minderMobielen)!=0) {
     </div>
 
     <hr>
-    <h3 class="marginTop">Terug rit</h3>
+    <h3 class="marginTop">Terugrit</h3>
     <div class="form-row"  id="checkboxTerugrit">
         <div class="custom-control custom-checkbox">
             <?php
@@ -309,7 +309,7 @@ if(count($minderMobielen)!=0) {
             );
             echo form_checkbox($dataTerugRit) . "\n";
             $attributes = array('class' => 'custom-control-label');
-            echo form_label('Heen en terug rit', 'terugRit', $attributes);
+            echo form_label('Heen- en terugrit', 'terugRit', $attributes);
             ?>
         </div>
     </div>
