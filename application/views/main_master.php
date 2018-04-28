@@ -1,3 +1,17 @@
+<?php
+    /**
+     * @mainpage Commentaar bij Project21_1718
+     * # Wat?
+     * Je vindt hier onze Doxygen-commentaar bij het PHP-project <b>Project21_1718</b>.
+     * - De commentaar bij onze model- en controller-klassen vind je onder het menu <em>Klassen</em>
+     * - De commentaar bij onze view-bestanden vind je onder het menu <em>Bestanden</em>
+     * - ook de originele commentaar geschreven bij het CodeIgniter-framework is opgenomen.
+     *
+     * # Wie?
+     * Dit project is geschreven en becommentarieerd door Bram Bleys, Kilian Fastenakels, Dylan Vernelen Ebert, Christophe Van Hoof
+     */
+?>
+
 <!doctype html>
 <html lang="nl">
 <head>

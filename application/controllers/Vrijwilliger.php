@@ -1,19 +1,35 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 
+    /**
+     * @class Vrijwilliger
+     * @brief Controller-klasse voor Vrijwilliger
+     *
+     * Controller-klasse met alle methodes die gebruikt worden voor de Vrijwilliger
+     */
     class Vrijwilliger extends CI_Controller {
+        /**
+         * Constructor
+         */
         public function __construct() {
             parent::__construct();
         }
 
+        //TODO dit nog vragen hoe het zit met die gebruiker->id
+
+        /**
+         * Haalt de beschikbaarheid op met gebruikerId = $gebruiker->id via vrijwilliger_model en toont het resulterende object in de view beschikbaarheidIngeven.php
+         *
+         * @see Vrijwilliger_model::getBeschikbaarheid()
+         * @see beschikbaarheidIngeven.php
+         */
         public function beschikbaarheidIngeven() {
-            //titel veranderen naar Parameters
+            //titel veranderen naar Beschikbaarheid ingeven
             $data['titel'] = 'Beschikbaarheid ingeven';
             //Login nakijken
             $gebruiker = $this->authex->getGebruikerInfo();
             $data['gebruiker'] = $gebruiker;
             $data['gemaaktDoor'] = "Bram Bleys";
-
 
             //Beschikbaarheid van de gebruiker ophalen
             $this->load->model('vrijwilliger_model');
