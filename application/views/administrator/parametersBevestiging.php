@@ -1,9 +1,3 @@
-<?php/**
-* Created by PhpStorm.
-* User: Kix
-* Date: 3/10/2018
-* Time: 11:10 AM
-*/?>
 <html>
 <head>
 </head>
