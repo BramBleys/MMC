@@ -1,3 +1,10 @@
+<?php
+    /**
+     * @file faq.php
+     *
+     * View waar de bezoeker of gebruiker een lijst van vragen met antwoorden kan vinden voor eventuele problemen
+     */
+?>
 <h3>Bezoeker</h3>
 <div>
     <div class="card">

@@ -1,3 +1,10 @@
+<?php
+    /**
+     * @file contact.php
+     *
+     * View waar de bezoeker of gebruiker de contactgegevens kan vinden
+     */
+?>
 <div class="row">
     <?php
         echo '<h3 class="col-lg-12">' . $titel . '</h3>';

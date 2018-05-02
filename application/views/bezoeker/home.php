@@ -1,3 +1,11 @@
+<?php
+    /**
+     * @file home.php
+     *
+     * View waar de bezoeker of gebruiker de home pagina kan bekijken
+     */
+?>
+
 <div class="row">
     <?php
         foreach ($inhoud as $rij) {

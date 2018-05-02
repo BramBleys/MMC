@@ -2,13 +2,29 @@
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+    /**
+     * @class Authex
+     * @brief Library voor inloggen en sessies
+     *
+     * Library met alle methodes rond inloggen en sessies
+     */
 class Authex {
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         $CI = &get_instance();
         $CI->load->model('gebruiker_model');
     }
 
+    /**
+     * Controleert of er een gebruiker is aangemeld via Authex::isAangemeld() . Indien er niemand is aangemeld gebeurd er niets, anders wordt er een sessie aangemaakt met de gebruikerId uit Gebruiker_model
+     *
+     * @see Authex::isAangemeld()
+     * @see Gebruiker_model::get()
+     * @return De gebruikerId
+     */
     function getGebruikerInfo() {
         // geef gebruiker-object als gebruiker aangemeld is
         $CI = &get_instance();
@@ -21,6 +37,11 @@ class Authex {
         }
     }
 
+    /**
+     * Controleert of er al een sessie bestaat voor de gebruiker
+     *
+     * @return true of false naargelang de gebruiker is aangemeld of niet is aangemeld
+     */
     function isAangemeld() {
         // gebruiker is aangemeld als sessievariabele gebruiker_id bestaat
         $CI = &get_instance();
@@ -32,6 +53,12 @@ class Authex {
         }
     }
 
+    /**
+     * Meldt de gebruiker aan als gebruikersnaam en wachtwoord overeen komen met de database via Gebruiker_model
+     * @param $gebruikersnaam De gebruikersnaam
+     * @param $wachtwoord Het wachtwoord
+     * @return true of false naargelang de gegevens correct of niet correct zijn
+     */
     function meldAan($gebruikersnaam, $wachtwoord) {
         // gebruiker aanmelden met opgegeven gebruikersnaam en wachtwoord
         $CI = &get_instance();
@@ -46,6 +73,9 @@ class Authex {
         }
     }
 
+    /**
+     * Meldt de gebruiker af door sessie weg te doen
+     */
     function meldAf() {
         // afmelden, dus sessievariabele wegdoen
         $CI = &get_instance();

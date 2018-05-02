@@ -1,4 +1,12 @@
 <?php
+    /**
+     * @file inloggen.php
+     *
+     *  View waar de gebruiker zijn inloggegevens kan invullen
+     */
+?>
+
+<?php
     $attributes = array('name' => 'formulier');
     echo form_open("home/controleerInloggen", $attributes);
 ?>
