@@ -80,7 +80,7 @@
                 echo '<li class="nav-item marginTop">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
 
                 if ($gebruiker->soortId!="2"){
-                    echo '<li class="nav-item">' . anchor("Gebruiker/accountBeheren", "Account beheren", 'class= "nav-link"') . '</li>';
+                    echo '<li class="nav-item">' . anchor("Gebruiker/accountBeheren", "Persoonlijke gegevens aanpassen", 'class= "nav-link"') . '</li>';
                 } else {
                     echo '<li class="nav-item">' . anchor("Coach/accountsBeheren/$gebruiker->id", "Gegevens personen aanpassen", 'class= "nav-link"') . '</li>';
                 }

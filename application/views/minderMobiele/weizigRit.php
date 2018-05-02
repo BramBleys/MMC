@@ -13,11 +13,12 @@
                     console.log(maxRitten);
                     console.log(maxRitten - aantalRitten);
                     var start = new Date(startdatum);
-                    var weekNumber = start.getWeek();
-                    console.log("oorspronkelijke week:" + weekNumber);
+                    var startWeekNummer = start.getWeek();
                     var wijzigdatum = new Date(datum);
-                    var weekNumber = wijzigdatum.getWeek();
-                    console.log("week gewijzigde datum:" + weekNumber);
+                    var wijzigWeekNummer = wijzigdatum.getWeek();
+                    if(startWeekNummer == wijzigWeekNummer && start.getFullYear()==wijzigdatum.getFullYear()){
+                        aantalRitten--;
+                    }
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
                         $('#popupKnop').attr("style", "pointer-events: none;");
@@ -39,7 +40,7 @@
 
     Date.prototype.getWeek = function() {
         var onejan = new Date(this.getFullYear(),0,1);
-        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()-1)/7);
     }
 
     $(document).ready(function () {

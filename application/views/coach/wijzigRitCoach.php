@@ -1,5 +1,5 @@
 <script>
-    function haalRittenWeekOp(id, datum) {
+    function haalRittenWeekOp(id, datum, startdatum) {
         $.ajax({type: "GET",
             url: site_url + "/MinderMobiele/haalJsonOp_RittenWeek",
             data: {gebruikerId: id,
@@ -12,6 +12,13 @@
                     console.log(aantalRitten);
                     console.log(maxRitten);
                     console.log(maxRitten - aantalRitten);
+                    var start = new Date(startdatum);
+                    var startWeekNummer = start.getWeek();
+                    var wijzigdatum = new Date(datum);
+                    var wijzigWeekNummer = wijzigdatum.getWeek();
+                    if(startWeekNummer == wijzigWeekNummer && start.getFullYear()==wijzigdatum.getFullYear()){
+                        aantalRitten--;
+                    }
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
                         $('#popupKnop').attr("style", "pointer-events: none;");
@@ -30,7 +37,14 @@
             }
         });
     }
+
+    Date.prototype.getWeek = function() {
+        var onejan = new Date(this.getFullYear(),0,1);
+        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()-1)/7);
+    }
+
     $(document).ready(function () {
+        var startdatum = $("#datum").val();
         $('[data-toggle="tooltip"]').tooltip();
         if (!$("#vertrekPlaats").is(':checked')){
             $("#vertrekGegevens").hide();
@@ -66,14 +80,14 @@
         $("#datum").blur(function () {
             var datum = $(this).val();
             var id = $('input[name="gekozenAccountId"]').val();
-            haalRittenWeekOp(id, datum);
+            haalRittenWeekOp(id, datum, startdatum);
         });
 
         $('select[name="minderMobielen"]').change(function(){
             var accountId = $(this).val();
 
             var datum = $('#datum').val();
-            haalRittenWeekOp(accountId, datum);
+            haalRittenWeekOp(accountId, datum, startdatum);
             $('input[name="gekozenAccountId"]').val(accountId);
             $('.naamTitel').text($('select[name="minderMobielen"] option:selected' ).text());
         });
