@@ -28,7 +28,7 @@
                                 if (response.rows[0].elements[0].status == 'OK') {
                                     var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
                                     var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
-                                    var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                                    var prijs = parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand;
                                     console.log(prijs);
                                     $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
                                 }
@@ -46,7 +46,7 @@
     }
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
-        var id = $('input[name="gebruikerId"').val();
+        var id = $('input[name="gebruikerId"]').val();
         haalRittenOp(id);
 
         $('.verwijderKnop').click(function () {
@@ -56,7 +56,7 @@
 </script>
 <h2><?= $titel . $account->voornaam ?></h2>
 <?php
-echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
+echo form_hidden('gebruikerId', $account->id) . "\n";
 echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
 $extraButton = array('class' => 'btn achtergrond');
 $button = form_button("knopNieuw", "Nieuwe rit aanvragen", $extraButton);

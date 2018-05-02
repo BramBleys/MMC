@@ -252,4 +252,40 @@ class MMCMedewerker extends CI_Controller {
             redirect('Home');
         }
     }
+
+    // Aanvragen beheren
+    public function aanvragenBeheren() {
+        if(!$this->authex->isAangemeld()) {
+            redirect('home/inloggen');
+        } else {
+            $data['titel'] = 'Aanvragen beheren';
+            $data['gemaaktDoor'] = "Christophe Van Hoof";
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            $this->load->model('Rit_model');
+            $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdres();
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'MMCMedewerker/aanvragenBeheren');
+            $this->template->load('main_master', $partials, $data);
+        }
+    }
+
+    // Aanvraag wijzigen
+    public function aanvraagWijzigen($ritId) {
+        if(!$this->authex->isAangemeld()) {
+            redirect('home/inloggen');
+        } else {
+            $data['titel'] = 'Aanvraag wijzigen';
+            $data['gemaaktDoor'] = "Christophe Van Hoof";
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+            $this->load->model('Rit_model');
+            $data['rit'] = $this->Rit_model->getRitWithGebruikerEnAdres($ritId);
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'MMCMedewerker/wijzigAanvraag');
+            $this->template->load('main_master', $partials, $data);
+        }
+    }
 }

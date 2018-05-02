@@ -20,4 +20,11 @@ class Coach_model extends CI_Model {
         return $gebruikerIds;
     }
 
+    function getCoachWhereMinderMobiele($minderMobieleId) {
+        $this->db->where('gebruikerIdMinderMobiele', $minderMobieleId);
+        $query = $this->db->get('coach');
+
+        return $query->row();
+    }
+
 }
