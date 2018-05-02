@@ -21,7 +21,12 @@ class Administrator extends CI_Controller
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $data['gemaaktDoor'] = "Kilian Fastenakels";
+        $parameters = new stdClass();
 
+        $this->load->model('Parameters_model');
+        $parameters = $this->Parameters_model->get();
+
+        $data['parameters'] = $parameters;
         //Templates definieren en inladen
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/parameters');
         $this->template->load('main_master', $partials, $data);

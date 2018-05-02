@@ -6,8 +6,6 @@
      * Time: 3:10 PM
      */
 ?>
-<html>
-<head>
     <script>
         var action;
         $(document).ready(function () {
@@ -18,8 +16,6 @@
             });
         });
     </script>
-</head>
-<body>
 
     <table class="table table-hover marginTop">
         <?php
@@ -59,7 +55,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="modal-body">
                 Ben je zeker dat je het sjabloon wilt verwijderen ?
             </div>
@@ -70,9 +65,7 @@
         </div>
     </div>
 </div>
-=======
         </div>
->>>>>>> 31eebc779b5cc948d5612d9c0fe3c9a36cb3229a
 
         <?php
 
@@ -80,5 +73,3 @@
 
         ?>
     </table>
-</body>
-</html>

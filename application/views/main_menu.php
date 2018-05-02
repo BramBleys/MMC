@@ -41,7 +41,7 @@
                                 echo '<li class="nav-item">' . anchor("administrator/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
                                 echo '<li class="nav-item">' . anchor("administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
-                                echo '<li class="nav-item">' . anchor("administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
+                                echo '<li class="nav-item">' . anchor("administrator/index", "Parameters beheren", 'class= "nav-link"') . '</li>';
                                 break;
                         }
                     }
@@ -69,7 +69,7 @@
                             echo '<li class="nav-item">' . anchor("Administrator/gebruikersBeheren/1", "Gebruikers beheren", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Administrator/sjablonenBeheren", "Sjablonen beheren", 'class= "nav-link"') . '</li>';
                             echo '<li class="nav-item">' . anchor("Administrator/websiteBeheren", "Website beheren", 'class= "nav-link"') . '</li>';
-                            echo '<li class="nav-item">' . anchor("Administrator/index", "Configuratie beheren", 'class= "nav-link"') . '</li>';
+                            echo '<li class="nav-item">' . anchor("Administrator/index", "Parameters beheren", 'class= "nav-link"') . '</li>';
                             break;
                     }
                 }
