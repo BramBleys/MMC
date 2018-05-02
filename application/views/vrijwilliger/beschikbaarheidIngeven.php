@@ -1,3 +1,14 @@
+<?php
+    /**
+     * @file beschikbaarheidIngeven.php
+     *
+     * View waarin de vrijwilliger ondersteuning krijgt om de agenda te leren gebruiken en zijn beschikbaarheid kan bekijken en ingeven per week.
+     * - Krijgt een array van $beschikbaarheid van de vrijwilliger binnen
+     * - Gebruikt de plugin bootstrap-weekpicker.js
+     * - Gebruikt de plugin day-selector.js
+     * - Gebruikt Bootstrap-modal
+     */
+?>
 <h3>Beschikbaarheid ingeven</h3>
 
 <link rel="stylesheet" href="https://cdn.rawgit.com/pingcheng/bootstrap4-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">

@@ -91,3 +91,21 @@ main{
 .gebruikerOphalen {
     margin-bottom: 0.5rem;
 }
+
+.rightText {
+    text-align: center;
+}
+
+.leftText {
+    text-align: center;
+}
+
+@media(min-width: 768px) {
+    .rightText {
+        text-align: right;
+    }   
+    
+    .leftText {
+        text-align: left;
+    }
+}

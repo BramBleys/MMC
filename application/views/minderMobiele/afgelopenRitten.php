@@ -54,11 +54,11 @@
 echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
 echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
 $extraButton = array('class' => 'btn achtergrond margin-top');
-$button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
+$button = form_button("knopNieuw", "Nieuwe rit aanvragen", $extraButton);
 echo '<p>' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
 $extraButton = array('class' => 'btn achtergrond margin-top');
-$button = form_button("knopGepland", "Geplande ritten", $extraButton);
+$button = form_button("knopGepland", "Geplande ritten bekijken", $extraButton);
 echo anchor('minderMobiele', $button) . '</p>';
 
 

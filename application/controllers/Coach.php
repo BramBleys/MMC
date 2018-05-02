@@ -10,7 +10,7 @@
         }
 
         public function index() {
-            $data['titel'] = 'Minder Mobielen';
+            $data['titel'] = 'Overzicht personen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
             if($this->session->has_userdata('gebruiker_id')){
@@ -109,7 +109,7 @@
         }
 
         public function nieuweRit($accountId) {
-            $data['titel'] = 'Rit aanmaken';
+            $data['titel'] = 'Rit aanvragen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
@@ -181,7 +181,6 @@
                     $datum = $this->input->post('datum');
                     $uur = $this->input->post('uur');
                     $rit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
-                    $rit->supplementaireKost = ($this->input->post('supplementaireKost') == '0' || $this->input->post('supplementaireKost') == '' ? NULL : $this->input->post('supplementaireKost'));
                     $rit->opmerking = ($this->input->post('opmerkingen') == '' || $this->input->post('opmerkingen') == ' ' ? NULL : $this->input->post('opmerkingen'));
                     $this->load->model('rit_model');
                     $heenRitId = $this->rit_model->insert($rit);
@@ -192,8 +191,7 @@
                         $terugRit->adresIdBestemming = $rit->adresIdVertrek;
                         $datum = $this->input->post('datumTerug');
                         $uur = $this->input->post('uurTerug');
-                        $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';;
-                        $terugRit->supplementaireKost = ($this->input->post('supplementaireKostTerug') == '0' || $this->input->post('supplementaireKostTerug') == '' ? NULL : $this->input->post('supplementaireKostTerug'));
+                        $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
                         $terugRit->opmerking = ($this->input->post('opmerkingenTerug') == '' || $this->input->post('opmerkingenTerug') == ' ' ? NULL : $this->input->post('opmerkingenTerug'));
                         $terugRit->ritIdHeenrit = $heenRitId;
                         $terugRitId = $this->rit_model->insert($terugRit);
@@ -216,7 +214,7 @@
         }
 
         public function accountsBeheren($accountId) {
-            $data['titel'] = 'Account gegevens wijzigen';
+            $data['titel'] = 'Persoonlijke gegevens aanpassen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
             if($this->session->has_userdata('gebruiker_id')) {

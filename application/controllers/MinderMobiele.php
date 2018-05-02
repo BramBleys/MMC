@@ -85,7 +85,7 @@ class MinderMobiele extends CI_Controller
     }
 
     public function nieuweRit() {
-        $data['titel'] = 'Rit aanmaken';
+        $data['titel'] = 'Rit aanvragen';
         $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
@@ -141,7 +141,6 @@ class MinderMobiele extends CI_Controller
                 $datum = $this->input->post('datum');
                 $uur = $this->input->post('uur');
                 $rit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
-                $rit->supplementaireKost = ($this->input->post('supplementaireKost')=='0' || $this->input->post('supplementaireKost')=='' ? NULL : $this->input->post('supplementaireKost'));
                 $rit->opmerking = ($this->input->post('opmerkingen') == '' || $this->input->post('opmerkingen') == ' ' ? NULL : $this->input->post('opmerkingen'));
                 $this->load->model('rit_model');
                 $heenRitId = $this->rit_model->insert($rit);
@@ -153,7 +152,6 @@ class MinderMobiele extends CI_Controller
                     $datum = $this->input->post('datumTerug');
                     $uur = $this->input->post('uurTerug');
                     $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';;
-                    $terugRit->supplementaireKost = ($this->input->post('supplementaireKostTerug')=='0' || $this->input->post('supplementaireKostTerug')=='' ? NULL : $this->input->post('supplementaireKostTerug'));
                     $terugRit->opmerking = ($this->input->post('opmerkingenTerug') == '' || $this->input->post('opmerkingenTerug') == ' ' ? NULL : $this->input->post('opmerkingenTerug'));
                     $terugRit->ritIdHeenrit = $heenRitId;
                     $terugRitId = $this->rit_model->insert($terugRit);
@@ -186,7 +184,6 @@ class MinderMobiele extends CI_Controller
                     $heenRit->terugRit = new stdClass();
                     $heenRit->terugRit->id = "";
                     $heenRit->terugRit->vertrekTijdstip = "";
-                    $heenRit->terugRit->supplementaireKost = "";
                     $heenRit->terugRit->opmerking = "";
                 }
             }
@@ -258,7 +255,6 @@ class MinderMobiele extends CI_Controller
                 $datum = $this->input->post('datum');
                 $uur = $this->input->post('uur');
                 $rit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
-                $rit->supplementaireKost = ($this->input->post('supplementaireKost')=='0' || $this->input->post('supplementaireKost')=='' ? NULL : $this->input->post('supplementaireKost'));
                 $rit->opmerking = ($this->input->post('opmerkingen') == '' || $this->input->post('opmerkingen') == ' ' ? NULL : $this->input->post('opmerkingen'));
                 $this->load->model('rit_model');
                 $heenRitId = $this->rit_model->insert($rit);
@@ -269,8 +265,7 @@ class MinderMobiele extends CI_Controller
                     $terugRit->adresIdBestemming = $rit->adresIdVertrek;
                     $datum = $this->input->post('datumTerug');
                     $uur = $this->input->post('uurTerug');
-                    $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';;
-                    $terugRit->supplementaireKost = ($this->input->post('supplementaireKostTerug')=='0' || $this->input->post('supplementaireKostTerug')=='' ? NULL : $this->input->post('supplementaireKostTerug'));
+                    $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
                     $terugRit->opmerking = ($this->input->post('opmerkingenTerug') == '' || $this->input->post('opmerkingenTerug') == ' ' ? NULL : $this->input->post('opmerkingenTerug'));
                     $terugRit->ritIdHeenrit = $heenRitId;
                     $terugRitId = $this->rit_model->insert($terugRit);

@@ -1,3 +1,17 @@
+<?php
+    /**
+     * @mainpage Commentaar bij Project21_1718
+     * # Wat?
+     * Je vindt hier onze Doxygen-commentaar bij het PHP-project <b>Project21_1718</b>.
+     * - De commentaar bij onze model- en controller-klassen vind je onder het menu <em>Klassen</em>
+     * - De commentaar bij onze view-bestanden vind je onder het menu <em>Bestanden</em>
+     * - ook de originele commentaar geschreven bij het CodeIgniter-framework is opgenomen.
+     *
+     * # Wie?
+     * Dit project is geschreven en becommentarieerd door Bram Bleys, Kilian Fastenakels, Dylan Vernelen Ebert, Christophe Van Hoof
+     */
+?>
+
 <!doctype html>
 <html lang="nl">
 <head>
@@ -43,7 +57,11 @@
                     <div class="navbar-nav">
                         <?php echo anchor('home/index', 'Home <span class="sr-only">(current)</span>', array('class' => 'nav-item nav-link active')) . "\n" ?>
                         <?php echo anchor('home/contact', 'Contact', array('class' => 'nav-item nav-link')) . "\n" ?>
+
                     </div>
+                </div>
+                <div class="text-right">
+                    <span><i>Dit is een proefproject!</i></span>
                 </div>
             </div>
         </nav>
@@ -51,17 +69,17 @@
     <main id="main-content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <main class="marginTop">
-                        <?php echo $inhoud; ?>
-                    </main>
-                </div>
-                <div class="col-lg-3 offset-lg-1">
+                <div class="col-lg-3 offset-lg-1 order-lg-12">
                     <aside>
                         <nav>
                             <?php echo $navigatie; ?>
                         </nav>
                     </aside>
+                </div>
+                <div class="col-lg-8 order-lg-1">
+                    <main class="marginTop">
+                        <?php echo $inhoud; ?>
+                    </main>
                 </div>
             </div>
         </div>
@@ -70,10 +88,18 @@
         <div class="footer-main d-flex align-items-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 text-left">
-                        Deze pagina is gemaakt door <?php echo $gemaaktDoor ?>
+                    <div class="col-12 col-md-8 leftText">
+                        <p>Deze pagina is gemaakt door <?php echo $gemaaktDoor; ?></p>
+                        <h5>Team 21</h5>
+                        <p>
+                            Bram Bleys<br>
+                            Kilian Fastenakels<br>
+                            Dylan Vernelen Ebert<br>
+                            Christophe Van Hoof
+                        </p>
+                        <p>Opdrachtgever: Mevr. Maes</p>
                     </div>
-                    <div class="col-lg-6 text-right">
+                    <div class="col-12 col-md-4 rightText">
                         <h3>Contactgegevens</h3>
                         <p>
                             Tel: 070 22 22 92<br>
@@ -90,11 +116,10 @@
                     <div class="col-12">
                         <hr class="hr-footer">
                     </div>
-                    <div class="col">
-                        <p class="text-left">Made with <i class="material-icons">favorite</i> by
-                            Brogrammers</p>
+                    <div class="col-6">
+                        <p class="text-left">Made with <i class="material-icons">favorite</i> by Brogrammers</p>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <p class="text-right">&copy; MMC - 2018</p>
                     </div>
                 </div>

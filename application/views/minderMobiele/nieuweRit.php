@@ -14,9 +14,11 @@
                     console.log(maxRitten - aantalRitten);
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
+                        $('#popupKnop').attr("style", "pointer-events: none;");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
                     } else {
                         $('#popupKnop').removeAttr("disabled");
+                        $('#popupKnop').removeAttr("style");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb nog " + (maxRitten - aantalRitten) + " ritten voor de gekozen week over.");
                     }
                 } catch (error) {
@@ -60,7 +62,7 @@
 </script>
 
 <h2><?= $titel ?></h2>
-<h3 class="marginTop">Rit gegevens</h3>
+<h3 class="marginTop">Rit gegevens invullen</h3>
 <?php
     echo form_hidden('gebruikerId', $gebruiker->id) . "\n";
     echo form_hidden('maxRitten', $parameters->maxRitten) . "\n";
@@ -245,32 +247,10 @@
         echo form_textarea($dataOpmerkingen);
         ?>
     </div>
-    <div class="col-md-4">
-        <?php
-        echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
-        ?>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupPrepend">€</span>
-            </div>
-            <?php
-            $dataSupplementaireKost = array('name' => 'supplementaireKost',
-                'id' => 'supplementaireKost',
-                'class' => 'form-control',
-                'aria-describedby' => 'inputGroupPrepend',
-                'placeholder' => '5',
-                'min' => '0',
-                'step' => '0.01',
-                'type' => 'number'
-            );
-            echo form_input($dataSupplementaireKost) . "\n";
-            ?>
-        </div>
-    </div>
 </div>
 
 <hr>
-<h3 class="marginTop">Terug rit</h3>
+<h2 class="marginTop">Terugrit aanvragen</h2>
 <div class="form-row"  id="checkboxTerugrit">
     <div class="custom-control custom-checkbox">
         <?php
@@ -281,12 +261,12 @@
         );
         echo form_checkbox($dataTerugRit) . "\n";
         $attributes = array('class' => 'custom-control-label');
-        echo form_label('Heen en terug rit', 'terugRit', $attributes);
+        echo form_label('Ik neem een heen- en terugrit', 'terugRit', $attributes);
         ?>
     </div>
 </div>
-
 <div id="terugritGegevens" class="marginTop">
+    <h3 class="marginTop">Terugrit gegevens invullen</h3>
     <div class="form-row">
         <div class="col-sm-6">
             <?php
@@ -333,28 +313,6 @@
             echo form_textarea($dataOpmerkingen);
             ?>
         </div>
-        <div class="col-md-4">
-            <?php
-            echo form_labelpro('Totaal van extra kosten', 'supplementaireKostTerug');
-            ?>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">€</span>
-                </div>
-                <?php
-                $dataSupplementaireKostTerug = array('name' => 'supplementaireKostTerug',
-                    'id' => 'supplementaireKostTerug',
-                    'class' => 'form-control',
-                    'aria-describedby' => 'inputGroupPrepend',
-                    'placeholder' => '5',
-                    'min' => '0',
-                    'step' => '0.01',
-                    'type' => 'number'
-                );
-                echo form_input($dataSupplementaireKostTerug) . "\n";
-                ?>
-            </div>
-        </div>
     </div>
 </div>
 <span id="popupKnopTooltip" class="d-inline-block marginTop" tabindex="0" data-toggle="tooltip">
@@ -364,8 +322,7 @@ $dataPopupKnop = array('name' => 'popupKnop',
     'class' => 'btn btn-primary',
     'data-toggle' => 'modal',
     'data-target' => '#bevestigingPopup',
-    'content' => 'Opslaan',
-    'style' => "pointer-events: none;"
+    'content' => 'Opslaan'
 );
 echo form_button($dataPopupKnop);
 ?>

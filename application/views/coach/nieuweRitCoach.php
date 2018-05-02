@@ -14,9 +14,11 @@
                     console.log(maxRitten - aantalRitten);
                     if(maxRitten - aantalRitten <= 0){
                         $('#popupKnop').attr("disabled", "disabled");
+                        $('#popupKnop').attr("style", "pointer-events: none;");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb jouw " + maxRitten + " ritten voor de gekozen week al gebruikt.");
                     } else {
                         $('#popupKnop').removeAttr("disabled");
+                        $('#popupKnop').removeAttr("style");
                         $('#popupKnopTooltip').attr("data-original-title", "Je heb nog " + (maxRitten - aantalRitten) + " ritten voor de gekozen week over.");
                     }
                 } catch (error) {
@@ -271,32 +273,10 @@ if(count($minderMobielen)!=0) {
             echo form_textarea($dataOpmerkingen);
             ?>
         </div>
-        <div class="col-md-4">
-            <?php
-            echo form_labelpro('Totaal van extra kosten', 'supplementaireKost');
-            ?>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend">€</span>
-                </div>
-                <?php
-                $dataSupplementaireKost = array('name' => 'supplementaireKost',
-                    'id' => 'supplementaireKost',
-                    'class' => 'form-control',
-                    'aria-describedby' => 'inputGroupPrepend',
-                    'placeholder' => '5',
-                    'min' => '0',
-                    'step' => '0.01',
-                    'type' => 'number'
-                );
-                echo form_input($dataSupplementaireKost) . "\n";
-                ?>
-            </div>
-        </div>
     </div>
 
     <hr>
-    <h3 class="marginTop">Terug rit</h3>
+    <h3 class="marginTop">Terugrit</h3>
     <div class="form-row"  id="checkboxTerugrit">
         <div class="custom-control custom-checkbox">
             <?php
@@ -307,7 +287,7 @@ if(count($minderMobielen)!=0) {
             );
             echo form_checkbox($dataTerugRit) . "\n";
             $attributes = array('class' => 'custom-control-label');
-            echo form_label('Heen en terug rit', 'terugRit', $attributes);
+            echo form_label('Heen- en terugrit', 'terugRit', $attributes);
             ?>
         </div>
     </div>
@@ -359,28 +339,6 @@ if(count($minderMobielen)!=0) {
                 echo form_textarea($dataOpmerkingen);
                 ?>
             </div>
-            <div class="col-md-4">
-                <?php
-                echo form_labelpro('Totaal van extra kosten', 'supplementaireKostTerug');
-                ?>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupPrepend">€</span>
-                    </div>
-                    <?php
-                    $dataSupplementaireKostTerug = array('name' => 'supplementaireKostTerug',
-                        'id' => 'supplementaireKostTerug',
-                        'class' => 'form-control',
-                        'aria-describedby' => 'inputGroupPrepend',
-                        'placeholder' => '5',
-                        'min' => '0',
-                        'step' => '0.01',
-                        'type' => 'number'
-                    );
-                    echo form_input($dataSupplementaireKostTerug) . "\n";
-                    ?>
-                </div>
-            </div>
         </div>
     </div>
     <span id="popupKnopTooltip" class="d-inline-block marginTop" tabindex="0" data-toggle="tooltip">
@@ -390,8 +348,7 @@ if(count($minderMobielen)!=0) {
         'class' => 'btn btn-primary',
         'data-toggle' => 'modal',
         'data-target' => '#bevestigingPopup',
-        'content' => 'Opslaan',
-        'style' => "pointer-events: none;"
+        'content' => 'Opslaan'
     );
     echo form_button($dataPopupKnop);
     ?>
