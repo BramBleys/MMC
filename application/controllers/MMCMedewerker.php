@@ -7,6 +7,7 @@ class MMCMedewerker extends CI_Controller {
         parent::__construct();
         $this->load->library('Template');
         $this->load->helper('form');
+        $this->load->helper('notation_helper');
     }
 
     public function gebruikersBeheren($soort) {
@@ -15,8 +16,6 @@ class MMCMedewerker extends CI_Controller {
 
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')){
-            $gebruikerId = $this->session->userdata('gebruiker_id');
-
             $this->load->model('Gebruiker_model');
             $data['gebruikers'] = $this->Gebruiker_model->getAllGebruikers();
 
@@ -226,5 +225,31 @@ class MMCMedewerker extends CI_Controller {
     public function toonMeldingWijzigingOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol gewijzigd!', array("url" => "/MMCMedewerker/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
 
+    }
+
+    public function rittenBekijken($gebruikerId)
+    {
+        $data['titel'] = 'Geplande ritten voor ';
+        $data['gemaaktDoor'] = "Christophe Van Hoof";
+
+        $data['gebruiker'] = $this->authex->getGebruikerInfo();
+
+        if($this->session->has_userdata('gebruiker_id')){
+
+            $this->load->model('Gebruiker_model');
+            $data['account'] = $this->Gebruiker_model->get($gebruikerId);
+
+            $this->load->model('Rit_model');
+            $data['ritten'] = $this->Rit_model->getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId);
+
+            $this->load->model('Parameters_model');
+            $data['parameters'] = $this->Parameters_model->get();
+
+            $partials = array( 'navigatie' => 'main_menu',
+                'inhoud' => 'MMCMedewerker/geplandeRitten');
+            $this->template->load('main_master', $partials, $data);
+        } else {
+            redirect('Home');
+        }
     }
 }
