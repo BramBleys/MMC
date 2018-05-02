@@ -109,9 +109,9 @@ if(count($ritten)!=0){
             } else {
                 $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
                 $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
-                echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig);
+                echo anchor("coach/wijzigRit/$account->id/$rit->id", $wijzigknop, $attributesWijzig);
                 echo "<span id=\"popupKnopTooltip\" class=\"d-inline-block\" tabindex=\"0\" $attributesSchrap>\n";
-                echo anchor("minderMobiele/schrap/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
+                echo anchor("coach/schrap/$account->id/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
             }
             echo "</td>\n</tr>\n";
     }

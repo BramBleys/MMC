@@ -32,12 +32,12 @@
 
 <?php
 
-if(count($minderMobielen)!=0) {
-    echo "<h2>$titel van <span id=\"naamTitel\">$gekozenAccount->voornaam $gekozenAccount->naam</span></h2>\n";
+$idArray = str_split($gebruiker->soortId);
+echo "<h2>$titel van <span id=\"naamTitel\">$gekozenAccount->voornaam $gekozenAccount->naam</span></h2>\n";
+if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
     echo "<div class=\"form-row\">\n<div class=\"col-md-4\">";
     echo form_labelpro('Persoon', 'minderMobielen');
     $dataDropdown = array();
-    $idArray = str_split($gebruiker->soortId);
     if(in_array('1', $idArray)){
         $dataDropdown[$gebruiker->id] = "$gebruiker->voornaam $gebruiker->naam";
     }
@@ -49,7 +49,7 @@ if(count($minderMobielen)!=0) {
     echo form_hidden('accountId', $gekozenAccount->id);
     echo "<div id=\"ritGegevens\"></div>";
 } else {
-    echo "<p>Je beheert nog geen minder mobielen.</p>\n";
+    echo "<p>Je beheert nog geen personen die een rit kunnen aanvragen.</p>\n";
 }
 ?>
 

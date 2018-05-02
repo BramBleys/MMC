@@ -49,7 +49,7 @@ if(count($minderMobielen)!=0) {
     echo form_hidden('accountId', $gekozenAccount->id);
     echo "<div id=\"ritGegevens\"></div>";
 } else {
-    echo "<p>Je beheert nog geen minder mobielen.</p>\n";
+    echo "<p>Je beheert nog geen personen die een rit kunnen aanvragen.</p>\n";
 }
 ?>
 

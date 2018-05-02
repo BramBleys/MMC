@@ -70,11 +70,16 @@ class Rit_model extends CI_Model {
 
     function getWhereDatum($gebruikerId, $datum)
     {
-        // geef gebruiker-object met opgegeven $id met de geplande ritten
         $date = strtotime($datum);
-        $startdate = strtotime("last monday", $date);
-        $enddate = strtotime("monday", $date);
-        $enddate = strtotime("-1 second", $enddate);
+        $weekDag = date('w', $date);
+        if ($weekDag != 1){
+            $startdate = strtotime("last monday", $date);
+            $enddate = strtotime("monday", $date);
+
+        } else {
+            $startdate = strtotime("today", $date);
+            $enddate = strtotime("next monday", $date);
+        }
         $startdate = date('Y-m-d H:i:s', $startdate);
         $enddate = date('Y-m-d H:i:s', $enddate) ;
         $this->db->order_by('vertrekTijdstip');
