@@ -15,10 +15,8 @@
             parent::__construct();
         }
 
-        //TODO dit nog vragen hoe het zit met die gebruiker->id
-
         /**
-         * Haalt de beschikbaarheid op met gebruikerId = $gebruiker->id via vrijwilliger_model en toont het resulterende object in de view beschikbaarheidIngeven.php
+         * Haalt de beschikbaarheid op met gebruikerId = $gebruiker->id via Vrijwilliger_model en toont het resulterende object in de view beschikbaarheidIngeven.php
          *
          * @see Vrijwilliger_model::getBeschikbaarheid()
          * @see beschikbaarheidIngeven.php
@@ -40,6 +38,14 @@
             $this->template->load('main_master', $partials, $data);
         }
 
+        /**
+         * Haalt alle ritten op met gebruikerId = $gebruiker->id via Rit_model. Maakt een nieuw object met de naam van de gebruiker, de correcte datums, de correcte adressen en bijkomende kosten via MinderMobiele_model en Adres_model. Dit object wordt getoond in de view agendaBekijken.php
+         *
+         * @see Rit_model::getAllRitten()
+         * @see MinderMobiele_model::getNaam()
+         * @see Adres_model::getAdres()
+         * @see agendaBekijken.php
+         */
         public function agendaBekijken() {
             $data['titel'] = "Agenda bekijken";
 
@@ -79,7 +85,7 @@
                 $bestemming = $this->adres_model->getAdres($ritten[$i]->adresIdBestemming);
                 $nieuweRitten[$i]->bestemming = $bestemming->straatEnNummer . ' ' . $vertrekAdres->gemeente;
 
-                //Voeg suplmentaire kost, heenrit en opmerking toe aan nieuwe object
+                //Voeg suplementaire kost, heenrit en opmerking toe aan nieuwe object
                 $nieuweRitten[$i]->supplementaireKost = $ritten[$i]->supplementaireKost;
                 $nieuweRitten[$i]->heenrit = $ritten[$i]->ritIdHeenrit;
                 $nieuweRitten[$i]->opmerking = $ritten[$i]->opmerking;
@@ -90,6 +96,10 @@
             $this->template->load('main_master', $partials, $data);
         }
 
+        /**
+         * Haalt de beschikbaarheid op voor een week met startDatum = $week_start en eindDatum = $week_einde voor de gebruiker met gebruikerId = $gebruikerId via Vrijwilliger_model en geeft het object door naar de ajax functie in beschikbaarheidIngeven.php
+         * @see Vrijwilliger_model::getBeschikbaarheidWhereStartDatumEnEindDatum()
+         */
         public function haalJsonOp_Datums() {
             $week = $this->input->get('week');
             $jaar = $this->input->get('jaar');
@@ -106,6 +116,9 @@
             echo json_encode($datums);
         }
 
+        /**
+         * Haalt de begin- en einddatum met weeknummer = $week en een jaar = $jaar op en geeft het object door naar de ajax functie in beschikbaarheidIngeven.php
+         */
         public function haalDatumsOp() {
             $week = $this->input->get('week');
             $jaar = $this->input->get('jaar');
@@ -121,6 +134,10 @@
             echo json_encode($weekStartEnEinde);
         }
 
+        /**
+         * Schrijft nieuwe uren weg naar de database met gebruikerId = $gebruikerId, dag = $beginWeek, startUur = $startUur en eindUur = $einUur via Vrijwilliger_model
+         * @see Vrijwilliger_model::schrijfNieuweUrenWeg()
+         */
         public function schrijfNieuweUrenWeg() {
             $beginWeek = $this->input->get('beginWeek');
             $dagNummer = $this->input->get('dagNummer');
