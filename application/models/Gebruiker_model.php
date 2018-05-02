@@ -1,6 +1,13 @@
 <?php
 
+    /**
+     * @class Gebruiker_model
+     * @brief Model-klasse voor de gebruiker
+     *
+     * Model-klasse die alle methodes bevat om te interageren met de database-tabel gebruiker
+     */
     class Gebruiker_model extends CI_Model {
+
         function insert($gegevens) {
             //voeg een nieuwe gebruiker toe
             $this->db->insert('gebruiker', $gegevens);
@@ -13,6 +20,12 @@
             $this->db->update('gebruiker', $gegevens);
         }
 
+        /**
+         * Retourneert een gebruiker object met gebruikerId = $id
+         *
+         * @param $id De gebruiker id
+         * @return Een gebruiker object
+         */
         function get($id) {
             // geef gebruiker-object met opgegeven id
             $this->db->where('id', $id);
@@ -21,6 +34,12 @@
             return $query->row();
         }
 
+        /**
+         * Retourneert een gebruiker object als het opgegeven wachtwoord en de opgegeven gebruikersnaam overeen komen met de database. Indien dit niet het geval is dan retourneert het null
+         * @param $gebruikersnaam De ingegeven gebruikersnaam
+         * @param $wachtwoord Het ingegeven wachtwoord
+         * @return null of gebruiker object
+         */
         function getGebruikerLogin($gebruikersnaam, $wachtwoord) {
             // geef gebruiker-object met gebruikersnaam en wachtwoord
             $this->db->where('gebruikersnaam', $gebruikersnaam);
@@ -60,7 +79,7 @@
 
         function getAllGebruikersWithSoort($soortId) {
             // geef alle gebruiker-objecten met soort
-            $this->db->where('soortId',$soortId);
+            $this->db->where('soortId', $soortId);
             $query = $this->db->get('gebruiker');
             $gebruikers = $query->result();
 
@@ -71,20 +90,20 @@
 
             return $gebruikers;
         }
-        
-        function getGebruiker($gebruikerId){
+
+        function getGebruiker($gebruikerId) {
             $this->db->where('id', $gebruikerId);
             $query = $this->db->get('gebruiker');
             $gebruiker = $query->row();
             return $gebruiker;
         }
 
-        function getGebruikerWhereCoach($coachId){
+        function getGebruikerWhereCoach($coachId) {
             $this->load->model('coach_model');
             $gebruikerIds = $this->coach_model->getGebruikerWhereCoach($coachId);
             $gebruikers = array();
             $this->load->model('gebruiker_model');
-            foreach ($gebruikerIds as $gebruikerId){
+            foreach ($gebruikerIds as $gebruikerId) {
                 $gebruikers[] = $this->gebruiker_model->get($gebruikerId->gebruikerIdMinderMobiele);
             }
             return $gebruikers;

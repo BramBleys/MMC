@@ -1,17 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kix
- * Date: 3/28/2018
- * Time: 12:17 PM
- */
+    /**
+     * @class Inhoud_model
+     * @brief Model-klasse voor de inhoud op de pagina
+     *
+     * Model-klasse die alle methodes bevat om te interageren met de database-tabel inhoud
+     */
 
 class Inhoud_model extends CI_Model {
 
+    /**
+     * Constructor
+     */
     function __construct() {
         parent::__construct();
     }
 
+    /**
+     * Retourneert een array van teksten voor de pagina met paginaId = $paginaId
+     * @param $paginaId De id van de pagina waar we de inhoud van willen opvragen
+     * @return Een array van teksten voor op de pagina
+     */
     function getInhoud($paginaId){
         $this->db->order_by('naam', 'ASC');
         $this->db->where('paginaId', $paginaId);

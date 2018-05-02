@@ -58,6 +58,8 @@ class Authex {
      * @param $gebruikersnaam De gebruikersnaam
      * @param $wachtwoord Het wachtwoord
      * @return true of false naargelang de gegevens correct of niet correct zijn
+     *
+     * @see Gebruiker_model::getGebruikerLogin()
      */
     function meldAan($gebruikersnaam, $wachtwoord) {
         // gebruiker aanmelden met opgegeven gebruikersnaam en wachtwoord

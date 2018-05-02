@@ -88,7 +88,7 @@
         }
 
         /**
-         * Haalt de parameters op via Parameters_model en toont de view faq.hp
+         * Haalt de parameters op via Parameters_model en toont de view faq.php
          *
          * @see Parameters_model::get()
          * @see faq.php

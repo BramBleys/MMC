@@ -16,7 +16,7 @@
         }
 
         /**
-         * Retourneert een array met gebruikerId = $gebruikerId uit de tabel vrijwilliger
+         * Retourneert een array van gegevens voor gebruiker met gebruikerId = $gebruikerId uit de tabel vrijwilliger
          * @param $gebruikerId De id van de gebruiker waar we informatie over nodig hebben
          * @return Een array met alle datums waarop de vrijwilliger beschikbaar is
          */
