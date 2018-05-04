@@ -4,20 +4,30 @@ echo heading($titel,2,'class="mb-3"') . "\n";
 
 echo form_open('MMCMedewerker/wijzigAanvraag', 'class="needs-validation" novalidate');
 
-echo heading('Persoon',3,'class="mb-2"') . "\n";
-
+echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 ?>
 
 <div class="form-row">
+    <div class="col-12">
+        <?php
+
+        echo heading('Passagier',5,'class="mb-2"') . "\n";
+
+        ?>
+    </div>
     <div class="col-12 col-md-6">
         <?php
 
         echo "<p>" .
-            form_label('Naam passagier', 'passagier') .
+            form_label('Naam', 'passagier') .
             "<br>" .
-            form_input('passagier','','id="voornaam" class="form-control" disabled') .
-            "<span class=\"invalid-feedback\">Vul hier de voornaam van de gebruiker in</span>" .
+            form_input('passagier',$rit->minderMobiele->voornaam . ' ' . $rit->minderMobiele->naam,'id="voornaam" class="form-control" disabled') .
             "</p>\n";
+
+        ?>
+    </div>
+    <div class="col-12 col-md-6">
+        <?php
 
         echo "<p>" .
             form_label('MMC-nummer', 'mmcNummer') .
@@ -28,15 +38,33 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
 
         ?>
     </div>
+    <div class="col-12">
+        <?php
+
+        echo heading('Coach',5,'class="mb-2"') . "\n";
+
+        ?>
+    </div>
     <div class="col-12 col-md-6">
         <?php
 
         echo "<p>" .
             form_label('Naam', 'coach') .
             "<br>" .
-            form_input('naam','','id="naam" class="form-control"required') .
-            "<span class=\"invalid-feedback\">Vul hier de achternaam van de gebruiker in</span>" .
+            form_input('naam',$rit->coach->voornaam . ' ' . $rit->coach->naam,'id="naam" class="form-control" disabled') .
             "</p>\n";
+
+        ?>
+    </div>
+    <div class="col-12 col-md-6">
+        <?php
+
+        echo "<p>" .
+            form_label('MMC-nummer', 'mmcNummer') .
+            "<br>" .
+            form_input('',$rit->coach->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
+            form_hidden('mmcNummer', $rit->coach->mmcNummer);
+        "</p>\n";
 
         ?>
     </div>
@@ -46,8 +74,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Telefoonnummer', 'telefoonnummer') .
             "<br>" .
-            form_input('telefoonnummer','','id="telefoonnummer" class="form-control" required') .
-            "<span class=\"invalid-feedback\">Vul hier het telefoonnummer in</span>" .
+            form_input('telefoonnummer',$rit->coach->telefoonnummer,'id="telefoonnummer" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -58,9 +85,17 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('E-mail', 'email') .
             "<br>" .
-            form_input('email','','id="email" class="form-control"') .
-            "<span class=\"invalid-feedback\">Vul hier het e-mailadres in</span>" .
+            form_input('email',$rit->coach->email,'id="email" class="form-control" disabled') .
             "</p>\n";
+
+        ?>
+    </div>
+    <div class="col-12">
+        <?php
+
+        echo heading('Chauffeur',5,'class="mb-2"') . "\n";
+        echo anchor('', 'Zoek een andere chauffeur', array('class' => 'btn btn-primary mb-2', 'data-id' => '1')) . "\n";
+
 
         ?>
     </div>
@@ -68,10 +103,9 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Erkenningsnummer', 'erkenningsNummer') .
+            form_label('Naam', 'coach') .
             "<br>" .
-            form_input('erkenningsNummer','','id="erkenningsNummer" class="form-control" required') .
-            "<span class=\"invalid-feedback\">Vul hier het erkenningsnummer van de overheid in</span>" .
+            form_input('naam',$rit->chauffeur->voornaam . ' ' . $rit->chauffeur->naam,'id="naam" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -82,8 +116,8 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('MMC-nummer', 'mmcNummer') .
             "<br>" .
-            form_input('',$rit->minderMobiele->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
-            form_hidden('mmcNummer', $rit->minderMobiele->mmcNummer);
+            form_input('',$rit->chauffeur->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
+            form_hidden('mmcNummer', $rit->chauffeur->mmcNummer);
         "</p>\n";
 
         ?>
@@ -91,14 +125,54 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
     <div class="col-12 col-md-6">
         <?php
 
+        echo "<p>" .
+            form_label('Telefoonnummer', 'telefoonnummer') .
+            "<br>" .
+            form_input('telefoonnummer',$rit->chauffeur->telefoonnummer,'id="telefoonnummer" class="form-control" disabled') .
+            "</p>\n";
 
+        ?>
+    </div>
+    <div class="col-12 col-md-6">
+        <?php
+
+        echo "<p>" .
+            form_label('E-mail', 'email') .
+            "<br>" .
+            form_input('email',$rit->chauffeur->email,'id="email" class="form-control" disabled') .
+            "</p>\n";
 
         ?>
     </div>
     <div class="col-12">
         <?php
 
-        echo heading('Adres',3,'class="mb-2"') . "\n";
+        echo heading('Ritgegevens',3,'class="mb-2"') . "\n" .
+            heading('Vertrek',5,'class="mb-2"') . "\n";
+
+        ?>
+    </div>
+    <div class="col-12">
+        <?php
+
+        if ($rit->minderMobiele->straatEnNummer == $rit->vertrekAdres->straatEnNummer) {
+            $checked = true;
+        } else {
+            $checked = false;
+        }
+
+        echo form_radio('thuisAdres','Ja', $checked,'id="thuisAdres"');
+        echo form_label('De rit start bij het thuisadres van de passagier','thuisAdres');
+
+        $checkbox = array(
+            'name'          => 'thuisAdres',
+            'id'            => 'thuisAdres',
+            'value'         => 'ja',
+            'checked'       => $checked,
+        );
+
+        echo form_checkbox($checkbox);
+
 
         ?>
     </div>
@@ -136,7 +210,12 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
             "<span class=\"invalid-feedback\">Vul hier de straat, nummer en eventueel busnummer in</span>" .
             "</p>\n";
 
-        echo heading('Account',3,'class="mb-2"') . "\n";
+        ?>
+    </div>
+    <div class="col-12">
+        <?php
+
+        echo heading('Bestemming',5,'class="mb-2"') . "\n";
 
         ?>
     </div>
@@ -201,10 +280,10 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         <div class="d-flex flex-nowrap justify-content-end">
             <?php
 
-            echo form_submit('submit','Gebruiker toevoegen', 'class="btn btn-primary order-2"');
+            echo form_submit('submit','Aanvraag wijzigen', 'class="btn btn-primary order-2"');
             echo form_close();
 
-            echo anchor('MMCMedewerker/gebruikersBeheren/1','Annuleren','class="btn btn-outline-primary mr-2 order-1"');
+            echo anchor('MMCMedewerker/aanvragenBeheren/','Annuleren','class="btn btn-outline-primary mr-2 order-1"');
 
             ?>
         </div>

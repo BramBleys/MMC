@@ -65,7 +65,7 @@
          */
         public function inloggen() {
             $data['titel'] = "Inloggen";
-            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gebruiker'] = "0";
             $data['gemaaktDoor'] = "Bram Bleys";
 
             $partials = array(
