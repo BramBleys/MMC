@@ -1,3 +1,11 @@
+<?php
+    /**
+     * @file accountBeheren.php
+     *
+     * View waar de gebruiker zijn account gegevens kan bekijken en aanpassen
+     */
+?>
+
 <script>
     var voorkeur = <?php echo json_encode($gebruiker); ?>;
     if (voorkeur.contactvorm === "telefonisch") {
