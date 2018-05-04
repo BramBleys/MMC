@@ -42,7 +42,11 @@
                     if($data['minderMobielen']){
                         $data['gekozenAccount'] = $data['minderMobielen'][0];
                     } else {
-                        $data['gekozenAccount'] = "";
+                        $gekozenAccount = new stdClass();
+                        $gekozenAccount->id="";
+                        $gekozenAccount->naam="";
+                        $gekozenAccount->voornaam="";
+                        $data['gekozenAccount'] = $gekozenAccount;
                     }
                 }
 
@@ -82,7 +86,15 @@
                 if($accountId!='a'){
                     $data['gekozenAccount'] = $this->gebruiker_model->get($accountId);
                 } else{
-                    $data['gekozenAccount'] = $data['minderMobielen'][0];
+                    if($data['minderMobielen']){
+                        $data['gekozenAccount'] = $data['minderMobielen'][0];
+                    } else {
+                        $gekozenAccount = new stdClass();
+                        $gekozenAccount->id="";
+                        $gekozenAccount->naam="";
+                        $gekozenAccount->voornaam="";
+                        $data['gekozenAccount'] = $gekozenAccount;
+                    }
                 }
 
                 $partials = array('navigatie' => 'main_menu',
@@ -124,7 +136,11 @@
                     if($data['minderMobielen']){
                         $data['gekozenAccount'] = $data['minderMobielen'][0];
                     } else {
-                        $data['gekozenAccount'] = "";
+                        $gekozenAccount = new stdClass();
+                        $gekozenAccount->id="";
+                        $gekozenAccount->naam="";
+                        $gekozenAccount->voornaam="";
+                        $data['gekozenAccount'] = $gekozenAccount;
                     }
                 }
                 $this->load->model('Parameters_model');
@@ -185,6 +201,140 @@
                     $this->load->model('rit_model');
                     $heenRitId = $this->rit_model->insert($rit);
                     if ($this->input->post('terugRit') != "" && $this->input->post('terugRit') != NULL) {
+                        $terugRit = new stdClass();
+                        $terugRit->gebruikerIdMinderMobiele = $minderMobiele->id;
+                        $terugRit->adresIdVertrek = $rit->adresIdBestemming;
+                        $terugRit->adresIdBestemming = $rit->adresIdVertrek;
+                        $datum = $this->input->post('datumTerug');
+                        $uur = $this->input->post('uurTerug');
+                        $terugRit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
+                        $terugRit->opmerking = ($this->input->post('opmerkingenTerug') == '' || $this->input->post('opmerkingenTerug') == ' ' ? NULL : $this->input->post('opmerkingenTerug'));
+                        $terugRit->ritIdHeenrit = $heenRitId;
+                        $terugRitId = $this->rit_model->insert($terugRit);
+                    }
+                }
+                redirect('coach/rittenBeheren/' . $accountId);
+            } else {
+                redirect('Home');
+            }
+        }
+
+        public function wijzigRit($accountId, $id){
+
+            $data['titel'] = 'Rit wijzigen';
+            $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
+
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $minderMobiele = $this->gebruiker_model->getGebruiker($accountId);
+            if($this->session->has_userdata('gebruiker_id')){
+                $gebruikerId = $this->session->userdata('gebruiker_id');
+                $this->load->model('rit_model');
+                $rit = $this->rit_model->get($id);
+                if ($rit->ritIdHeenrit){
+                    $heenRit = $this->rit_model->get($rit->ritIdHeenrit);
+                    $heenRit->terugRit = $rit;
+                } else {
+                    $heenRit = $rit;
+                    if ($this->rit_model->getByHeenRit($heenRit->id)) {
+                        $heenRit->terugRit = $this->rit_model->getByHeenRit($heenRit->id);
+                    } else {
+                        $heenRit->terugRit = new stdClass();
+                        $heenRit->terugRit->id = "";
+                        $heenRit->terugRit->vertrekTijdstip = "";
+                        $heenRit->terugRit->opmerking = "";
+                    }
+                }
+                $this->load->model('adres_model');
+                $adres = $this->adres_model->getAdres($heenRit->adresIdVertrek);
+                $heenRit->adres = $adres;
+                $bestemming = $this->adres_model->getAdres($heenRit->adresIdBestemming);
+                $heenRit->bestemming = $bestemming;
+                $data['heenrit'] = $heenRit;
+                if($minderMobiele->straatEnNummer==$adres->straatEnNummer && $minderMobiele->postcode==$adres->postcode && $minderMobiele->gemeente==$adres->gemeente){
+                    $data['vertrekThuis'] = true;
+                } else {
+                    $data['vertrekThuis'] = false;
+                }
+
+                $this->load->model('gebruiker_model');
+                $data['minderMobielen'] = $this->gebruiker_model->getGebruikerWhereCoach($gebruikerId);
+                if($accountId!='a'){
+                    $data['gekozenAccount'] = $this->gebruiker_model->get($accountId);
+                } else{
+                    if($data['minderMobielen']){
+                        $data['gekozenAccount'] = $data['minderMobielen'][0];
+                    } else {
+                        $gekozenAccount = new stdClass();
+                        $gekozenAccount->id="";
+                        $gekozenAccount->naam="";
+                        $gekozenAccount->voornaam="";
+                        $data['gekozenAccount'] = $gekozenAccount;
+                    }
+                }
+
+                $this->load->model('Parameters_model');
+                $parameters = $this->Parameters_model->get();
+                $data['parameters'] = $parameters;
+                $partials = array( 'navigatie' => 'main_menu',
+                    'inhoud' => 'coach/wijzigRitCoach');
+                $this->template->load('main_master', $partials, $data);
+            } else {
+                redirect('Home');
+            }
+        }
+
+        public function wijzigingOpslaan(){
+            $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $this->load->model('gebruiker_model');
+            $accountId = $this->input->post('gekozenAccountId');
+            $minderMobiele = $this->gebruiker_model->getGebruiker($accountId);
+            if($this->session->has_userdata('gebruiker_id')){
+                $this->load->model('Parameters_model');
+                $parameters = $this->Parameters_model->get();
+                $this->load->model('Rit_model');
+                $datum = $this->input->post('datum');
+                if(!$parameters->maxRitten - count($this->Rit_model->getWhereDatum($minderMobiele->id, $datum)) <= 0){
+
+                    $oudeId = $this->input->post('heenritId');
+                    $oudeTerugRitId = $this->input->post('terugRitId');
+                    $this->load->model('rit_model');
+                    $this->rit_model->delete($oudeId);
+                    $this->rit_model->delete($oudeTerugRitId);
+                    $rit = new stdClass();
+                    $rit->gebruikerIdMinderMobiele = $minderMobiele->id;
+                    $adres = new stdClass();
+                    if($this->input->post('vertrekPlaats')!="" && $this->input->post('vertrekPlaats')!=NULL){
+                        $adres->straatEnNummer = $this->input->post('vertrekAdres');
+                        $adres->gemeente = $this->input->post('vertrekGemeente');
+                        $adres->postcode = $this->input->post('vertrekPostcode');
+                    } else{
+                        $adres->straatEnNummer = $minderMobiele->straatEnNummer;
+                        $adres->gemeente = $minderMobiele->gemeente;
+                        $adres->postcode = $minderMobiele->postcode;
+                    }
+                    $this->load->model('adres_model');
+                    $adresId = $this->adres_model->getIdWhereStraatEnGemeenteEnPostcode($adres);
+                    if($adresId){
+                        $rit->adresIdVertrek = $adresId;
+                    } else {
+                        $rit->adresIdVertrek = $this->adres_model->insert($adres);
+                    }
+                    $adres->straatEnNummer = $this->input->post('aankomstAdres');
+                    $adres->gemeente = $this->input->post('aankomstGemeente');
+                    $adres->postcode = $this->input->post('aankomstPostcode');
+                    $adresId = $this->adres_model->getIdWhereStraatEnGemeenteEnPostcode($adres);
+                    if($adresId){
+                        $rit->adresIdBestemming = $adresId;
+                    } else {
+                        $rit->adresIdBestemming = $this->adres_model->insert($adres);
+                    }
+                    $datum = $this->input->post('datum');
+                    $uur = $this->input->post('uur');
+                    $rit->vertrekTijdstip = $datum . ' ' . $uur . ':00';
+                    $rit->opmerking = ($this->input->post('opmerkingen') == '' || $this->input->post('opmerkingen') == ' ' ? NULL : $this->input->post('opmerkingen'));
+                    $this->load->model('rit_model');
+                    $heenRitId = $this->rit_model->insert($rit);
+                    if ($this->input->post('terugRit')!="" && $this->input->post('terugRit')!=NULL){
                         $terugRit = new stdClass();
                         $terugRit->gebruikerIdMinderMobiele = $minderMobiele->id;
                         $terugRit->adresIdVertrek = $rit->adresIdBestemming;

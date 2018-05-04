@@ -1,12 +1,26 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 
+    /**
+     * @class Gebruiker
+     * @brief Controller-klasse voor Gebruiker
+     *
+     * Controller-klasse met alle methodes die gebruikt worden voor de Gebruiker
+     */
     class Gebruiker extends CI_Controller {
-
-        public function index() {
-            $this->load->view('gebruiker/home');
+        /**
+         * Constructor
+         */
+        public function __construct() {
+            parent::__construct();
         }
 
+        /**
+         * Haalt de gebruiker informatie op via Authex en toont de view accountBeheren.php
+         *
+         * @see Authex::getGebruikerInfo()
+         * @see accountBeheren.php
+         */
         public function accountBeheren() {
             //laad de view accountBeheren
             $data['titel'] = 'Account beheren';

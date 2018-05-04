@@ -1,3 +1,11 @@
+<?php
+    /**
+     * @file agendaBekijken.php
+     *
+     * View waar de vrijwilliger zijn agenda kan bekijken met al zijn komende ritten
+     */
+?>
+
 <h3>Overzicht ritten</h3>
 
 <table class="table">

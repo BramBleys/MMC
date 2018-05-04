@@ -32,18 +32,17 @@
     }
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        var accountId;
-        $("#vertrekGegevens").hide();
-        $("#terugritGegevens").hide();
+        if (!$("#vertrekPlaats").is(':checked')){
+            $("#vertrekGegevens").hide();
+        } else {
+            $("#vertrekGegevens input").attr("required", "required");
+        }
 
-        $('select[name="minderMobielen"]').change(function(){
-            accountId = $(this).val();
-
-            var datum = $('#datum').val();
-            haalRittenWeekOp(accountId, datum);
-            $('input[name="gekozenAccountId"]').val(accountId);
-            $('.naamTitel').text($('select[name="minderMobielen"] option:selected' ).text());
-        });
+        if (!$("#terugRit").is(':checked')){
+            $("#terugritGegevens").hide();
+        } else {
+            $("#terugritGegevens input[type='date'],#terugritGegevens input[type='time']").attr("required", "required");
+        }
 
         $("#checkboxVertrek").click(function () {
             if ($("#vertrekPlaats").is(':checked')) {
@@ -63,16 +62,27 @@
                 $("#terugritGegevens").slideUp(500);
             }
         });
+
         $("#datum").blur(function () {
             var datum = $(this).val();
-            var id = $('input[name="accountId"').val();
+            var id = $('input[name="gekozenAccountId"]').val();
             haalRittenWeekOp(id, datum);
+        });
+
+        $('select[name="minderMobielen"]').change(function(){
+            var accountId = $(this).val();
+
+            var datum = $('#datum').val();
+            haalRittenWeekOp(accountId, datum);
+            $('input[name="gekozenAccountId"]').val(accountId);
+            $('.naamTitel').text($('select[name="minderMobielen"] option:selected' ).text());
         });
     });
 </script>
+
 <?php
 $idArray = str_split($gebruiker->soortId);
-echo "<h2>$titel voor <span id=\"naamTitel\">$gekozenAccount->voornaam $gekozenAccount->naam</span></h2>\n";
+echo "<h2>$titel van <span id=\"naamTitel\">$gekozenAccount->voornaam $gekozenAccount->naam</span></h2>\n";
 if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
     echo "<div class=\"form-row\">\n<div class=\"col-md-4\">";
     echo form_labelpro('Persoon', 'minderMobielen');
@@ -95,8 +105,10 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
     $attributenFormulier = array('id' => 'mijnFormulier',
         'class' => 'needs-validation',
         'novalidate' => 'novalidate');
-    echo form_open('coach/ritToevoegen', $attributenFormulier);
+    echo form_open('coach/wijzigingOpslaan', $attributenFormulier);
     echo form_hidden('gekozenAccountId', $gekozenAccount->id);
+    echo form_hidden('heenritId', $heenrit->id) . "\n";
+    echo form_hidden('terugRitId', $heenrit->terugRit->id) . "\n";
     ?>
     <div class="form-row">
         <div class="col-sm-6">
@@ -107,7 +119,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'class' => 'form-control',
                 'required' => 'required',
                 'type' => 'date',
-                'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours")))
+                'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours"))),
+                'value' => substr($heenrit->vertrekTijdstip,0, strpos($heenrit->vertrekTijdstip, " "))
             );
             echo form_input($dataDatum) . "\n";
             ?>
@@ -122,7 +135,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'id' => 'uur',
                 'class' => 'form-control',
                 'required' => 'required',
-                'type' => 'time'
+                'type' => 'time',
+                'value' => substr($heenrit->vertrekTijdstip, strpos($heenrit->vertrekTijdstip, " ")+1, 5)
             );
             echo form_input($dataUur) . "\n";
             ?>
@@ -135,11 +149,15 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
     <div class="form-row" id="checkboxVertrek">
         <div class="custom-control custom-checkbox">
             <?php
+
             $dataVertrekPlaats = array('name' => 'vertrekPlaats',
                 'id' => 'vertrekPlaats',
                 'class' => 'custom-control-input',
-                'value' => 'accept',
+                'value' => 'accept'
             );
+            if(!$vertrekThuis){
+                $dataVertrekPlaats['checked'] = 'checked';
+            }
             echo form_checkbox($dataVertrekPlaats) . "\n";
             $attributes = array('class' => 'custom-control-label');
             echo form_label('Ik vertrek niet vanaf thuis', 'vertrekPlaats', $attributes);
@@ -158,6 +176,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                     'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
                     'maxlength' => '100',
                 );
+                if(!$vertrekThuis){
+                    $dataVertrekAdres['value'] = $heenrit->adres->straatEnNummer;
+                }
                 echo form_input($dataVertrekAdres) . "\n";
                 ?>
                 <div class="invalid-feedback">
@@ -176,6 +197,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                     'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
                     'maxlength' => '100',
                 );
+                if(!$vertrekThuis){
+                    $dataVertrekGemeente['value'] = $heenrit->adres->gemeente;
+                }
                 echo form_input($dataVertrekGemeente) . "\n";
                 ?>
                 <div class="invalid-feedback">
@@ -193,6 +217,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                     'max' => '9999',
                     'type' => 'number'
                 );
+                if(!$vertrekThuis){
+                    $dataVertrekPostcode['value'] = $heenrit->adres->postcode;
+                }
                 echo form_input($dataVertrekPostcode) . "\n";
                 ?>
                 <div class="invalid-feedback">
@@ -212,7 +239,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'placeholder' => "Schoolstraat 36",
                 'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
                 'maxlength' => '100',
-                'required' => 'required'
+                'required' => 'required',
+                'value' => $heenrit->bestemming->straatEnNummer
             );
             echo form_input($dataAankomstAdres) . "\n";
             ?>
@@ -231,7 +259,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'placeholder' => "Geel",
                 'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
                 'maxlength' => '100',
-                'required' => 'required'
+                'required' => 'required',
+                'value' => $heenrit->bestemming->gemeente
             );
             echo form_input($dataAankomstGemeente) . "\n";
             ?>
@@ -249,7 +278,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'required' => 'required',
                 'min' => '1000',
                 'max' => '9999',
-                'type' => 'number'
+                'type' => 'number',
+                'value' => $heenrit->bestemming->postcode
             );
             echo form_input($dataAankomstPostcode) . "\n";
             ?>
@@ -268,8 +298,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'id' => 'opmerkingen',
                 'class' => 'form-control',
                 'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+                'rows' => '3',
                 'maxlength' => '500',
-                'rows' => '3'
+                'value' => $heenrit->opmerking
             );
             echo form_textarea($dataOpmerkingen);
             ?>
@@ -286,6 +317,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 'class' => 'custom-control-input',
                 'value' => 'accept'
             );
+            if($heenrit->terugRit->id != ""){
+                $dataTerugRit['checked'] = 'checked';
+            }
             echo form_checkbox($dataTerugRit) . "\n";
             $attributes = array('class' => 'custom-control-label');
             echo form_label('Ik neem een heen- en terugrit', 'terugRit', $attributes);
@@ -303,7 +337,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                     'id' => 'datumTerug',
                     'class' => 'form-control',
                     'type' => 'date',
-                    'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours")))
+                    'min' => date("Y-m-d", strtotime("+3 Days", strtotime("+$parameters->annulatieTijd hours"))),
+                    'value' => substr($heenrit->terugRit->vertrekTijdstip,0, strpos($heenrit->terugRit->vertrekTijdstip, " "))
                 );
                 echo form_input($dataDatumTerug) . "\n";
                 ?>
@@ -317,7 +352,8 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                 $dataUurTerug = array('name' => 'uurTerug',
                     'id' => 'uurTerug',
                     'class' => 'form-control',
-                    'type' => 'time'
+                    'type' => 'time',
+                    'value' => substr($heenrit->terugRit->vertrekTijdstip, strpos($heenrit->terugRit->vertrekTijdstip, " ")+1, 5)
                 );
                 echo form_input($dataUurTerug) . "\n";
                 ?>
@@ -335,8 +371,9 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
                     'id' => 'opmerkingenTerug',
                     'class' => 'form-control',
                     'placeholder' => "Een tijdje parkeren, kostprijs: ...&#13;&#10;Ik rij samen met ...&#13;&#10;Een tussen stop maken bij de ...",
+                    'rows' => '3',
                     'maxlength' => '500',
-                    'rows' => '3'
+                    'value' => $heenrit->terugRit->opmerking
                 );
                 echo form_textarea($dataOpmerkingen);
                 ?>
@@ -404,13 +441,12 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
     <?php
     echo form_close();
     ?>
-<?php
+    <?php
     echo "<div id=\"ritGegevens\"></div>";
 } else {
     echo "<p>Je beheert nog geen personen die een rit kunnen aanvragen.</p>\n";
 }
 ?>
-
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {

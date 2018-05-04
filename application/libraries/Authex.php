@@ -23,7 +23,7 @@ class Authex {
      *
      * @see Authex::isAangemeld()
      * @see Gebruiker_model::get()
-     * @return De gebruikerId
+     * @return Een gebruiker object
      */
     function getGebruikerInfo() {
         // geef gebruiker-object als gebruiker aangemeld is

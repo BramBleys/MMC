@@ -1,5 +1,5 @@
 <script>
-    function berekenPrijs(id) {
+    function haalRittenOp(id) {
         $.ajax({type: "GET",
             url: site_url + "/MinderMobiele/haalJsonOp_GeplandeRitten",
             data: {gebruikerId: id},
@@ -28,7 +28,7 @@
                                 if (response.rows[0].elements[0].status == 'OK') {
                                     var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
                                     var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
-                                    var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                                    var prijs = parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand;
                                     console.log(prijs);
                                     $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
                                 }
@@ -46,25 +46,25 @@
     }
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
-        var id = $('input[name="getoondAccountId"').val();
-
-        berekenPrijs(id);
+        var id = $('input[name="gebruikerId"]').val();
+        haalRittenOp(id);
 
         $('.verwijderKnop').click(function () {
             $('#annuleerKnop').closest('a').attr('href', $(this).attr('href'));
         });
     });
 </script>
+<h2><?= $titel . $account->voornaam ?></h2>
 <?php
-echo form_hidden('getoondAccountId', $account->id) . "\n";
+echo form_hidden('gebruikerId', $account->id) . "\n";
 echo form_hidden('prijsPerKm', $parameters->prijsPerKm) . "\n";
 $extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopNieuw", "Nieuwe rit", $extraButton);
-echo '<p class="marginTop">' . anchor('coach/nieuweRit/' . $account->id, $button) . ' ';
+$button = form_button("knopNieuw", "Nieuwe rit aanvragen", $extraButton);
+echo '<p class="marginTop">' . anchor('minderMobiele/nieuweRit', $button) . ' ';
 
 $extraButton = array('class' => 'btn achtergrond');
-$button = form_button("knopAfgelopen", "Agelopen ritten", $extraButton);
-echo anchor('coach/afgelopenRitten/' . $account->id, $button) . '</p>';
+$button = form_button("knopAfgelopen", "Afgelopen ritten bekijken", $extraButton);
+echo anchor('minderMobiele/afgelopenRitten', $button) . '</p>';
 
 $wijzigknop = "<i class=\"fas fa-pencil-alt\" style=\"color:black\"></i>";
 $verwijderknop = "<i class=\"fas fa-times\" style=\"color:black\"></i>";
@@ -93,27 +93,27 @@ if(count($ritten)!=0){
             . "</td>\n<td>"
             . $rit->bestemmingAdres->straatEnNummer . ", " . $rit->bestemmingAdres->postcode . " " . $rit->bestemmingAdres->gemeente
             . "</td>\n<td>";
-            if ($rit->chauffeur){
-                echo $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam;
-            } else {
-                echo "Er is nog geen chauffeur toegewezen";
-            }
-            echo "</td>\n<td>"
+        if ($rit->chauffeur){
+            echo $rit->chauffeur->voornaam . " " . $rit->chauffeur->naam;
+        } else {
+            echo "Er is nog geen chauffeur toegewezen";
+        }
+        echo "</td>\n<td>"
             . "</td>\n<td>";
-            $annulatieTijd = date('Y-m-d H:i:s', strtotime("+$parameters->annulatieTijd hours"));
-            if($rit->vertrekTijdstip < $annulatieTijd){
-                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker."';
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker."';
-                echo anchor("coach/rittenBeheren/$account->id", $wijzigknop, $attributesWijzig)
-                    . " " . anchor("coach/rittenBeheren/$account->id", $verwijderknop, $attributesSchrap);
-            } else {
-                $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
-                $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
-                echo anchor("coach/wijzigRit/$account->id/$rit->id", $wijzigknop, $attributesWijzig);
-                echo "<span id=\"popupKnopTooltip\" class=\"d-inline-block\" tabindex=\"0\" $attributesSchrap>\n";
-                echo anchor("coach/schrap/$account->id/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
-            }
-            echo "</td>\n</tr>\n";
+        $annulatieTijd = date('Y-m-d H:i:s', strtotime("+$parameters->annulatieTijd hours"));
+        if($rit->vertrekTijdstip < $annulatieTijd){
+            $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer bewerkt worden, contacteer een medewerker."';
+            $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="Rit kan niet meer geannuleerd worden, contacteer een medewerker."';
+            echo anchor("minderMobiele", $wijzigknop, $attributesWijzig)
+                . " " . anchor("minderMobiele", $verwijderknop, $attributesSchrap);
+        } else {
+            $attributesSchrap = 'data-toggle="tooltip" data-placement="bottom" title="rit annuleren"';
+            $attributesWijzig = 'data-toggle="tooltip" data-placement="bottom" title="rit bewerken"';
+            echo anchor("minderMobiele/wijzigRit/$rit->id", $wijzigknop, $attributesWijzig);
+            echo "<span id=\"popupKnopTooltip\" class=\"d-inline-block\" tabindex=\"0\" $attributesSchrap>\n";
+            echo anchor("minderMobiele/schrap/$rit->id", $verwijderknop, "data-toggle=\"modal\" data-target=\"#bevestigingPopup\" class=\"verwijderKnop\"");
+        }
+        echo "</td>\n</tr>\n";
     }
     echo"        </tbody>\n";
     echo"    </table>\n";

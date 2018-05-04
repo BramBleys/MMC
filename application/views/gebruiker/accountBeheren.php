@@ -1,3 +1,11 @@
+<?php
+    /**
+     * @file accountBeheren.php
+     *
+     * View waar de gebruiker zijn account gegevens kan bekijken en aanpassen
+     */
+?>
+
 <script>
     var voorkeur = <?php echo json_encode($gebruiker); ?>;
     if (voorkeur.contactvorm === "telefonisch") {
@@ -8,8 +16,6 @@
         $("#email").prop("checked", true);
     }
 </script>
-
-<!--TODO nog controleren op string/int + juiste bolletje nog selecteren in script hierboven + custom tooltip error message-->
 
 <h2>Account gegevens wijzigen</h2>
 <h3 class="marginTop">Contactgegevens</h3>

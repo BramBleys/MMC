@@ -39,10 +39,10 @@
         }
 
         /**
-         * Haalt alle ritten op met gebruikerId = $gebruiker->id via Rit_model. Maakt een nieuw object met de naam van de gebruiker, de correcte datums, de correcte adressen en bijkomende kosten via MinderMobiele_model en Adres_model. Dit object wordt getoond in de view agendaBekijken.php
+         * Haalt alle ritten op met gebruikerId = $gebruiker->id via Rit_model. Maakt een nieuw object met de naam van de gebruiker, de correcte datums, de correcte adressen en bijkomende kosten via Gebruiker_model en Adres_model. Dit object wordt getoond in de view agendaBekijken.php
          *
          * @see Rit_model::getAllRitten()
-         * @see MinderMobiele_model::getNaam()
+         * @see Gebruiker_model::getNaam()
          * @see Adres_model::getAdres()
          * @see agendaBekijken.php
          */
@@ -58,8 +58,8 @@
             $this->load->model('rit_model');
             $ritten = $this->rit_model->getAllRitten($gebruiker->id);
 
-            //Laad MinderMobiele_model en Adres_model
-            $this->load->model('MinderMobiele_model');
+            //Laad Gebruiker_model en Adres_model
+            $this->load->model('gebruiker_model');
             $this->load->model('adres_model');
 
             //Doorloop alle ritten
@@ -68,7 +68,7 @@
                 $nieuweRitten[$i] = new stdClass();
 
                 //Zet naam en voornaam in het nieuwe object
-                $naam = $this->MinderMobiele_model->getNaam($ritten[$i]->gebruikerIdMinderMobiele);
+                $naam = $this->gebruiker_model->getNaam($ritten[$i]->gebruikerIdMinderMobiele);
                 $nieuweRitten[$i]->voornaam = $naam->voornaam;
                 $nieuweRitten[$i]->naam = $naam->naam;
 
