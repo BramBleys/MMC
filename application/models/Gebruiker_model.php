@@ -23,7 +23,7 @@
         /**
          * Retourneert een gebruiker object met gebruikerId = $id
          *
-         * @param $id De gebruiker id
+         * @param $id De id van de gebruiker waar we informatie over nodig hebben
          * @return Een gebruiker object
          */
         function get($id) {
@@ -31,6 +31,17 @@
             $this->db->where('id', $id);
             $query = $this->db->get('gebruiker');
 
+            return $query->row();
+        }
+
+        /**
+         * Retourneert een gebruiker object met gebruikerId = $minderMobieleId
+         * @param $minderMobieleId De id van de gebruiker waar we informatie over nodig hebben
+         * @return Een gebruiker object
+         */
+        function getNaam($minderMobieleId){
+            $this->db->where('id', $minderMobieleId);
+            $query = $this->db->get('gebruiker');
             return $query->row();
         }
 

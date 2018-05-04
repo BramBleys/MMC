@@ -1,18 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kix
- * Date: 3/28/2018
- * Time: 12:17 PM
- */
+    /**
+     * @class Adres_model
+     * @brief Model-klasse voor de adressen
+     *
+     * Model-klasse die alle methodes bevat om te interageren met de database-tabel adres
+     */
 
 class Adres_model extends CI_Model {
 
+    /**
+     * Constructor
+     */
     function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Retourneert een adres object met adresId = $adresId
+     * @param $adresId De is van het adres waar we informatie over nodig hebben
+     * @return Een adres object
+     */
     function getAdres($adresId){
         $this->db->where('id', $adresId);
         $query = $this->db->get('adres');
