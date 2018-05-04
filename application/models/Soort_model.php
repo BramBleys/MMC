@@ -2,6 +2,9 @@
 
 class Soort_model extends CI_Model {
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
     }

@@ -1,4 +1,8 @@
-<?php
+<?
+
+/**
+ * @file
+ */
 
 echo heading($titel,2,'class="mb-3"') . "\n";
 

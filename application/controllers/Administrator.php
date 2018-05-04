@@ -237,7 +237,6 @@ class Administrator extends CI_Controller
      *
      * @see Inhoud_model::updateText()
      * @see websiteBeheren.php
-     *
      */
     public function websiteOpslagen(){
         //titel veranderen naar Website Beheren
@@ -245,38 +244,16 @@ class Administrator extends CI_Controller
         //Gebruikersinformatie ophalen
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $data['gemaaktDoor'] = "Kilian Fastenakels";
-        $teBeherenText1 = new stdClass();
-        $teBeherenText2 = new stdClass();
-        $teBeherenText3 = new stdClass();
-        $teBeherenText4 = new stdClass();
-        $teBeherenText5 = new stdClass();
-        $teBeherenText6 = new stdClass();
-        $teBeherenText7 = new stdClass();
 
-        $teBeherenText1->id = $this->input->post('id1');
-        $teBeherenText1->titel = $this->input->post('titel1');
-        $teBeherenText1->inhoud = $this->input->post('inhoud1');
-        $teBeherenText2->id = $this->input->post('id2');
-        $teBeherenText2->titel = $this->input->post('titel2');
-        $teBeherenText2->inhoud = $this->input->post('inhoud2');
-        $teBeherenText3->id = $this->input->post('id3');
-        $teBeherenText3->titel = $this->input->post('titel3');
-        $teBeherenText3->inhoud = $this->input->post('inhoud3');
-        $teBeherenText4->id = $this->input->post('id4');
-        $teBeherenText4->titel = $this->input->post('titel4');
-        $teBeherenText4->inhoud = $this->input->post('inhoud4');
-        $teBeherenText5->id = $this->input->post('id5');
-        $teBeherenText5->titel = $this->input->post('titel5');
-        $teBeherenText5->inhoud = $this->input->post('inhoud5');
-        $teBeherenText6->id = $this->input->post('id6');
-        $teBeherenText6->titel = $this->input->post('titel6');
-        $teBeherenText6->inhoud = $this->input->post('inhoud6');
-        $teBeherenText7->id = $this->input->post('id7');
-        $teBeherenText7->inhoud = $this->input->post('inhoud7');
-
-        //Inhoud model laden en de database updaten
+        $teBeherenText = new stdClass();
         $this->load->model('Inhoud_model');
-        $this->Inhoud_model->updateText($teBeherenText1, $teBeherenText2, $teBeherenText3, $teBeherenText4, $teBeherenText5, $teBeherenText6, $teBeherenText7);
+        for($i = 0; $i < 7; $i++){
+            $teBeherenText->id = $this->input->post('id' . $i);
+            $teBeherenText->titel = $this->input->post('titel' . $i);
+            $teBeherenText->inhoud = $this->input->post('inhoud' . $i);
+            $this->Inhoud_model->updateText($teBeherenText);
+        }
+
         $nieuweText = $this->Inhoud_model->getInhoudWhereTypeInhoudId("1");
 
         $data['teBeherenText'] = $nieuweText;
@@ -285,7 +262,7 @@ class Administrator extends CI_Controller
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/websiteBeheren');
         $this->template->load('main_master', $partials, $data);
     }
-    
+
     public function gebruikersBeheren($soort) {
         $data['titel'] = 'Gebruikers beheren';
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -489,7 +466,6 @@ class Administrator extends CI_Controller
 
     public function toonMeldingErkenningBestaat() {
         $this->toonMelding('Fout', 'Erkenningsnummer bestaat reeds. Probeer opnieuw!', array("url" => "/administrator/gebruikerToevoegen", "tekst" => "Terug"));
-
     }
 
     public function toonMeldingGebruikersnaamBestaat() {
@@ -502,6 +478,5 @@ class Administrator extends CI_Controller
 
     public function toonMeldingWijzigingOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol gewijzigd!', array("url" => "/administrator/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
-
     }
 }
