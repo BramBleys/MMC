@@ -5,6 +5,8 @@
             if ($gebruiker == null) {
                 echo '<li class="nav-item">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
                 echo '<li class="nav-item">' . anchor("home/inloggen", "Inloggen", 'class= "nav-link"') . '</li>';
+            } else if($gebruiker === "0"){
+                echo '<li class="nav-item">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
             } else {
                 //controleren of de gebruiker meer als 1 type gebruiker is. (Bv Coach en vrijwilliger)
                 if (strlen($gebruiker->soortId) > 1) {
