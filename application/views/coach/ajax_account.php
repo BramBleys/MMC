@@ -1,46 +1,138 @@
-<h3 class="marginTop">Contactgegevens</h3>
-<?php
-    $attributes = array('name' => 'formulier');
-    echo form_open('coach/accountGegevensOpslaan', $attributes);
-?>
-<div class="form-group row">
-    <?php echo form_label('Voornaam', 'voornaam', 'class="col-sm-6 col-form-label"'); ?>
-    <?php echo form_label('Naam', 'naam', 'class="col-sm-6 col-form-label"'); ?>
+<div class="form-row">
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'voornaam', 'id' => 'voornaam', 'class' => 'form-control', 'value' => $account->voornaam, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Voornaam', 'voornaam');
+        $dataVoornaam = array('name' => 'voornaam',
+            'id' => 'voornaam',
+            'class' => 'form-control',
+            'placeholder' => "voornaam",
+            'maxlength' => '100',
+            'pattern' => '([a-zA-Z._-]{2,}\s?)+',
+            'value' => $account->voornaam,
+            'required' => 'required'
+        );
+        echo form_input($dataVoornaam) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correcte voornaam in.
+        </div>
     </div>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'naam', 'id' => 'naam', 'class' => 'form-control', 'value' => $account->naam, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Naam', 'naam');
+        $dataNaam = array('name' => 'naam',
+            'id' => 'naam',
+            'class' => 'form-control',
+            'placeholder' => "naam",
+            'maxlength' => '100',
+            'pattern' => '([a-zA-Z._-]{2,}\s?)+',
+            'value' => $account->naam,
+            'required' => 'required'
+        );
+        echo form_input($dataNaam) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correcte naam in.
+        </div>
     </div>
 </div>
-<div class="form-group row">
-    <?php echo form_label('Telefoonnummer', 'telefoonnummer', 'class="col-sm-12 col-form-label"'); ?>
+<div class="form-row">
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'telefoonnummer', 'id' => 'telefoonnummer', 'class' => 'form-control', 'value' => $account->telefoonnummer, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Telefoonnummer', 'telefoonnummer');
+        $dataTelefoonnummer = array('name' => 'telefoonnummer',
+            'id' => 'telefoonnummer',
+            'class' => 'form-control',
+            'placeholder' => "telefoonnummer",
+            'maxlength' => '100',
+            'minlength' => '9',
+            'value' => $account->telefoonnummer,
+            'required' => 'required'
+        );
+        echo form_input($dataTelefoonnummer) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correct telefoonnummer in.
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <?php
+        echo form_labelpro('E-mail', 'email');
+        $dataEmail = array('name' => 'email',
+            'id' => 'email',
+            'class' => 'form-control',
+            'placeholder' => "email",
+            'maxlength' => '100',
+            'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$',
+            'value' => $account->email,
+            'required' => 'required'
+        );
+        echo form_input($dataEmail) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correct e-mailadres in.
+        </div>
     </div>
 </div>
-<div class="form-group row">
-    <?php echo form_label('E-mail', 'email', 'class="col-sm-12 col-form-label"'); ?>
+<hr>
+<h3 class="marginTop">Woonplaatsgegevens</h3>
+<div class="form-row">
     <div class="col-sm-6">
-        <?php echo form_input(array('type' => 'email','name' => 'email', 'id' => 'email', 'class' => 'form-control', 'value' => $account->email, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Adres', 'straatEnNummer');
+        $dataAdres = array('name' => 'straatEnNummer',
+            'id' => 'straatEnNummer',
+            'class' => 'form-control',
+            'placeholder' => "Schoolstraat 36",
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s)+\d[a-zA-Z0-9._-]*',
+            'maxlength' => '100',
+            'required' => 'required',
+            'value' => $account->straatEnNummer
+        );
+        echo form_input($dataAdres) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correct adres in.
+        </div>
     </div>
 </div>
-
-<h3 class="marginTop">Adresgegevens</h3>
-<div class="form-group row">
-    <?php echo form_label('Gemeente', 'gemeente', 'class="col-sm-6 col-form-label"'); ?>
-    <?php echo form_label('Postcode', 'postcode', 'class="col-sm-3 col-form-label"'); ?>
+<div class="form-row">
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'gemeente', 'id' => 'gemeente', 'class' => 'form-control', 'value' => $account->gemeente, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Gemeente', 'gemeente');
+        $dataGemeente = array('name' => 'gemeente',
+            'id' => 'gemeente',
+            'class' => 'form-control',
+            'placeholder' => "Geel",
+            'pattern' => '([a-zA-Z0-9._-]{2,}\s?)+',
+            'maxlength' => '100',
+            'required' => 'required',
+            'value' => $account->gemeente
+        );
+        echo form_input($dataGemeente) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correcte gemeente in.
+        </div>
     </div>
     <div class="col-sm-3">
-        <?php echo form_input(array('name' => 'postcode', 'id' => 'postcode', 'class' => 'form-control', 'value' => $account->postcode, 'required' => 'required')); ?>
-    </div>
-</div>
-<div class="form-group row">
-    <?php echo form_label('Straat + nummer', 'straatEnNummer', 'class="col-sm-9 col-form-label"'); ?>
-    <div class="col-sm-9">
-        <?php echo form_input(array('name' => 'straatEnNummer', 'id' => 'straatEnNummer', 'class' => 'form-control', 'value' => $account->straatEnNummer, 'required' => 'required')); ?>
+        <?php
+        echo form_labelpro('Postcode', 'postcode');
+        $dataPostcode = array('name' => 'postcode',
+            'id' => 'postcode',
+            'class' => 'form-control',
+            'placeholder' => "2440",
+            'min' => '1000',
+            'max' => '9999',
+            'type' => 'number',
+            'required' => 'required',
+            'value' => $account->postcode
+        );
+        echo form_input($dataPostcode) . "\n";
+        ?>
+        <div class="invalid-feedback">
+            Geef een correcte postcode in.
+        </div>
     </div>
 </div>
 
@@ -65,6 +157,7 @@
             break;
     }
 ?>
+<hr>
 <h3 class="marginTop">Voorkeur herinnering</h3>
 <div class="form-check">
     <label class="form-check-label">
@@ -87,10 +180,7 @@
 
 <input type="hidden" value="<?= $account->id ?>" name="getoondAccountId"/>
 
-<?php
-    echo form_submit('opslaan', 'Opslaan', 'class="btn achtergrond marginTop"');
-    echo form_close();
-?>
+
 
 
 

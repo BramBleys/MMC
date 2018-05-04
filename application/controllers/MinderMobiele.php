@@ -202,7 +202,7 @@ class MinderMobiele extends CI_Controller
             $parameters = $this->Parameters_model->get();
             $data['parameters'] = $parameters;
             $partials = array( 'navigatie' => 'main_menu',
-                'inhoud' => 'minderMobiele/weizigRit');
+                'inhoud' => 'minderMobiele/wijzigRit');
             $this->template->load('main_master', $partials, $data);
         } else {
             redirect('Home');

@@ -79,7 +79,7 @@
                 //2 linken die elke gebruiker ziet
                 echo '<li class="nav-item marginTop">' . anchor("home/faq", "FAQ", 'class= "nav-link"') . '</li>';
 
-                if ($gebruiker->soortId!="2"){
+                if ( !in_array('2', str_split($gebruiker->soortId))){
                     echo '<li class="nav-item">' . anchor("Gebruiker/accountBeheren", "Persoonlijke gegevens aanpassen", 'class= "nav-link"') . '</li>';
                 } else {
                     echo '<li class="nav-item">' . anchor("Coach/accountsBeheren/$gebruiker->id", "Gegevens personen aanpassen", 'class= "nav-link"') . '</li>';

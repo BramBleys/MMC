@@ -43,9 +43,43 @@
     echo "</div>\n</div>";
     echo form_hidden('accountId', $gekozenAccount->id);
 ?>
+<hr>
+<h3 class="marginTop">Contactgegevens</h3>
+<?php
+$attributenFormulier = array('id' => 'mijnFormulier',
+    'class' => 'needs-validation',
+    'novalidate' => 'novalidate');
+echo form_open('coach/accountGegevensOpslaan', $attributenFormulier);
+?>
 <div id="accountGegevens">
 
 </div>
+
+<?php
+echo form_submit('opslaan', 'Opslaan', 'class="btn achtergrond marginTop"');
+echo form_close();
+?>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 
 
