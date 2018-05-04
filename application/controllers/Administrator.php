@@ -1,20 +1,30 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * Created by PhpStorm.
- * User: Kix
- * Date: 3/9/2018
- * Time: 1:20 PM
- */
 
+/**
+ * @class Administrator
+ * @brief Controller-klasse voor Administrator
+ *
+ * Controller-klasse met alle methodes die gebruikt worden in Administrator
+ */
 class Administrator extends CI_Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct(){
         parent::__construct();
         //De Template library inladen
         $this->load->library('Template');
     }
 
+    /**
+     * Haalt de parameter-records op
+     * via Parameters_model en toont het resulterende object in de view parameters.php
+     *
+     * @see Parameters_model::get()
+     * @see parameters.php
+     */
     public function index(){
         //titel veranderen naar Parameters
         $data['titel'] = 'Parameters';
@@ -32,6 +42,13 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Slaagt de ingevulde parameters op
+     * via Parameters_model en toont het resulterende object in de view parametersBevesting.php
+     *
+     * @see Parameters_model::update()
+     * @see parametersBevestiging.php
+     */
     public function parametersOpslagen(){
         //titel veranderen naar Parameters Opgeslagen
         $data['titel'] = 'Parameters Opgeslagen';
@@ -58,16 +75,13 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
-    public function mmcMedewerkersBeheren(){
-        $data['titel'] = 'MMC Medewerkers Beheren';
-        $data['gebruiker'] = $this->authex->getGebruikerInfo();
-        $data['gemaaktDoor'] = "Kilian Fastenakels";
-
-        //Templates definieren en inladen
-        $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/mmcMedewerkerBeheren');
-        $this->template->load('main_master', $partials, $data);
-    }
-
+    /**
+     * Haalt de sjabloon-records op
+     * via Inhoud_model en toont het resulterende object in de view sjablonenBeheren.php
+     *
+     * @see Inhoud_model::getInhoudWhereTypeInhoudId()
+     * @see sjablonenBeheren.php
+     */
     public function sjablonenBeheren(){
         //titel veranderen naar Sjablonen
         $data['titel'] = 'Sjablonen beheren';
@@ -88,6 +102,14 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Haalt het sjabloon-record met id=$id op
+     * via Inhoud_model en toont het resulterende object in de view sjabloonWijzigen.php
+     *
+     * @param $id de id van het sjabloon record dat getoond wordt
+     * @see Inhoud_model::getInhoudWhereId()
+     * @see sjabloonWijzigen.php
+     */
     public function sjabloonwijzigen($id){
         //titel veranderen naar Sjablonen
         $data['titel'] = 'Sjabloon wijzigen';
@@ -108,6 +130,13 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Slaagt het aangepaste sjabloon op
+     * via Inhoud_model en toont het resulterende object in de view sjabloonBeheren.php
+     *
+     * @see Inhoud_model::update()
+     * @see sjablooneheren.php
+     */
     public function sjabloonOpslagen(){
         //titel veranderen naar Sjabloon Opgeslagen
         $data['titel'] = 'Sjabloon opgeslagen';
@@ -138,6 +167,14 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Verwijdert het sjabloon-record met id=$id
+     * via Inhoud_model en toont het resulterende object in de view sjabloonBeheren.php
+     *
+     * @param $id de id van het sjabloon-record dat verwijdert word.
+     * @see Inhoud_model::leegMaken()
+     * @see sjabloonBeheren.php
+     */
     public function sjabloonVerwijderen($id){
         //titel veranderen naar Sjabloon verwijderen
         $data['titel'] = 'Sjabloon verwijderen';
@@ -167,6 +204,13 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Haalt de inhoud-records op waar TypeInhoudId 1 is
+     * van Inhoud_model en toont het resulterende object in de view websiteBeheren.php
+     *
+     * @see Inhoud_model::getInhoudWhereTypeInhoudId()
+     * @see websiteBeheren.php
+     */
     public function websiteBeheren(){
         //titel veranderen naar Website Beheren
         $data['titel'] = 'Website beheren';
@@ -187,6 +231,14 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Slaagt de aangepaste inhoud-records op
+     * via Inhoud_model en toont het resulterende object in de view websiteBeheren.php
+     *
+     * @see Inhoud_model::updateText()
+     * @see websiteBeheren.php
+     *
+     */
     public function websiteOpslagen(){
         //titel veranderen naar Website Beheren
         $data['titel'] = 'Website beheren';
@@ -233,7 +285,7 @@ class Administrator extends CI_Controller
         $partials = array( 'navigatie' => 'main_menu', 'inhoud' => 'administrator/websiteBeheren');
         $this->template->load('main_master', $partials, $data);
     }
-
+    
     public function gebruikersBeheren($soort) {
         $data['titel'] = 'Gebruikers beheren';
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
