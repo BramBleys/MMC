@@ -315,6 +315,13 @@
         </div>
     </div>
 </div>
+<?php
+$dataAnnuleer = array(
+    'class' => 'btn btn-secondary',
+    'content' => 'Annuleer'
+);
+echo anchor('minderMobiele', form_button($dataAnnuleer));
+?>
 <span id="popupKnopTooltip" class="d-inline-block marginTop" tabindex="0" data-toggle="tooltip">
 <?php
 $dataPopupKnop = array('name' => 'popupKnop',

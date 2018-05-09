@@ -54,8 +54,12 @@ echo form_open('coach/accountGegevensOpslaan', $attributenFormulier);
 <div id="accountGegevens">
 
 </div>
-
 <?php
+$dataAnnuleer = array(
+    'class' => 'btn btn-secondary marginTop',
+    'content' => 'Annuleer'
+);
+echo anchor('coach', form_button($dataAnnuleer));
 echo form_submit('opslaan', 'Opslaan', 'class="btn achtergrond marginTop"');
 echo form_close();
 ?>

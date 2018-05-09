@@ -15,6 +15,43 @@
                         var bestemmingGemeente = this.bestemmingAdres.gemeente.trim();
                         var bestemming = bestemmingStraat.replace(' ', '+') + ',' + bestemmingGemeente;
                         var service = new google.maps.DistanceMatrixService();
+                        var prijs = 0;
+                        if (this.chauffeur != null){
+                            var chauffeurStraat = this.chauffeur.straatEnNummer.trim();
+                            var chauffeurGemeente = this.chauffeur.gemeente.trim();
+                            var chauffeur = chauffeurStraat.replace(' ', '+') + ',' + chauffeurGemeente;
+
+                            service.getDistanceMatrix(
+                                {
+                                    origins: [chauffeur],
+                                    destinations: [vertrek],
+                                    travelMode: 'DRIVING',
+                                }, callbackChauffeur);
+
+                            service.getDistanceMatrix(
+                                {
+                                    origins: [bestemming],
+                                    destinations: [chauffeur],
+                                    travelMode: 'DRIVING',
+                                }, callbackChauffeur);
+
+                            function callbackChauffeur(response, status) {
+                                console.log(response);
+                                if (status == 'OK'){
+                                    if (response.rows[0].elements[0].status == 'OK') {
+                                        var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
+                                        var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
+                                        if($("tr[data-id='" + rit.id + "'] td:eq(5)").text()!= ""){
+                                            prijs = (parseFloat(($("tr[data-id='" + rit.id + "'] td:eq(5)").text()).slice(1))) + (parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand);
+                                        } else{
+                                            prijs = (parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand);
+                                        }
+                                        console.log(prijs);
+                                        $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + parseFloat(prijs).toFixed(2));
+                                    }
+                                }
+                            }
+                        }
                         service.getDistanceMatrix(
                             {
                                 origins: [vertrek],
@@ -28,12 +65,17 @@
                                 if (response.rows[0].elements[0].status == 'OK') {
                                     var spatie = response.rows[0].elements[0].distance.text.indexOf(' ');
                                     var afstand = parseFloat(response.rows[0].elements[0].distance.text.substring(0, spatie).replace(',', '.'));
-                                    var prijs = parseFloat($('input[name="prijsPerKm"').val().replace(',', '.')) * afstand;
+                                    if($("tr[data-id='" + rit.id + "'] td:eq(5)").text()!= ""){
+                                        prijs = (parseFloat(($("tr[data-id='" + rit.id + "'] td:eq(5)").text()).slice(1))) + (parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand);
+                                    } else{
+                                        prijs = (parseFloat($('input[name="prijsPerKm"]').val().replace(',', '.')) * afstand);
+                                    }
                                     console.log(prijs);
-                                    $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + prijs);
+                                    $("tr[data-id='" + rit.id + "'] td:eq(5)").text("€" + parseFloat(prijs).toFixed(2));
                                 }
                             }
                         }
+
                     })
                 } catch (error) {
                     alert("-- ERROR IN JSON --\n" + result);

@@ -343,6 +343,13 @@ if(count($minderMobielen)!=0 || in_array('1', $idArray) ) {
             </div>
         </div>
     </div>
+    <?php
+    $dataAnnuleer = array(
+        'class' => 'btn btn-secondary',
+        'content' => 'Annuleer'
+    );
+    echo anchor('coach/rittenBeheren/' . $gekozenAccount->id, form_button($dataAnnuleer));
+    ?>
     <span id="popupKnopTooltip" class="d-inline-block marginTop" tabindex="0" data-toggle="tooltip">
     <?php
     $dataPopupKnop = array('name' => 'popupKnop',

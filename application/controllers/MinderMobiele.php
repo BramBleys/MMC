@@ -1,20 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * Created by PhpStorm.
- * User: Kix
- * Date: 3/9/2018
- * Time: 1:20 PM
- */
 
+/**
+ * @class MinderMobiele
+ * @brief Controller-klasse voor Minder Mobielen
+ *
+ * Controller-klasse met alle methodes die gebruikt worden voor de Minder Mobielen
+ */
 class MinderMobiele extends CI_Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
         $this->load->helper('notation_helper');
     }
 
+    /**
+     * Haalt de geplande ritten van de aangemelde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+     * via Rit_model, en haalt het parameter record op via Parameter_model en toont de resulterende objecten in de view geplandeRitten.php
+     *
+     * @see Parameters_model::get()
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum()
+     * @see geplandeRitten.php
+     */
     public function index()
     {
         $data['titel'] = 'Mijn geplande ritten';
@@ -38,6 +49,12 @@ class MinderMobiele extends CI_Controller
         }
     }
 
+    /**
+     * Haalt de geplande ritten van de opgehaalde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+     * via Rit_model, en vertaalt dit object naar JSON
+     *
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum()
+     */
     public function haalJsonOp_GeplandeRitten(){
             $gebruikerId = $this->input->get('gebruikerId');
             $this->load->model('Rit_model');
@@ -46,6 +63,12 @@ class MinderMobiele extends CI_Controller
             echo json_encode($ritten);
     }
 
+    /**
+     * Haalt de afgelopen ritten van de opgehaalde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+     * via Rit_model, en vertaalt dit object naar JSON
+     *
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder()
+     */
     public function haalJsonOp_AfgelopenRitten(){
         $gebruikerId = $this->input->get('gebruikerId');
         $this->load->model('Rit_model');
@@ -54,6 +77,12 @@ class MinderMobiele extends CI_Controller
         echo json_encode($ritten);
     }
 
+    /**
+     * Haalt de ritten, uit de week van de opgehaalde datum, van de opgehaalde gebruiker op
+     * via Rit_model, en vertaalt dit object naar JSON
+     *
+     * @see Rit_model::getWhereDatum()
+     */
     public function haalJsonOp_RittenWeek(){
         $gebruikerId = $this->input->get('gebruikerId');
         $datum = $this->input->get('datum');
@@ -63,6 +92,15 @@ class MinderMobiele extends CI_Controller
         echo json_encode($ritten);
     }
 
+    /**
+     * Haalt de afgelopen ritten van de aangemelde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+     * via Rit_model, en haalt het parameter record op
+     * via Parameter_model en toont de resulterende objecten in de view afgelopenRitten.php
+     *
+     * @see Parameters_model::get()
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder()
+     * @see afgelopenRitten.php
+     */
     public function afgelopenRitten() {
         $data['titel'] = 'Mijn afgelopen ritten';
         $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -84,6 +122,13 @@ class MinderMobiele extends CI_Controller
         }
     }
 
+    /**
+     * Haalt het parameter record op
+     * via Parameter_model en toont de view nieuweRit.php
+     *
+     * @see Parameters_model::get()
+     * @see nieuweRit.php
+     */
     public function nieuweRit() {
         $data['titel'] = 'Rit aanvragen';
         $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -101,7 +146,22 @@ class MinderMobiele extends CI_Controller
         }
     }
 
-        public function ritToevoegen() {
+    /**
+     * Haalt het parameter record op
+     * via Parameter_model, haalt de ritten, uit de opgehaalde week, op
+     * via Rit_model, haalt het id van het opgehaalde adres op
+     * via Adres_model, haalt alle gegevens op van de gesubmitte pagina, voegt indien nodig de opgehaalde adressen toe
+     * via Adres_model, voegt de opgehaalde ritgegevens toe
+     * via Rit_model en wordt doorverwezen naar zijn geplande ritten
+     *
+     * @see Parameters_model::get()
+     * @see Rit_model::getWhereDatum()
+     * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+     * @see Adres_model::insert()
+     * @see Rit_model::insert()
+     * @see MinderMobiele::index()
+     */
+    public function ritToevoegen() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $minderMobiele = $data['gebruiker'];
         if($this->session->has_userdata('gebruiker_id')){
@@ -163,6 +223,18 @@ class MinderMobiele extends CI_Controller
         }
     }
 
+    /**
+     * Haalt het rit-record op met id=$id en indien aanwezig de terugrit met ritIdHeenrit=$id (en aangevuld met adresgegevens) op
+     * via Rit_model, haalt het parameter record op
+     * via Parameter_model en toont de objecten in de view wijzigRit.php
+     *
+     * @param $id De id van het rit-record dat getoond wordt
+     * @see Rit_model::get()
+     * @see Rit_model::getByHeenRit()
+     * @see Adres_model::getAdres()
+     * @see Parameters_model::get()
+     * @see wijzigRit.php
+     */
     public function wijzigRit($id){
 
         $data['titel'] = 'Rit wijzigen';
@@ -209,6 +281,23 @@ class MinderMobiele extends CI_Controller
         }
     }
 
+    /**
+     * Haalt het parameter record op
+     * via Parameter_model, haalt de ritten, uit de opgehaalde week, op
+     * via Rit_model, haalt het id van het opgehaalde adres op
+     * via Adres_model, verwijdert de opgehaalde rit en zijn terugrit
+     * via Rit_model, haalt alle gegevens op van de gesubmitte pagina, voegt indien nodig de opgehaalde adressen toe
+     * via Adres_model, voegt de opgehaalde ritgegevens toe
+     * via Rit_model en wordt doorverwezen naar zijn geplande ritten
+     *
+     * @see Parameters_model::get()
+     * @see Rit_model::getWhereDatum()
+     * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+     * @see Rit_model::delete()
+     * @see Adres_model::insert()
+     * @see Rit_model::insert()
+     * @see MinderMobiele::index()
+     */
     public function wijzigingOpslaan(){
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         $minderMobiele = $data['gebruiker'];
@@ -276,7 +365,16 @@ class MinderMobiele extends CI_Controller
             redirect('Home');
         }
     }
-    
+
+    /**
+     * Verwijdert het rit-record op met id=$id en indien aanwezig de terugrit met ritIdHeenrit=$id
+     * via Rit_model en wordt doorverwezen naar zijn geplande ritten
+     *
+     * @param $id De id van het rit-record dat verwijdert wordt met zijn terugrit
+     * @see Rit_model::getByHeenRit()
+     * @see Rit_model::delete()
+     * @see MinderMobiele::index()
+     */
     public function schrap($id){
         $this->load->model('rit_model');
         if ($this->rit_model->getByHeenRit($id)){

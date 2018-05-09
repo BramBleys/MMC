@@ -1,14 +1,30 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 
+    /**
+     * @class Coach
+     * @brief Controller-klasse voor Coach
+     *
+     * Controller-klasse met alle methodes die gebruikt worden voor de Coach
+     */
     class Coach extends CI_Controller {
 
+        /**
+         * Constructor
+         */
         public function __construct()
         {
             parent::__construct();
             $this->load->helper('notation_helper');
         }
 
+        /**
+         * Haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, en toont de view minderMobielen.php
+         *
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see minderMobielen.php
+         */
         public function index() {
             $data['titel'] = 'Overzicht personen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -27,6 +43,16 @@
             }
         }
 
+        /**
+         * Haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, haalt de gekozen gebruiker op met id=$accountId
+         * via Gebruiker_model, en toont de resulterende objecten in de view rittenBeheren.php
+         *
+         * @param $accountId De id van het gebruiker-record dat getoond wordt, geef 'a' mee om het eerste record van de beheerde gebruikers te nemen
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @see rittenBeheren.php
+         */
         public function rittenBeheren($accountId) {
             $data['titel'] = 'De geplande ritten';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
