@@ -12,15 +12,15 @@
 ?>
 
     <div class="form-group row">
-        <?php echo form_label('Gebruikersnaam:', 'gebruikersnaam', 'class="col-sm-2 col-form-label"'); ?>
-        <div class="col-sm-10">
+        <?php echo form_label('Gebruikersnaam:', 'gebruikersnaam', 'class="col-md-2 col-form-label"'); ?>
+        <div class="col-md-10">
             <?php echo form_input(array('name' => 'gebruikersnaam', 'id' => 'gebruikersnaam', 'class' => 'form-control')); ?>
         </div>
     </div>
 
     <div class="form-group row">
-        <?php echo form_label('Wachtwoord:', 'wachtwoord', 'class="col-sm-2 col-form-label"'); ?>
-        <div class="col-sm-10">
+        <?php echo form_label('Wachtwoord:', 'wachtwoord', 'class="col-md-2 col-form-label"'); ?>
+        <div class="col-md-10">
             <?php echo form_input(array('name' => 'wachtwoord', 'id' => 'wachtwoord', 'class' => 'form-control', 'type' => 'password')); ?>
         </div>
     </div>
