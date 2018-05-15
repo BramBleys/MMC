@@ -84,6 +84,16 @@
             }
         }
 
+        /**
+         * Haalt de gebruikersgegevens van de opgehaalde gebruiker op
+         * via Gebruiker_model, haalt de geplande ritten van de opgehaalde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+         * via Rit_model, haalt het parameter record op via Parameter_model en toont de resulterende objecten in de view ajax_geplandeRitten.php
+         *
+         * @see Gebruiker_model::get()
+         * @see Parameters_model::get()
+         * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum()
+         * @see ajax_geplandeRitten.php
+         */
         public function haalAjaxOp_GeplandeRitten() {
             $accountId = $this->input->get('accountId');
 
@@ -99,6 +109,16 @@
             $this->load->view("coach/ajax_geplandeRitten", $data);
         }
 
+        /**
+         * Haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, haalt de gekozen gebruiker op met id=$accountId
+         * via Gebruiker_model, en toont de resulterende objecten in de view afgelopenRittenCoach.php
+         *
+         * @param $accountId De id van het gebruiker-record dat getoond wordt, geef 'a' mee om het eerste record van de beheerde gebruikers te nemen
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @see afgelopenRittenCoach.php
+         */
         public function afgelopenRitten($accountId) {
             $data['titel'] = 'De afgelopen ritten';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -131,6 +151,16 @@
             }
         }
 
+        /**
+         * Haalt de gebruikersgegevens van de opgehaalde gebruiker op
+         * via Gebruiker_model, haalt de agelopen ritten van de opgehaalde gebruiker (en aangevuld met gebruiker- en adresgegevens) op
+         * via Rit_model, haalt het parameter record op via Parameter_model en toont de resulterende objecten in de view ajax_afgelopenRitten.php
+         *
+         * @see Gebruiker_model::get()
+         * @see Parameters_model::get()
+         * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder()
+         * @see ajax_afgelopenRitten.php
+         */
         public function haalAjaxOp_AfgelopenRitten() {
             $accountId = $this->input->get('accountId');
 
@@ -146,6 +176,17 @@
             $this->load->view("coach/ajax_afgelopenRitten", $data);
         }
 
+        /**
+         * Haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, haalt de gekozen gebruiker op met id=$accountId
+         * via Gebruiker_model, haalt het parameter record op via Parameter_model en toont de resulterende objecten in de view nieuweRitCoach.php
+         *
+         * @param $accountId De id van het gebruiker-record dat getoond wordt, geef 'a' mee om het eerste record van de beheerde gebruikers te nemen
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @see Parameters_model::get()
+         * @see nieuweRitCoach.php
+         */
         public function nieuweRit($accountId) {
             $data['titel'] = 'Rit aanvragen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -180,6 +221,23 @@
             }
         }
 
+        /**
+         * Haalt de gebruikergegevens van het opgehaalde account op
+         * via Gebruiker_model, haalt het parameter record op
+         * via Parameter_model, haalt de ritten, uit de opgehaalde week, op
+         * via Rit_model, haalt het id van het opgehaalde adres op
+         * via Adres_model, haalt alle gegevens op van de gesubmitte pagina, voegt indien nodig de opgehaalde adressen toe
+         * via Adres_model, voegt de opgehaalde ritgegevens toe
+         * via Rit_model en wordt doorverwezen naar de geplande ritten van het opgehaalde account
+         *
+         * @see Gebruiker_model::getGebruiker()
+         * @see Parameters_model::get()
+         * @see Rit_model::getWhereDatum()
+         * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+         * @see Adres_model::insert()
+         * @see Rit_model::insert()
+         * @see Coach::rittenBeheren()
+         */
         public function ritToevoegen()
         {
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
@@ -245,6 +303,25 @@
             }
         }
 
+        /**
+         * Haalt het gebruiker-record met id=$accountId op
+         * via Gebruiker_model, haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, haalt de gekozen gebruiker op met id=$accountId
+         * via Gebruiker_model, haalt het rit-record op met id=$id en indien aanwezig de terugrit met ritIdHeenrit=$id (en aangevuld met adresgegevens) op
+         * via Rit_model, haalt het parameter record op
+         * via Parameter_model en toont de objecten in de view wijzigRitCoach.php
+         *
+         * @param $id De id van het rit-record dat getoond wordt
+         * @param $accountId De id van het gekozen account
+         * @see Gebruiker_model::getGebruiker()
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @see Rit_model::get()
+         * @see Rit_model::getByHeenRit()
+         * @see Adres_model::getAdres()
+         * @see Parameters_model::get()
+         * @see wijzigRitCoach.php
+         */
         public function wijzigRit($accountId, $id){
 
             $data['titel'] = 'Rit wijzigen';
@@ -309,6 +386,24 @@
             }
         }
 
+        /**
+         * Haalt de gebruikergegevens van het opgehaalde account op
+         * via Gebruiker_model, haalt het parameter record op
+         * via Parameter_model, haalt de ritten, uit de opgehaalde week, op
+         * via Rit_model, haalt het id van het opgehaalde adres op
+         * via Adres_model, verwijdert de opgehaalde rit en zijn terugrit
+         * via Rit_model, haalt alle gegevens op van de gesubmitte pagina, voegt indien nodig de opgehaalde adressen toe
+         * via Adres_model, voegt de opgehaalde ritgegevens toe
+         * via Rit_model en wordt doorverwezen naar de geplande ritten van het opgehaalde account
+         *
+         * @see Gebruiker_model::getGebruiker()
+         * @see Parameters_model::get()
+         * @see Rit_model::getWhereDatum()
+         * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+         * @see Adres_model::insert()
+         * @see Rit_model::insert()
+         * @see Coach::rittenBeheren()
+         */
         public function wijzigingOpslaan(){
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
             $this->load->model('gebruiker_model');
@@ -379,6 +474,16 @@
             }
         }
 
+        /**
+         * Verwijdert het rit-record op met id=$ritId en indien aanwezig de terugrit met ritIdHeenrit=$ritId
+         * via Rit_model en wordt doorverwezen naar de geplande ritten van het account met id=$accountId
+         *
+         * @param $ritId De id van het rit-record dat verwijdert wordt met zijn terugrit
+         * @param $accountId De id van het account waarvan de geplande ritten worden getoond op de doorverwezen pagina
+         * @see Rit_model::getByHeenRit()
+         * @see Rit_model::delete()
+         * @see Coach::rittenBeheren()
+         */
         public function schrap($accountId, $ritId){
             $this->load->model('rit_model');
             if ($this->rit_model->getByHeenRit($ritId)){
@@ -389,6 +494,16 @@
             redirect('coach/rittenBeheren/' . $accountId);
         }
 
+        /**
+         * Haalt de gebruikers die de aangemelde gebruiker (coach) beheert op
+         * via Gebruiker_model, haalt de gekozen gebruiker op met id=$accountId
+         * via Gebruiker_model, en toont de resulterende objecten in de view accountsBeheren.php
+         *
+         * @param $accountId De id van het gebruiker-record dat getoond wordt, geef 'a' mee om het eerste record van de beheerde gebruikers te nemen
+         * @see Gebruiker_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @see accountsBeheren.php
+         */
         public function accountsBeheren($accountId) {
             $data['titel'] = 'Persoonlijke gegevens aanpassen';
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
@@ -408,11 +523,17 @@
             }
         }
 
+        /**
+         * Haalt alle gegevens op van de gesubmitte pagina, wijzigt het record via Gebruiker_model
+         * en wordt doorverwezen naar het overzicht van de minder mobielen die de coach beheert
+         *
+         * @see Gebruiker_model::update()
+         * @see Coach::index()
+         */
         public function accountGegevensOpslaan() {
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
             $data['gemaaktDoor'] = "Dylan Vernelen Ebert";
             if($this->session->has_userdata('gebruiker_id')) {
-                //haal alle gegevens op uit het ingevulde formulier en steek ze in een object
                 $gegevens = new stdClass();
                 $gegevens->id = $this->input->post('getoondAccountId');
                 $gegevens->voornaam = $this->input->post('voornaam');
@@ -438,6 +559,13 @@
             }
         }
 
+        /**
+         * Haalt de gebruikergegevens van de opgehaalde gebruiker op via Gebruiker_model
+         * en toont het resulterende object in de view ajax_account.php
+         *
+         * @see Gebruiker_model::get()
+         * @see ajax_account.php
+         */
         public function haalAjaxOp_Gebruiker() {
             $accountId = $this->input->get('accountId');
 
