@@ -288,4 +288,35 @@ class MMCMedewerker extends CI_Controller {
             $this->template->load('main_master', $partials, $data);
         }
     }
+
+    // Chauffeurs zoeken
+    public function haalAjaxOp_Chauffeurs() {
+
+            $ritId = $this->input->get('ritId');
+
+            $this->load->model('Rit_model');
+            $data['rit'] = $this->Rit_model->getRitWithGebruikerEnAdres($ritId);
+
+            $this->load->model('Gebruiker_model');
+            $chauffeurs = $this->Gebruiker_model->getAllGebruikersWithSoortLike(3);
+
+            $this->load->model('Vrijwilliger_model');
+
+            foreach ($chauffeurs as $chauffeur) {
+                $chauffeur->beschikbaarheid = $this->Vrijwilliger_model->getBeschikbaarheid($chauffeur->id);
+            }
+
+            $data['chauffeurs'] = $chauffeurs;
+
+            $this->load->view("MMCMedewerker/ajax_zoekChauffeur", $data);
+    }
+
+    public function haalAjaxOp_vulChauffeurIn() {
+        $gebruikerId = $this->input->get('gebruikerId');
+
+        $this->load->model('Gebruiker_model');
+        $data['chauffeur'] = $this->Gebruiker_model->get($gebruikerId);
+
+        $this->load->view("MMCMedewerker/ajax_vulChauffeurIn", $data);
+    }
 }

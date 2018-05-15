@@ -1,3 +1,29 @@
+<script>
+    function zoekChauffeur(id) {
+        $.ajax({type : "GET",
+            url : site_url + "/MMCMedewerker/haalAjaxOp_Chauffeurs",
+            data : { ritId : id },
+            success : function(result){
+                $("#resultaat").html(result);
+                $('#modalChauffeur').modal('show');
+
+            },
+            error: function (xhr, status, error) {
+                alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+
+        $( ".zoekChauffeur" ).click(function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            zoekChauffeur(id);
+        });
+    });
+</script>
+
 <?php
 
 echo heading($titel,2,'class="mb-3"') . "\n";
@@ -94,11 +120,13 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo heading('Chauffeur',5,'class="mb-2"') . "\n";
-        echo anchor('', 'Zoek een andere chauffeur', array('class' => 'btn btn-primary mb-2', 'data-id' => '1')) . "\n";
+        echo anchor('', 'Zoek een andere chauffeur', array('class' => 'btn btn-primary mb-2 zoekChauffeur', 'data-id' => $rit->id)) . "\n";
 
 
         ?>
     </div>
+</div>
+<div class="form-row" id="chauffeur">
     <div class="col-12 col-md-6">
         <?php
 
@@ -144,6 +172,8 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         ?>
     </div>
+</div>
+<div class="form-row">
     <div class="col-12">
         <?php
 
@@ -212,6 +242,30 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         ?>
     </div>
+    <div class="col-6">
+        <?php
+
+        echo "<p>" .
+            form_label('Datum', 'datum') .
+            "<br>" .
+            form_input('datum','','id="datum" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
+            "</p>\n";
+
+        ?>
+    </div>
+    <div class="col-6">
+        <?php
+
+        echo "<p>" .
+            form_label('Uur', 'uur') .
+            "<br>" .
+            form_input('uur','','id="uur" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
+            "</p>\n";
+
+        ?>
+    </div>
     <div class="col-12">
         <?php
 
@@ -219,60 +273,39 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         ?>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-4">
         <?php
 
         echo "<p>" .
-            form_label('Gebruikersnaam', 'gebruikersnaam') .
+            form_label('Postcode', 'postcode') .
             "<br>" .
-            form_input('gebruikersnaam','','id="gebruikersnaam" class="form-control" required') .
-            "<span class=\"invalid-feedback\">Vul hier een gebruikersnaam in</span>" .
+            form_input('postcode','','id="postcode" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier de postcode in</span>" .
             "</p>\n";
 
         ?>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-8">
         <?php
 
         echo "<p>" .
-            form_label('Wachtwoord', 'wachtwoord') .
+            form_label('Gemeente', 'gemeente') .
             "<br>" .
-            form_password('wachtwoord','','id="wachtwoord" class=" form-control" required') .
-            "<span class=\"invalid-feedback\">Vul hier een wachtwoord in</span>" .
+            form_input('gemeente','','id="gemeente" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
             "</p>\n";
 
         ?>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12">
         <?php
 
-        $options = array(
-            '1' =>  'Minder Mobiele',
-            '2' =>  'Coach',
-            '3' =>  'Vrijwilliger'
-        );
-
         echo "<p>" .
-            form_label('Type gebruiker', 'type') .
+            form_label('Straat + Nr. + Bus', 'straatEnNummer') .
             "<br>" .
-            form_multiselect('type[]', $options, '' , 'id="type" class="custom-select" required') .
-            "<span class=\"invalid-feedback\">Kies hier het type gebruiker</span>" .
+            form_input('straatEnNummer','','id="straatEnNummer" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier de straat, nummer en eventueel busnummer in</span>" .
             "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        $options = array(
-            '1' =>  'actief',
-            '0' =>  'inactief'
-        );
-
-        echo "<p>" .
-            form_label('Status', 'inactief') .
-            "<br>" .
-            form_dropdown('inactief',$options, '1', 'id="inactief" class="custom-select"');
 
         ?>
     </div>
@@ -287,5 +320,29 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
             ?>
         </div>
+    </div>
+</div>
+
+<!-- Dialoogvenster -->
+<div class="modal fade" id="modalChauffeur" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Inhoud dialoogvenster-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chauffeur zoeken</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div id="resultaat"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sluit</button>
+            </div>
+        </div>
+
     </div>
 </div>

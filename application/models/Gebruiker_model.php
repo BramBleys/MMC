@@ -102,6 +102,20 @@
             return $gebruikers;
         }
 
+        function getAllGebruikersWithSoortLike($soortId) {
+            // geef alle gebruiker-objecten met soort
+            $this->db->like('soortId', $soortId, 'both');
+            $query = $this->db->get('gebruiker');
+            $gebruikers = $query->result();
+
+            $this->load->model('soort_model');
+            foreach ($gebruikers as $gebruiker) {
+                $gebruiker->soort = $this->soort_model->getSoort($gebruiker->soortId);
+            }
+
+            return $gebruikers;
+        }
+
         function getGebruiker($gebruikerId) {
             $this->db->where('id', $gebruikerId);
             $query = $this->db->get('gebruiker');
