@@ -1,11 +1,11 @@
 <script>
-    function zoekChauffeur(id) {
+    function zoekChauffeur() {
         $.ajax({type : "GET",
-            url : site_url + "/MMCMedewerker/haalAjaxOp_Chauffeurs",
-            data : { ritId : id },
+            url : site_url + "/MMCMedewerker/haalAjaxOp_AlleChauffeurs",
+            data : { },
             success : function(result){
                 $("#resultaat").html(result);
-                $('#modalChauffeur').modal('show');
+                $('#modalGebruiker').modal('show');
 
             },
             error: function (xhr, status, error) {
@@ -14,12 +14,14 @@
         });
     }
 
-    function thuisAdresInvullen(checked, gebruikerId) {
+    function zoekPassagier() {
         $.ajax({type : "GET",
-            url : site_url + "/MMCMedewerker/haalAjaxOp_thuisAdres",
-            data : { checked: checked, gebruikerId : gebruikerId },
+            url : site_url + "/MMCMedewerker/haalAjaxOp_AllePassagiers",
+            data : { },
             success : function(result){
-                $("#vertrekAdres").html(result);
+                $("#resultaat").html(result);
+                $('#modalGebruiker').modal('show');
+
             },
             error: function (xhr, status, error) {
                 alert("-- ERROR IN AJAX --\n\n" + xhr.responseText);
@@ -28,11 +30,7 @@
     }
 
     $(document).ready(function(){
-        if($("#terugRit").is(":checked")) {
-            $("#terugRitDiv").show();
-        } else {
-            $("#terugRitDiv").hide();
-        }
+        $("#terugRitResultaat").hide();
 
         $( ".zoekChauffeur" ).click(function(e) {
             e.preventDefault();
@@ -40,18 +38,34 @@
             zoekChauffeur(id);
         });
 
+        $( ".zoekPassagier" ).click(function(e) {
+            e.preventDefault();
+            zoekPassagier();
+        });
+
         $( "#thuisAdres" ).change(function(e) {
             e.preventDefault();
-            var checked = $(this).data('bool');
-            var gebruikerId = $(this).data('id');
-            thuisAdresInvullen(checked, gebruikerId);
+
+            if($("#thuisAdres").is(":checked")) {
+                $("#thuisAdresResultaat").hide();
+                $("#postcodeVertrek").val('0000');
+                $("#gemeenteVertrek").val('Mol');
+                $("#straatEnNummerVertrek").val('Klein 1');
+
+            } else {
+                $("#thuisAdresResultaat").show();
+                $("#postcodeVertrek").val('');
+                $("#gemeenteVertrek").val('');
+                $("#straatEnNummerVertrek").val('');
+            }
         });
 
         $("#terugRit").change(function() {
             if($("#terugRit").is(":checked")) {
-                $("#terugRitDiv").show();
+                $("#terugRitResultaat").show();
+                $("#datumTerug").attr("min",$("#datumHeen").val());
             } else {
-                $("#terugRitDiv").hide();
+                $("#terugRitResultaat").hide();
             }
         });
     });
@@ -61,27 +75,29 @@
 
 echo heading($titel,2,'class="mb-3"') . "\n";
 
-echo form_open('MMCMedewerker/wijzigAanvraag', 'class="needs-validation" novalidate');
+echo form_open('MMCMedewerker/voegToeAanvraag', 'class="needs-validation" novalidate');
 
 echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 ?>
-
 <div class="form-row">
     <div class="col-12">
         <?php
 
         echo heading('Passagier',5,'class="mb-2"') . "\n";
+        echo anchor('', 'Zoek een passagier', array('class' => 'btn btn-primary mb-2 zoekPassagier')) . "\n";
 
         ?>
     </div>
+</div>
+<div class="form-row" id="passagierResultaat">
     <div class="col-12 col-md-6">
         <?php
 
         echo "<p>" .
-            form_label('Naam', 'passagier') .
+            form_label('Naam', 'passagierNaam') .
             "<br>" .
-            form_input('passagier',$rit->minderMobiele->voornaam . ' ' . $rit->minderMobiele->naam,'id="voornaam" class="form-control" disabled') .
-            form_hidden('minderMobieleId', $rit->minderMobiele->id) .
+            form_input('passagierNaam','','id="passagierNaam" class="form-control" disabled') .
+            form_hidden("passagierId",'');
             "</p>\n";
 
         ?>
@@ -90,9 +106,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('MMC-nummer', 'mmcNummer') .
+            form_label('MMC-nummer', 'passagierMmcNummer') .
             "<br>" .
-            form_input('',$rit->minderMobiele->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
+            form_input('passagierMmcNummer','','id="passagierMmcNummer" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -108,9 +124,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Naam', 'coach') .
+            form_label('Naam', 'coachNaam') .
             "<br>" .
-            form_input('naam',$rit->coach->voornaam . ' ' . $rit->coach->naam,'id="naam" class="form-control" disabled') .
+            form_input('coachNaam','','id="coachNaam" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -119,10 +135,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('MMC-nummer', 'mmcNummer') .
+            form_label('MMC-nummer', 'coachMmcNummer') .
             "<br>" .
-            form_input('',$rit->coach->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
-            form_hidden('mmcNummer', $rit->coach->mmcNummer);
+            form_input('coachMmcNummer','','id="coachMmcNummer" class="form-control" disabled') .
         "</p>\n";
 
         ?>
@@ -131,9 +146,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Telefoonnummer', 'telefoonnummer') .
+            form_label('Telefoonnummer', 'coachTelefoonnummer') .
             "<br>" .
-            form_input('telefoonnummer',$rit->coach->telefoonnummer,'id="telefoonnummer" class="form-control" disabled') .
+            form_input('coachTelefoonnummer','','id="coachTelefoonnummer" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -142,19 +157,20 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('E-mail', 'email') .
+            form_label('E-mail', 'coachEmail') .
             "<br>" .
-            form_input('email',$rit->coach->email,'id="email" class="form-control" disabled') .
+            form_input('coachEmail','','id="coachEmail" class="form-control" disabled') .
             "</p>\n";
 
         ?>
     </div>
+</div>
+<div class="form-row">
     <div class="col-12">
         <?php
 
         echo heading('Chauffeur',5,'class="mb-2"') . "\n";
-        echo anchor('', 'Zoek een andere chauffeur', array('class' => 'btn btn-primary mb-2 zoekChauffeur', 'data-id' => $rit->id)) . "\n";
-
+        echo anchor('', 'Zoek een chauffeur', array('class' => 'btn btn-primary mb-2 zoekChauffeur')) . "\n";
 
         ?>
     </div>
@@ -164,10 +180,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Naam', 'vrijwilliger') .
+            form_label('Naam', 'vrijwilligerNaam') .
             "<br>" .
-            form_input('naam',$rit->chauffeur->voornaam . ' ' . $rit->chauffeur->naam,'id="naamVrijwilliger" class="form-control" disabled') .
-            form_hidden('vrijwilliger', $rit->chauffeur->id) .
+            form_input('vrijwilligerNaam','','id="vrijwilligerNaam" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -176,20 +191,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('MMC-nummer', 'mmcNummer') .
+            form_label('MMC-nummer', 'vrijwilligerMmcNummer') .
             "<br>" .
-            form_input('',$rit->chauffeur->mmcNummer,'id="mmcNummerVrijwilliger" class="form-control" disabled') .
-        "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Telefoonnummer', 'telefoonnummer') .
-            "<br>" .
-            form_input('telefoonnummer',$rit->chauffeur->telefoonnummer,'id="telefoonnummer" class="form-control" disabled') .
+            form_input('vrijwilligerMmcNummer','','id="vrijwilligerMmcNummer" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -198,9 +202,20 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('E-mail', 'email') .
+            form_label('Telefoonnummer', 'vrijwilligerTelefoonnummer') .
             "<br>" .
-            form_input('email',$rit->chauffeur->email,'id="email" class="form-control" disabled') .
+            form_input('vrijwilligerTelefoonnummer','','id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
+            "</p>\n";
+
+        ?>
+    </div>
+    <div class="col-12 col-md-6">
+        <?php
+
+        echo "<p>" .
+            form_label('E-mail', 'vrijwilligerEmail') .
+            "<br>" .
+            form_input('vrijwilligerEmail','','id="vrijwilligerEmail" class="form-control" disabled') .
             "</p>\n";
 
         ?>
@@ -216,23 +231,14 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         ?>
     </div>
 </div>
-<div class="form-row" id="vertrekAdres">
+<div class="form-row">
     <div class="col-12">
         <?php
-
-        if ($rit->minderMobiele->straatEnNummer == $rit->vertrekAdres->straatEnNummer) {
-            $checked = 1;
-        } else {
-            $checked = 0;
-        }
 
         $checkbox = array(
             'name'          => 'thuisAdres',
             'id'            => 'thuisAdres',
-            'value'         => 'ja',
-            'checked'       => $checked,
-            'data-bool'     => $checked,
-            'data-id'       => $rit->minderMobiele->id
+            'value'         => ''
         );
 
         echo form_checkbox($checkbox);
@@ -240,13 +246,15 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         ?>
     </div>
+</div>
+<div class="form-row" id="thuisAdresResultaat">
     <div class="col-4">
         <?php
 
         echo "<p>" .
-            form_label('Postcode', 'postcode') .
+            form_label('Postcode', 'postcodeVertrek') .
             "<br>" .
-            form_input('postcode','','id="postcode" pattern="[0-9]{4}" class="form-control" required') .
+            form_input('postcodeVertrek','','id="postcodeVertrek" pattern="[0-9]{4}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de postcode in</span>" .
             "</p>\n";
 
@@ -256,9 +264,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Gemeente', 'gemeente') .
+            form_label('Gemeente', 'gemeenteVertrek') .
             "<br>" .
-            form_input('gemeente','','id="gemeente" pattern=".{2,}" class="form-control" required') .
+            form_input('gemeenteVertrek','','id="gemeenteVertrek" pattern=".{2,}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
             "</p>\n";
 
@@ -268,9 +276,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Straat + Nr. + Bus', 'straatEnNummer') .
+            form_label('Straat + Nr. + Bus', 'straatEnNummerVertrek') .
             "<br>" .
-            form_input('straatEnNummer','','id="straatEnNummer" pattern=".{2,} [0-9]{1,}.*" class="form-control" required') .
+            form_input('straatEnNummerVertrek','','id="straatEnNummerVertrek" pattern=".{2,} [0-9]{1,}.*" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de straat, nummer en eventueel busnummer in</span>" .
             "</p>\n";
 
@@ -283,16 +291,10 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         $vandaag = date('Y-m-d');
 
-        $datum = date_create($rit->vertrekTijdstip);
-        $datumHeenRit = date_format($datum, 'Y-m-d');
-
-        $uur = date_create($rit->vertrekTijdstip);
-        $uurHeenRit = date_format($uur, 'H:i');
-
         echo "<p>" .
-            form_label('Datum', 'datum') .
+            form_label('Datum', 'datumHeen') .
             "<br>" .
-            '<input type="date" id="datum" value="' . $datumHeenRit . '" name="datum" class="form-control" min="' . $vandaag . '" required/>' .
+            '<input type="date" id="datumHeen" value="" name="datum" class="form-control" min="' . $vandaag . '" required/>' .
             "<span class=\"invalid-feedback\">Vul hier de datum in</span>" .
             "</p>\n";
 
@@ -302,9 +304,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Uur', 'uur') .
+            form_label('Uur', 'uurHeen') .
             "<br>" .
-            '<input type="time" id="uur" value="' . $uurHeenRit . '" name="uur" class="form-control" required/>' .
+            '<input type="time" id="uurHeen" value="" name="uur" class="form-control" required/>' .
             "<span class=\"invalid-feedback\">Vul hier het vertrekuur in</span>" .
             "</p>\n";
         ?>
@@ -320,9 +322,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Postcode', 'postcode') .
+            form_label('Postcode', 'postcodeBestemming') .
             "<br>" .
-            form_input('postcode','','id="postcode" pattern="[0-9]{4}" class="form-control" required') .
+            form_input('postcodeBestemming','','id="postcodeBestemming" pattern="[0-9]{4}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de postcode in</span>" .
             "</p>\n";
 
@@ -332,9 +334,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Gemeente', 'gemeente') .
+            form_label('Gemeente', 'gemeenteBestemming') .
             "<br>" .
-            form_input('gemeente','','id="gemeente" pattern=".{2,}" class="form-control" required') .
+            form_input('gemeenteBestemming','','id="gemeenteBestemming" pattern=".{2,}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
             "</p>\n";
 
@@ -344,9 +346,9 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <?php
 
         echo "<p>" .
-            form_label('Straat + Nr. + Bus', 'straatEnNummer') .
+            form_label('Straat + Nr. + Bus', 'straatEnNummerBestemming') .
             "<br>" .
-            form_input('straatEnNummer','','id="straatEnNummer" pattern=".{2,} [0-9]{1,}.*" class="form-control" required') .
+            form_input('straatEnNummerBestemming','','id="straatEnNummerBestemming" pattern=".{2,} [0-9]{1,}.*" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de straat, nummer en eventueel busnummer in</span>" .
             "</p>\n";
 
@@ -357,60 +359,37 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo heading('Terugrit',5,'class="mb-2"') . "\n";
 
-        $hiddenId = '';
-        $datumTerugRit = '';
-        $uurTerugRit = '';
-
-        if ($terugRit) {
-            $checked = 1;
-
-            $datum = date_create($terugRit->vertrekTijdstip);
-            $datumTerugRit = date_format($datum, 'Y-m-d');
-
-            $uur = date_create($terugRit->vertrekTijdstip);
-            $uurTerugRit = date_format($uur, 'H:i');
-
-            $hiddenId = $terugRit->id;
-        } else {
-            $checked = 0;
-        }
-
         $checkbox = array(
             'name'          => 'terugRit',
             'id'            => 'terugRit',
-            'value'         => '1',
-            'checked'       => $checked,
+            'value'         => 'checked'
         );
 
         echo form_checkbox($checkbox);
         echo form_label('Terugrit ingeven','terugRit', 'class="ml-1"');
-        echo form_hidden('terugRitId',$hiddenId);
 
         ?>
     </div>
 </div>
-<div class="form-row" id="terugRitDiv">
+<div class="form-row" id="terugRitResultaat">
     <div class="col-6">
         <?php
 
-        $datumHeenRit = date_create($rit->vertrekTijdstip);
-        $naHeenRit = date_format($datumHeenRit, 'Y-m-d');
-
-            echo "<p>" .
-                form_label('Datum', 'datum') .
-                "<br>" .
-                '<input type="date" id="datum" value="' . $datumTerugRit . '" name="datum" class="form-control" min="' . $naHeenRit . '"/>' .
-                "<span class=\"invalid-feedback\">Vul hier de datum in</span>" .
-                "</p>\n";
+        echo "<p>" .
+            form_label('Datum', 'datumTerug') .
+            "<br>" .
+            '<input type="date" id="datumTerug" value="" name="datum" class="form-control" min="' . $vandaag . '"/>' .
+            "<span class=\"invalid-feedback\">Vul hier de datum in</span>" .
+            "</p>\n";
         ?>
     </div>
     <div class="col-6">
         <?php
 
         echo "<p>" .
-            form_label('Uur', 'uur') .
+            form_label('Uur', 'uurTerug') .
             "<br>" .
-            '<input type="time" id="uur" value="' . $uurTerugRit . '" name="uur" class="form-control"/>' .
+            '<input type="time" id="uurTerug" value="" name="uur" class="form-control"/>' .
             "<span class=\"invalid-feedback\">Vul hier het uur in</span>" .
             "</p>\n";
         ?>
@@ -440,7 +419,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         <div class="d-flex flex-nowrap justify-content-end">
             <?php
 
-            echo form_submit('submit','Aanvraag wijzigen', 'class="btn btn-primary order-2"');
+            echo form_submit('submit','Aanvraag bevestigen', 'class="btn btn-primary order-2"');
             echo form_close();
 
             echo anchor('MMCMedewerker/aanvragenBeheren/','Annuleren','class="btn btn-outline-primary mr-2 order-1"');
@@ -451,13 +430,13 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 </div>
 
 <!-- Dialoogvenster -->
-<div class="modal fade" id="modalChauffeur" role="dialog">
+<div class="modal fade" id="modalGebruiker" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Inhoud dialoogvenster-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Chauffeur zoeken</h5>
+                <h5 class="modal-title">Gebruiker zoeken</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                 </button>

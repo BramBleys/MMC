@@ -2,9 +2,10 @@
     <?php
 
     echo "<p>" .
-        form_label('Naam', 'coach') .
+        form_label('Naam', 'vrijwilligerNaam') .
         "<br>" .
-        form_input('naam',$chauffeur->voornaam . ' ' . $chauffeur->naam,'id="naam" class="form-control" disabled') .
+        form_input('vrijwilligerNaam',$chauffeur->voornaam . ' ' . $chauffeur->naam,'id="vrijwilligerNaam" class="form-control" disabled') .
+        form_hidden('vrijwilligerId',$chauffeur->id);
         "</p>\n";
 
     ?>
@@ -13,10 +14,9 @@
     <?php
 
     echo "<p>" .
-        form_label('MMC-nummer', 'mmcNummer') .
+        form_label('MMC-nummer', 'vrijwilligerMmcNummer') .
         "<br>" .
-        form_input('',$chauffeur->mmcNummer,'id="mmcNummer" class="form-control" disabled') .
-        form_hidden('mmcNummer', $chauffeur->mmcNummer);
+        form_input('vrijwilligerMmcNummer',$chauffeur->mmcNummer,'id="vrijwilligerMmcNummer" class="form-control" disabled') .
     "</p>\n";
 
     ?>
@@ -25,9 +25,9 @@
     <?php
 
     echo "<p>" .
-        form_label('Telefoonnummer', 'telefoonnummer') .
+        form_label('Telefoonnummer', 'vrijwilligerTelefoonnummer') .
         "<br>" .
-        form_input('telefoonnummer',$chauffeur->telefoonnummer,'id="telefoonnummer" class="form-control" disabled') .
+        form_input('vrijwilligerTelefoonnummer',$chauffeur->telefoonnummer,'id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
         "</p>\n";
 
     ?>
@@ -36,9 +36,9 @@
     <?php
 
     echo "<p>" .
-        form_label('E-mail', 'email') .
+        form_label('E-mail', 'vrijwilligerEmail') .
         "<br>" .
-        form_input('email',$chauffeur->email,'id="email" class="form-control" disabled') .
+        form_input('vrijwilligerEmail',$chauffeur->email,'id="vrijwilligerEmail" class="form-control" disabled') .
         "</p>\n";
 
     ?>

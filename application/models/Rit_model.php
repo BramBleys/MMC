@@ -151,6 +151,11 @@
             return $this->db->insert_id();
         }
 
+        function update($rit) {
+            $this->db->where('id', $rit->id);
+            $this->db->update('rit', $rit);
+        }
+
         function delete($id) {
             $this->db->where('id', $id);
             $this->db->delete('rit');
