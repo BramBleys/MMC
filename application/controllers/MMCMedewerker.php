@@ -22,7 +22,7 @@ class MMCMedewerker extends CI_Controller {
      *
      * @param $soort Het type van gebruiker dat standaard getoond wordt
      * @see Gebruiker_model::getAllGebruikers()
-     * @see gebruikersBeheren.php
+     * @see MMCMedewerker/gebruikersBeheren.php
      */
     public function gebruikersBeheren($soort) {
         $data['titel'] = 'Gebruikers beheren';
@@ -43,6 +43,12 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Haalt alle gebruikers op via AJAX en het model Gebruiker_model en toont de objecten in de view ajax_gebruikers.php
+     *
+     * @see Gebruiker_model::getAllGebruikers()
+     * @see MMCMedewerker/ajax_gebruikers.php
+     */
     public function haalAjaxOp_Gebruikers() {
         $soort = $this->input->get('soortId');
         $data['soortId'] = $soort;
@@ -53,6 +59,12 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_gebruikers", $data);
     }
 
+    /**
+     * Haalt het hoogste MMC-nummer via het model Gebruiker_model en toont een formulier om een nieuwe gebruiker toe te voegen in de view gebruikerToevoegen.php
+     *
+     * @see Gebruiker_model::getHighestMmcNummer()
+     * @see MMCMedewerker/gebruikerToevoegen.php
+     */
     public function gebruikerToevoegen() {
         $data['titel'] = "Gebruiker toevoegen";
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -75,6 +87,13 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Haalt het gebruiker-object met id=$gebruikerId op via Gebruiker_model en toont een formulier om dit gebruiker-record aan te passen in de view gebruikerBewerken.php
+     *
+     * @param $gebruikerId De gebruiker die aangepast dient te worden
+     * @see Gebruiker_model::get()
+     * @see MMCMedewerker/gebruikerBewerken.php
+     */
     public function gebruikerBewerken($gebruikerId) {
         $data['titel'] = "Gebruiker bewerken";
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -97,6 +116,20 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Haalt alle gegevens uit het formulier om een nieuwe gebruiker toe te voegen en voert enkele controle-acties uit via Gebruiker_model.
+     * Afhankelijk van de waarde van de controle-acties zal één van volgende methodes opgeroepen worden:
+     *  - toonMeldingRegistratieOk/$soortId
+     *  - toonMeldingErkenningBestaat
+     *  - toonMeldingGebruikersnaamBestaat
+     *
+     * @see Gebruiker_model::controleerErkenningsNummerVrij()
+     * @see Gebruiker_model::controleerGebruikersnaamVrij()
+     * @see Gebruiker_model::insert()
+     * @see MMCMedewerker::toonMeldingRegistratieOk()
+     * @see MMCMedewerker::toonMeldingErkenningBestaat()
+     * @see MMCMedewerker::toonMeldingGebruikersnaamBestaat()
+     */
     public function voegToe() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')) {
@@ -160,6 +193,12 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Haalt alle gegevens uit het formulier om een gebruiker te wijzigen en voert de wijzigingen door via het Gebruiker_model en roept de methode toonMeldingWijzigingOk/$soortId op
+     *
+     * @see Gebruiker_model::update()
+     * @see MMCMedewerker::toonMeldingWijzigingOk()
+     */
     public function wijzig() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')) {
@@ -210,6 +249,14 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Wordt gebruikt om verschillende meldingen te tonen via de view melding.php
+     *
+     * @param $titel De titel voor de te tonen melding
+     * @param $boodschap De boodschap van de te tonen melding
+     * @param null $link Een link om naar een bepaalde pagina terug te keren
+     * @see MMCMedewerker/melding.php
+     */
     public function toonMelding($titel, $boodschap, $link = null)
     {
         $data['titel'] = $titel;
@@ -223,29 +270,67 @@ class MMCMedewerker extends CI_Controller {
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Toont een melding wanneer al een gebruiker ingegeven is met een bepaalde erkenningsnummer via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikerToevoegen
+     *
+     * @see MMCMedewerker::toonMelding()
+     * @see MMCMedewerker::gebruikerToevoegen()
+     */
     public function toonMeldingErkenningBestaat() {
         $this->toonMelding('Fout', 'Erkenningsnummer bestaat reeds. Probeer opnieuw!', array("url" => "/MMCMedewerker/gebruikerToevoegen", "tekst" => "Terug"));
 
     }
 
+    /**
+     * Toont een melding wanneer al een gebruiker ingegeven is met een bepaalde gebruikersnaam via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikerToevoegen
+     *
+     * @see MMCMedewerker::toonMelding()
+     * @see MMCMedewerker::gebruikerToevoegen()
+     */
     public function toonMeldingGebruikersnaamBestaat() {
         $this->toonMelding('Fout', 'Gebruikersnaam bestaat reeds. Probeer opnieuw!', array("url" => "/MMCMedewerker/gebruikerToevoegen", "tekst" => "Terug"));
     }
 
+    /**
+     * Toont een melding wanneer de registratie van een gebruiker goed verlopen is via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikersBeheren/$soortId
+     *
+     * @see MMCMedewerker::toonMelding()
+     * @see MMCMedewerker::gebruikersBeheren()
+     */
     public function toonMeldingRegistratieOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol aangemaakt!', array("url" => "/MMCMedewerker/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
     }
 
+    /**
+     * Toont een melding wanneer de wijziging van een gebruiker goed verlopen is via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikersBeheren/$soortId
+     *
+     * @see MMCMedewerker::toonMelding()
+     * @see MMCMedewerker::gebruikersBeheren()
+     */
     public function toonMeldingWijzigingOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol gewijzigd!', array("url" => "/MMCMedewerker/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
 
     }
 
+    /**
+     * Toont een melding wanneer de wijziging van een aanvraag goed verlopen is via de methode toonMelding en genereert een link om terug te keren naar de methode aanvragenBeheren
+     *
+     * @see MMCMedewerker::toonMelding()
+     * @see MMCMedewerker::aanvragenBeheren()
+     */
     public function toonMeldingWijzigingOkAanvraag() {
         $this->toonMelding('Gelukt!', 'De rit is succesvol gewijzigd!', array("url" => "/MMCMedewerker/aanvragenBeheren", "tekst" => "Terug"));
-
     }
 
+    /**
+     * Haalt alle ritten (samen met gebruikers en adres) op voor de mindermobiele met id=$gebruikerId via Rit_model en toont deze in de view geplandeRitten.php
+     *
+     * @param $gebruikerId Gebruiker-id van de gebruiker waarvan de ritten getoond moeten worden
+     * @see Gebruiker_model::get()
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum()
+     * @see Parameters_model::get()
+     * @see MMCMedewerker/geplandeRitten.php
+     */
     public function rittenBekijken($gebruikerId)
     {
         $data['titel'] = 'Geplande ritten voor ';

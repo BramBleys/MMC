@@ -81,6 +81,10 @@
             return $gebruiker;
         }
 
+        /**
+         * Retourneert alle gebruiker records uit de tabel gebruiker
+         * @return Alle gebruiker records
+         */
         function getAllGebruikers() {
             // geef alle gebruiker-objecten
             $this->db->order_by('soortId', 'asc');
