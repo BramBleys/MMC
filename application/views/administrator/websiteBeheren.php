@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kix
- * Date: 4/25/2018
- * Time: 2:48 PM
+ * @file websiteBeheren.php
+ *
+ * View waarin de aanpasbare text van de Home-pagina wordt weergegeven
+ * - krijgt een $teBeherenText-object binnen
+ * - gebruikt een Bootstrap-modal
  */
 ?>
 <?php
@@ -67,5 +68,6 @@
         </div>
     </div>
 </div>
+<?php echo anchor('/Home/index', 'Terug', array('class' => 'btn btn-primary')) . "\n"; ?>
 <?php echo form_close(); ?>
 
