@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/wijzigAanvraag.php
  *
+ * View voor het wijzigen van een ritaanvraag
+ * - krijgt een rit-object (aangevuld met minderMobiele, vrijwilliger, coach en adres) binnen
  */
 
 ?>

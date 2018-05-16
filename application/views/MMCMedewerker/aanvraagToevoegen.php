@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/aanvraagToevoegen.php
  *
+ * View waarin een nieuwe ritaanvraag kan worden ingegeven.
+ *  - maakt gebruik van AJAX voor het opvragen van chauffeurs en passagiers
  */
 
 ?>

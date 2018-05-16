@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_vulChauffeurIn.php
  *
+ * AJAX-view waarin het gekozen vrijwilliger-Object wordt ingevuld, dit wordt getoond in de view MMCMedewerker/aanvraagToevoegen.php
+ *  - krijgt een vrijwilliger-object binnen
  */
 
 ?>

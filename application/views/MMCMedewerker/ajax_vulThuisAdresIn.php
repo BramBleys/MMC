@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_vulThuisAdresIn.php
  *
+ * AJAX-view voor het invullen van het thuisAdres, wordt getoond in de view MMCMedewerker/wijzigAanvraag.php
+ *  - krijgt een minderMobiele-object binnen
  */
 
 ?>

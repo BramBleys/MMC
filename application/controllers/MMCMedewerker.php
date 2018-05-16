@@ -18,7 +18,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle gebruikers op via Gebruiker_model en toont de objecten in de view gebruikersBeheren.php
+     * Haalt alle gebruikers op via Gebruiker_model en toont de objecten in de view MMCMedewerker/gebruikersBeheren.php
      *
      * @param $soort Het type van gebruiker dat standaard getoond wordt
      * @see Gebruiker_model::getAllGebruikers()
@@ -44,7 +44,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle gebruikers op via AJAX en het model Gebruiker_model en toont de objecten in de view ajax_gebruikers.php
+     * Haalt alle gebruikers op via AJAX en het model Gebruiker_model en toont de objecten in de view MMCMedewerker/ajax_gebruikers.php
      *
      * @see Gebruiker_model::getAllGebruikers()
      * @see MMCMedewerker/ajax_gebruikers.php
@@ -60,7 +60,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het hoogste MMC-nummer via het model Gebruiker_model en toont een formulier om een nieuwe gebruiker toe te voegen in de view gebruikerToevoegen.php
+     * Haalt het hoogste MMC-nummer via het model Gebruiker_model en toont een formulier om een nieuwe gebruiker toe te voegen in de view MMCMedewerker/gebruikerToevoegen.php
      *
      * @see Gebruiker_model::getHighestMmcNummer()
      * @see MMCMedewerker/gebruikerToevoegen.php
@@ -88,7 +88,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het gebruiker-object met id=$gebruikerId op via Gebruiker_model en toont een formulier om dit gebruiker-record aan te passen in de view gebruikerBewerken.php
+     * Haalt het gebruiker-object met id=$gebruikerId op via Gebruiker_model en toont een formulier om dit gebruiker-record aan te passen in de view MMCMedewerker/gebruikerBewerken.php
      *
      * @param $gebruikerId De gebruiker die aangepast dient te worden
      * @see Gebruiker_model::get()
@@ -250,7 +250,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Wordt gebruikt om verschillende meldingen te tonen via de view melding.php
+     * Wordt gebruikt om verschillende meldingen te tonen via de view MMCMedewerker/melding.php
      *
      * @param $titel De titel voor de te tonen melding
      * @param $boodschap De boodschap van de te tonen melding
@@ -323,7 +323,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle ritten (samen met gebruikers en adres) op voor de mindermobiele met id=$gebruikerId via Rit_model en toont deze in de view geplandeRitten.php
+     * Haalt alle ritten (samen met gebruikers en adres) op voor de mindermobiele met id=$gebruikerId via Rit_model en toont deze in de view MMCMedewerker/geplandeRitten.php
      *
      * @param $gebruikerId Gebruiker-id van de gebruiker waarvan de ritten getoond moeten worden
      * @see Gebruiker_model::get()
@@ -358,7 +358,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle aanvragen voor ritten op via Rit_model en toont deze in de view aanvragenBeheren.php
+     * Haalt alle aanvragen voor ritten op via Rit_model en toont deze in de view MMCMedewerker/aanvragenBeheren.php
      *
      * @see Rit_model::getAllByDatumWithGebruikerEnAdres()
      * @see MMCMedewerker/aanvragenBeheren.php
@@ -381,7 +381,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het rit-object op met id=$ritId via Rit_model en toont een formulier om deze record aan te passen via de view wijzigAanvraag.php
+     * Haalt het rit-object op met id=$ritId via Rit_model en toont een formulier om deze record aan te passen via de view MMCMedewerker/wijzigAanvraag.php
      *
      * @param $ritId
      * @see Rit_model::getRitWithGebruikerEnAdres()
@@ -413,7 +413,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle chauffeurs (met beschikbaarheid en ritten) op via AJAX via Rit_model, Gebruiker_model en Vrijwilliger_model en toont deze in de view ajax_zoekChauffeur.php
+     * Haalt alle chauffeurs (met beschikbaarheid en ritten) op via AJAX via Rit_model, Gebruiker_model en Vrijwilliger_model en toont deze in de view MMCMedewerker/ajax_zoekChauffeur.php
      *
      * @see Rit_model::getRitWithGebruikerEnAdres()
      * @see Gebruiker_model::getAllGebruikersWithSoortLike()
@@ -442,7 +442,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het gekozen chauffeur-object op geeft dit door aan de view ajax_vulChauffeurIn.php
+     * Haalt het gekozen chauffeur-object op geeft dit door aan de view MMCMedewerker/ajax_vulChauffeurIn.php
      *
      * @see Gebruiker_model::get()
      * @see MMCMedewerker/ajax_vulChauffeurIn.php
@@ -457,7 +457,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het adres en woonplaats van de passagier op en geeft deze door aan de view ajax_vulThuisAdresIn.php
+     * Haalt het adres en woonplaats van de passagier op en geeft deze door aan de view MMCMedewerker/ajax_vulThuisAdresIn.php
      *
      * @see Gebruiker_model::get()
      * @see MMCMedewerker/ajax_vulThuisAdresIn.php
@@ -554,70 +554,10 @@ class MMCMedewerker extends CI_Controller {
         }
 
         redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');
-
-        /*//haal alle gegevens op uit het ingevulde formulier en steek ze in een object
-        $gegevens = new stdClass();
-        $adresVertrek = new stdClass();
-        $adresBestemming = new stdClass();
-
-        $this->load->model('Rit_model');
-
-        $gegevens->id = $this->input->post('ritId');
-        $gegevens->gebruikerIdVrijwilliger = $this->input->post('vrijwilligerId');
-
-        $this->load->model('Adres_model');
-
-        $adresVertrek->straatEnNummer = $this->input->post('straatEnNummerVertrek');
-        $adresVertrek->postcode = $this->input->post('postcodeVertrek');
-        $adresVertrek->gemeente = $this->input->post('gemeenteVertrek');
-        $adresVertrekId = $this->Adres_model->getIdWhereStraatEnGemeenteEnPostcode($adresVertrek);
-
-        if($adresVertrekId !== '') {
-            $gegevens->adresIdVertrek = $adresVertrekId;
-        } else {
-            $gegevens->adresIdVertrek = $this->Adres_model->insert($adresVertrek);
-        }
-
-        $adresBestemming->straatEnNummer = $this->input->post('straatEnNummerBestemming');
-        $adresBestemming->postcode = $this->input->post('postcodeBestemming');
-        $adresBestemming->gemeente = $this->input->post('gemeenteBestemming');
-        $adresBestemmingId = $this->Adres_model->getIdWhereStraatEnGemeenteEnPostcode($adresBestemming);
-
-        if($adresBestemmingId !== '') {
-            $gegevens->adresIdBestemming = $adresBestemmingId;
-        } else {
-            $gegevens->adresIdBestemming = $this->Adres_model->insert($adresBestemming);
-        }
-
-        $datum = $this->input->post('datum');
-        $uur = $this->input->post('uur');
-        $gegevens->vertrekTijdstip = $datum . ' ' . $uur . ':00';
-
-        if($this->input->post('terugRit')) {
-            $terugRit = new stdClass();
-            if($this->input->post('terugRitId')) {
-                $terugRit->id = $this->input->post('terugRitId');
-                $terugRit->ritIdHeenRit = $this->input->post('ritId');
-
-                $this->Rit_model->update($terugRit);
-            } else {
-                $terugRit->gebruikerIdMinderMobiele = $this->input->post('minderMobieleId');
-                $terugRit->adresIdVertrek = $gegevens->adresIdBestemming;
-                $terugRit->adresIdBestemming = $gegevens->adresIdVertrek;
-                $terugRit->vertrekTijdstip = $gegevens->vertrekTijdstip;
-                $terugRit->ritIdHeenRit = $gegevens->id;
-
-                $this->Rit_model->insert($terugRit);
-            }
-        }
-
-        $this->Rit_model->update($gegevens);
-
-        redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');*/
     }
 
     /**
-     * Toont een formulier voor het toevoegen van een nieuwe ritaanvraag via de view aanvraagToevoegen.php
+     * Toont een formulier voor het toevoegen van een nieuwe ritaanvraag via de view MMCMedewerker/aanvraagToevoegen.php
      *
      * @see MMCMedewerker/aanvraagToevoegen.php
      */
@@ -636,7 +576,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle passagiers (met coach) op via AJAX via Gebruiker_model en Coach_model en toont deze in de view ajax_allePassagiersTonen.php
+     * Haalt alle passagiers (met coach) op via AJAX via Gebruiker_model en Coach_model en toont deze in de view MMCMedewerker/ajax_allePassagiersTonen.php
      *
      * @see Gebruiker_model::getAllGebruikersWithSoortLike()
      * @see Coach_model::getCoachWhereMinderMobiele()
@@ -667,7 +607,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt alle chauffeurs op via AJAX via Gebruiker_model en toont deze in de view ajax_alleChauffeursTonen.php
+     * Haalt alle chauffeurs op via AJAX via Gebruiker_model en toont deze in de view MMCMedewerker/ajax_alleChauffeursTonen.php
      *
      * @see Gebruiker_model::getAllGebruikersWithSoortLike()
      * @see MMCMedewerker/ajax_alleChauffeursTonen.php
@@ -681,7 +621,7 @@ class MMCMedewerker extends CI_Controller {
     }
 
     /**
-     * Haalt het gekozen passagier-object op geeft dit door aan de view ajax_vulPassagierIn.php
+     * Haalt het gekozen passagier-object op geeft dit door aan de view MMCMedewerker/ajax_vulPassagierIn.php
      *
      * @see Gebruiker_model::get()
      * @see MMCMedewerker/ajax_vulChauffeurIn.php

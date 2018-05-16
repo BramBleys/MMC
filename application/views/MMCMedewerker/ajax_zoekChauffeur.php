@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_zoekChauffeur.php
  *
+ * AJAX-view voor het zoeken in alle vrijwilliger-objecten die worden getoond in de view MMCMedewerker/wijzigAanvraag.php
+ *
  */
 
 ?>

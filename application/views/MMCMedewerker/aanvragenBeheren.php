@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * @file MMCMedewerker/aanvragenBeheren.php
+ *
+ * View waar alle ritaanvragen bekeken en beheerd kunnen worden.
+ *  - Krijgt alle $ritten-objecten (aangevuld met passagiers, chauffeurs, vrijwilligers en adresgegevens) binnen
+ */
+
+?>
+
 <script>
     $(document).ready(function(){
 
@@ -12,11 +23,6 @@
 </script>
 
 <?php
-
-/**
- * @file MMCMedewerker/aanvragenBeheren.php
- *
- */
 
 $nieuweAanvragen = "";
 $afgewerkteAanvragen = "";

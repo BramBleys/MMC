@@ -116,9 +116,6 @@
                                     "<i class=\"material-icons\">" .
                                     anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
                                     "</i>\n" .
-                                    "<i class=\"material-icons\">" .
-                                    anchor('/MMCMedewerker/rittenBekijken/' . $gebruiker->id, 'directions_car') .
-                                    "</i>\n" .
                                     "</td>\n" .
                                     "</tr>\n";
                             }
@@ -134,9 +131,6 @@
                             "<td>" .
                             "<i class=\"material-icons\">" .
                             anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
-                            "</i>\n" .
-                            "<i class=\"material-icons\">" .
-                            anchor('/MMCMedewerker/rittenBekijken/' . $gebruiker->id, 'directions_car') .
                             "</i>\n" .
                             "</td>\n" .
                             "</tr>\n";

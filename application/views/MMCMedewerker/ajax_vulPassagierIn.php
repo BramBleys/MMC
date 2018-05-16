@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_vulPassagierIn.php
  *
+ * AJAX-view waarin het gekozen passagier-Object wordt ingevuld, dit wordt getoond in de view MMCMedewerker/aanvraagToevoegen.php
+ *  - krijgt een passagier-object binnen
  */
 
 ?>

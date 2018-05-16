@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/gebruikerBewerken.php
  *
+ * View voor het bewerken van een gebruiker
+ *  - krijgt een $gebruiker-object binnen
  */
 
 echo heading($titel,2,'class="mb-3"') . "\n";
@@ -21,7 +23,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Voornaam', 'voornaam') .
             "<br>" .
-            form_input('voornaam',$account->voornaam,'id="voornaam" class="form-control" required') .
+            form_input('voornaam',$account->voornaam,'id="voornaam" class="form-control" pattern=".{2,}" required') .
             "<span class=\"invalid-feedback\">Vul hier de voornaam van de gebruiker in</span>" .
             "</p>\n";
 
@@ -33,7 +35,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Naam', 'naam') .
             "<br>" .
-            form_input('naam',$account->naam,'id="naam" class="form-control"required') .
+            form_input('naam',$account->naam,'id="naam" class="form-control" pattern=".{2,}" required') .
             "<span class=\"invalid-feedback\">Vul hier de achternaam van de gebruiker in</span>" .
             "</p>\n";
 
@@ -45,8 +47,8 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Telefoonnummer', 'telefoonnummer') .
             "<br>" .
-            form_input('telefoonnummer',$account->telefoonnummer,'id="telefoonnummer" class="form-control" required') .
-            "<span class=\"invalid-feedback\">Vul hier het telefoonnummer in</span>" .
+            form_input('telefoonnummer',$account->telefoonnummer,'id="telefoonnummer" pattern="\d{8,}" class="form-control" required') .
+            "<span class=\"invalid-feedback\">Vul hier het telefoonnummer in (enkel cijfers)</span>" .
             "</p>\n";
 
         ?>
@@ -54,10 +56,19 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
     <div class="col-12 col-md-6">
         <?php
 
+        $input = array(
+                'name' => 'email',
+            'value' => $account->email,
+            'id' => 'email',
+            'class' => 'form-control',
+            'type' => 'email',
+            'required' => 'required'
+        );
+
         echo "<p>" .
             form_label('E-mail', 'email') .
             "<br>" .
-            form_input('email',$account->email,'id="email" class="form-control"') .
+            form_input($input) .
             "<span class=\"invalid-feedback\">Vul hier het e-mailadres in</span>" .
             "</p>\n";
 
@@ -69,7 +80,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Erkenningsnummer', 'erkenningsNummer') .
             "<br>" .
-            form_input('erkenningsNummer',$account->erkenningsNummer,'id="erkenningsNummer" class="form-control" disabled') .
+            form_input('erkenningsNummer',$account->erkenningsNummer,'id="erkenningsNummer" class="form-control" pattern="\d{4}" disabled') .
             form_hidden('erkenningsNummer', $account->erkenningsNummer) .
             "</p>\n";
 
@@ -100,7 +111,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Postcode', 'postcode') .
             "<br>" .
-            form_input('postcode',$account->postcode,'id="postcode" class="form-control" required') .
+            form_input('postcode',$account->postcode,'id="postcode" pattern="\d{4}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de postcode in</span>" .
             "</p>\n";
 
@@ -112,7 +123,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Gemeente', 'gemeente') .
             "<br>" .
-            form_input('gemeente',$account->gemeente,'id="gemeente" class="form-control" required') .
+            form_input('gemeente',$account->gemeente,'id="gemeente" pattern="[A-Za-z]{2,}" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de gemeente in</span>" .
             "</p>\n";
 
@@ -124,7 +135,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Straat + Nr. + Bus', 'straatEnNummer') .
             "<br>" .
-            form_input('straatEnNummer',$account->straatEnNummer,'id="straatEnNummer" class="form-control" required') .
+            form_input('straatEnNummer',$account->straatEnNummer,'id="straatEnNummer" pattern=".{2,} [0-9]{1,}.*" class="form-control" required') .
             "<span class=\"invalid-feedback\">Vul hier de straat, nummer en eventueel busnummer in</span>" .
             "</p>\n";
 
@@ -138,7 +149,7 @@ echo heading('Persoon',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Gebruikersnaam', 'gebruikersnaam') .
             "<br>" .
-            form_input('gebruikersnaam',$account->gebruikersnaam,'id="gebruikersnaam" class="form-control" disabled') .
+            form_input('gebruikersnaam',$account->gebruikersnaam,'id="gebruikersnaam" pattern="[A-Za-z]{2,}" class="form-control" disabled') .
             form_hidden('gebruikersnaam', $account->gebruikersnaam) .
             "</p>\n";
 

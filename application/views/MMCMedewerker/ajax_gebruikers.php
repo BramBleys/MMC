@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_gebruikers.php
  *
+ * AJAX-view waarin alle gebruikeraccounts worden opgehaald, gesorteerd op type, en die getoond worden in de view MMCMedewerker/gebruikersBeheren.php
+ *  - krijgt alle $gebruiker-objecten binnen
  */
 
 ?>
@@ -31,9 +33,6 @@
                     "<i class=\"material-icons\">" .
                     anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
                     "</i>\n" .
-                    "<i class=\"material-icons\">" .
-                    anchor('/MMCMedewerker/rittenBekijken/' . $gebruiker->id, 'directions_car') .
-                    "</i>\n" .
                     "</td>\n" .
                     "</tr>\n";
             }
@@ -55,9 +54,6 @@
                             "<i class=\"material-icons\">" .
                             anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
                             "</i>\n" .
-                            "<i class=\"material-icons\">" .
-                            anchor('/MMCMedewerker/rittenBekijken/' . $gebruiker->id, 'directions_car') .
-                            "</i>\n" .
                             "</td>\n" .
                             "</tr>\n";
                     }
@@ -73,9 +69,6 @@
                     "<td>" .
                     "<i class=\"material-icons\">" .
                     anchor('/MMCMedewerker/gebruikerBewerken/' . $gebruiker->id,'edit') .
-                    "</i>\n" .
-                    "<i class=\"material-icons\">" .
-                    anchor('/MMCMedewerker/rittenBekijken/' . $gebruiker->id, 'directions_car') .
                     "</i>\n" .
                     "</td>\n" .
                     "</tr>\n";

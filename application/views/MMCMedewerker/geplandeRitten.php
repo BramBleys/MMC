@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/geplandeRitten.php
  *
+ * View waarin de geplande ritten voor een bepaalde gebruiker bekeken kunnen worden.
+ *  - krijgt meerdere rit-objecten binnen
  */
 
 ?>

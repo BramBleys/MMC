@@ -3,6 +3,7 @@
 /**
  * @file MMCMedewerker/ajax_allePassagiersTonen.php
  *
+ * AJAX-view voor het tonen van alle passagiers in een Bootstrap-modal in de view MMCMedewerker/aanvraagToevoegen.php
  */
 
 ?>

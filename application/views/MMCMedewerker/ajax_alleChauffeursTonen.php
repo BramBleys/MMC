@@ -3,6 +3,8 @@
 /**
  * @file MMCMedewerker/ajax_alleChauffeursTonen.php
  *
+ * AJAX-view voor het tonen van alle chauffeurs in een Bootstrap-modal in de view MMCMedewerker/aanvraagToevoegen.php
+ *  - krijgt alle vrijwilliger-objecten binnen
  */
 
 ?>
