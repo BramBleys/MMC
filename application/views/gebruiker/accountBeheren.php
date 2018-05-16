@@ -36,7 +36,7 @@
 <div class="form-group row">
     <?php echo form_label('Telefoonnummer', 'telefoonnummer', 'class="col-sm-12 col-form-label"'); ?>
     <div class="col-sm-6">
-        <?php echo form_input(array('name' => 'telefoonnummer', 'id' => 'telefoonnummer', 'class' => 'form-control', 'value' => $gebruiker->telefoonnummer, 'required' => 'required')); ?>
+        <?php echo form_input(array('name' => 'telefoonnummer', 'id' => 'telefoonnummer', 'class' => 'form-control', 'value' => $gebruiker->telefoonnummer, 'required' => 'required','type' => 'number')); ?>
     </div>
 </div>
 <div class="form-group row">
@@ -54,7 +54,7 @@
         <?php echo form_input(array('name' => 'gemeente', 'id' => 'gemeente', 'class' => 'form-control', 'value' => $gebruiker->gemeente, 'required' => 'required')); ?>
     </div>
     <div class="col-sm-3">
-        <?php echo form_input(array('name' => 'postcode', 'id' => 'postcode', 'class' => 'form-control', 'value' => $gebruiker->postcode, 'required' => 'required')); ?>
+        <?php echo form_input(array('name' => 'postcode', 'id' => 'postcode', 'class' => 'form-control', 'value' => $gebruiker->postcode, 'required' => 'required', 'type' => 'number')); ?>
     </div>
 </div>
 <div class="form-group row">

@@ -135,7 +135,7 @@ class Administrator extends CI_Controller
      * via Inhoud_model en toont het resulterende object in de view sjabloonBeheren.php
      *
      * @see Inhoud_model::update()
-     * @see sjablooneheren.php
+     * @see sjabloonBeheren.php
      */
     public function sjabloonOpslagen(){
         //titel veranderen naar Sjabloon Opgeslagen
@@ -173,7 +173,7 @@ class Administrator extends CI_Controller
      *
      * @param $id de id van het sjabloon-record dat verwijdert word.
      * @see Inhoud_model::leegMaken()
-     * @see sjabloonBeheren.php
+     * @see sjablonenBeheren.php
      */
     public function sjabloonVerwijderen($id){
         //titel veranderen naar Sjabloon verwijderen
