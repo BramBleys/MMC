@@ -36,9 +36,16 @@
             $this->template->load('main_master', $partials, $data);
         }
 
+        /**
+         * Haalt de ingevulde informatie op uit de view accountBeheren.php en toont de wijzigingen op de view gegevensBevestiging.php
+         *
+         * @see accountBeheren.php
+         * @see gegevensBevestiging.php
+         */
         public function gegevensOpslaan() {
             $data['titel'] = 'Home';
             $data['gebruiker'] = $this->authex->getGebruikerInfo();
+            $data['gemaaktDoor'] = "Bram Bleys";
 
             //haal alle gegevens op uit het ingevulde formulier en steek ze in een object
             $gegevens = new stdClass();

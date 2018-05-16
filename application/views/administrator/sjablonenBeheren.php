@@ -6,6 +6,7 @@
      * De gebruiker kan kiezen om deze sjablonen aan te passen of leeg te maken.
      * - krijgt een $sjabloon-object binnen
      * - gebruikt een Bootstrap-modal
+     *
      */
 ?>
     <script>
