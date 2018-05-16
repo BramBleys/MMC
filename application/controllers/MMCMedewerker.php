@@ -357,7 +357,12 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
-    // Aanvragen beheren
+    /**
+     * Haalt alle aanvragen voor ritten op via Rit_model en toont deze in de view aanvragenBeheren.php
+     *
+     * @see Rit_model::getAllByDatumWithGebruikerEnAdres()
+     * @see MMCMedewerker/aanvragenBeheren.php
+     */
     public function aanvragenBeheren() {
         if(!$this->authex->isAangemeld()) {
             redirect('home/inloggen');
@@ -375,7 +380,14 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
-    // Aanvraag wijzigen
+    /**
+     * Haalt het rit-object op met id=$ritId via Rit_model en toont een formulier om deze record aan te passen via de view wijzigAanvraag.php
+     *
+     * @param $ritId
+     * @see Rit_model::getRitWithGebruikerEnAdres()
+     * @see Rit_model::getByHeenRit()
+     * @see MMCMedewerker/wijzigAanvraag.php
+     */
     public function aanvraagWijzigen($ritId) {
         if(!$this->authex->isAangemeld()) {
             redirect('home/inloggen');
@@ -400,7 +412,14 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
-    // Chauffeurs zoeken
+    /**
+     * Haalt alle chauffeurs (met beschikbaarheid en ritten) op via AJAX via Rit_model, Gebruiker_model en Vrijwilliger_model en toont deze in de view ajax_zoekChauffeur.php
+     *
+     * @see Rit_model::getRitWithGebruikerEnAdres()
+     * @see Gebruiker_model::getAllGebruikersWithSoortLike()
+     * @see Vrijwilliger_model::getBeschikbaarheid()
+     * @see MMCMedewerker/ajax_zoekChauffeur.php
+     */
     public function haalAjaxOp_Chauffeurs() {
 
             $ritId = $this->input->get('ritId');
@@ -422,6 +441,12 @@ class MMCMedewerker extends CI_Controller {
             $this->load->view("MMCMedewerker/ajax_zoekChauffeur", $data);
     }
 
+    /**
+     * Haalt het gekozen chauffeur-object op geeft dit door aan de view ajax_vulChauffeurIn.php
+     *
+     * @see Gebruiker_model::get()
+     * @see MMCMedewerker/ajax_vulChauffeurIn.php
+     */
     public function haalAjaxOp_vulChauffeurIn() {
         $gebruikerId = $this->input->get('gebruikerId');
 
@@ -431,6 +456,12 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_vulChauffeurIn", $data);
     }
 
+    /**
+     * Haalt het adres en woonplaats van de passagier op en geeft deze door aan de view ajax_vulThuisAdresIn.php
+     *
+     * @see Gebruiker_model::get()
+     * @see MMCMedewerker/ajax_vulThuisAdresIn.php
+     */
     public function haalAjaxOp_thuisAdres() {
         $gebruikerId = $this->input->get('gebruikerId');
         $data['checked'] = $this->input->get('checked');
@@ -441,6 +472,16 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_vulThuisAdresIn", $data);
     }
 
+    /**
+     * Haalt alle gegevens op uit het formulier van de view wijzigAanvraag.php (samen met adres-gegevens) voor de gekozen rit en voert de wijzigingen uit via Adres_model en Rit_model.
+     * Vervolgens wordt de methode toonMeldingWijzigingOkAanvraag opgeroepen.
+     *
+     * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+     * @see Adres_model::insert()
+     * @see Rit_model::insert()
+     * @see Rit_model::update()
+     * @see MMCMedewerker::toonMeldingWijzigingOkAanvraag()
+     */
     public function wijzigAanvraag() {
         //haal alle gegevens op uit het ingevulde formulier en steek ze in een object
         $gegevens = new stdClass();
@@ -503,6 +544,11 @@ class MMCMedewerker extends CI_Controller {
         redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');
     }
 
+    /**
+     * Toont een formulier voor het toevoegen van een nieuwe ritaanvraag via de view aanvraagToevoegen.php
+     *
+     * @see MMCMedewerker/aanvraagToevoegen.php
+     */
     public function aanvraagToevoegen() {
         if(!$this->authex->isAangemeld()) {
             redirect('home/inloggen');
@@ -517,6 +563,13 @@ class MMCMedewerker extends CI_Controller {
         }
     }
 
+    /**
+     * Haalt alle passagiers (met coach) op via AJAX via Gebruiker_model en Coach_model en toont deze in de view ajax_allePassagiersTonen.php
+     *
+     * @see Gebruiker_model::getAllGebruikersWithSoortLike()
+     * @see Coach_model::getCoachWhereMinderMobiele()
+     * @see MMCMedewerker/ajax_allePassagiersTonen.php
+     */
     public function haalAjaxOp_AllePassagiers() {
 
         $this->load->model('Gebruiker_model');
@@ -541,6 +594,12 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_allePassagiersTonen", $data);
     }
 
+    /**
+     * Haalt alle chauffeurs op via AJAX via Gebruiker_model en toont deze in de view ajax_alleChauffeursTonen.php
+     *
+     * @see Gebruiker_model::getAllGebruikersWithSoortLike()
+     * @see MMCMedewerker/ajax_alleChauffeursTonen.php
+     */
     public function haalAjaxOp_AlleChauffeurs() {
 
         $this->load->model('Gebruiker_model');
@@ -549,6 +608,12 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_alleChauffeursTonen", $data);
     }
 
+    /**
+     * Haalt het gekozen passagier-object op geeft dit door aan de view ajax_vulPassagierIn.php
+     *
+     * @see Gebruiker_model::get()
+     * @see MMCMedewerker/ajax_vulChauffeurIn.php
+     */
     public function haalAjaxOp_vulPassagierIn() {
         $gebruikerId = $this->input->get('gebruikerId');
         $coachId = $this->input->get('coachId');
@@ -566,6 +631,15 @@ class MMCMedewerker extends CI_Controller {
         $this->load->view("MMCMedewerker/ajax_vulPassagierIn", $data);
     }
 
+    /**
+     * Haalt alle gegevens op uit het formulier van de view aanvraagToevoegen.php (samen met adres-gegevens) voor een nieuwe rit en voert de nieuwe gegevens in via Adres_model en Rit_model.
+     * Vervolgens wordt de methode toonMeldingRegistratieOkAanvraag opgeroepen.
+     *
+     * @see Adres_model::getIdWhereStraatEnGemeenteEnPostcode()
+     * @see Adres_model::insert()
+     * @see Rit_model::insert()
+     * @see MMCMedewerker::toonMeldingRegistratieOk()
+     */
     public function voegToeAanvraag() {
         //haal alle gegevens op uit het ingevulde formulier en steek ze in een object
         $gegevens = new stdClass();
