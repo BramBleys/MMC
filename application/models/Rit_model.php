@@ -188,18 +188,15 @@
             return $this->db->insert_id();
         }
 
-<<<<<<< HEAD
-        /**
-         * Verwijderd een rit-record met id = $id
-         * @param $id De id van het rit-record dat we willen verwijderen
-         */
-=======
         function update($rit) {
             $this->db->where('id', $rit->id);
             $this->db->update('rit', $rit);
         }
 
->>>>>>> 275fceb81dec94535e90f2a21529ef40a6c24e86
+        /**
+         * Verwijderd een rit-record met id = $id
+         * @param $id De id van het rit-record dat we willen verwijderen
+         */
         function delete($id) {
             $this->db->where('id', $id);
             $this->db->delete('rit');
