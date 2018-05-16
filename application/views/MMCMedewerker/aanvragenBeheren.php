@@ -132,8 +132,8 @@ if ($nieuweAanvragen == "") {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                Ben je zeker dat je de rit wilt annuleren?
+            <div class="modal-body text-center">
+                Ben je zeker dat je de rit wilt verwijderen? Ook een eventueel bijhorende terugrit wordt automatisch verwijderd.
             </div>
             <div class="modal-footer">
                 <?php

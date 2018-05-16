@@ -52,23 +52,6 @@
             zoekPassagier();
         });
 
-        $( "#thuisAdres" ).change(function(e) {
-            e.preventDefault();
-
-            if($("#thuisAdres").is(":checked")) {
-                $("#thuisAdresResultaat").hide();
-                $("#postcodeVertrek").val('0000');
-                $("#gemeenteVertrek").val('Mol');
-                $("#straatEnNummerVertrek").val('Klein 1');
-
-            } else {
-                $("#thuisAdresResultaat").show();
-                $("#postcodeVertrek").val('');
-                $("#gemeenteVertrek").val('');
-                $("#straatEnNummerVertrek").val('');
-            }
-        });
-
         $("#terugRit").change(function() {
             if($("#terugRit").is(":checked")) {
                 $("#terugRitResultaat").show();
@@ -98,82 +81,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         ?>
     </div>
 </div>
-<div class="form-row" id="passagierResultaat">
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Naam', 'passagierNaam') .
-            "<br>" .
-            form_input('passagierNaam','','id="passagierNaam" class="form-control" disabled') .
-            form_hidden("passagierId",'');
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('MMC-nummer', 'passagierMmcNummer') .
-            "<br>" .
-            form_input('passagierMmcNummer','','id="passagierMmcNummer" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12">
-        <?php
-
-        echo heading('Coach',5,'class="mb-2"') . "\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Naam', 'coachNaam') .
-            "<br>" .
-            form_input('coachNaam','','id="coachNaam" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('MMC-nummer', 'coachMmcNummer') .
-            "<br>" .
-            form_input('coachMmcNummer','','id="coachMmcNummer" class="form-control" disabled') .
-        "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Telefoonnummer', 'coachTelefoonnummer') .
-            "<br>" .
-            form_input('coachTelefoonnummer','','id="coachTelefoonnummer" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('E-mail', 'coachEmail') .
-            "<br>" .
-            form_input('coachEmail','','id="coachEmail" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-</div>
+<div class="form-row" id="passagierResultaat"></div>
 <div class="form-row">
     <div class="col-12">
         <?php
@@ -185,50 +93,6 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
     </div>
 </div>
 <div class="form-row" id="chauffeur">
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Naam', 'vrijwilligerNaam') .
-            "<br>" .
-            form_input('vrijwilligerNaam','','id="vrijwilligerNaam" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('MMC-nummer', 'vrijwilligerMmcNummer') .
-            "<br>" .
-            form_input('vrijwilligerMmcNummer','','id="vrijwilligerMmcNummer" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('Telefoonnummer', 'vrijwilligerTelefoonnummer') .
-            "<br>" .
-            form_input('vrijwilligerTelefoonnummer','','id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
-    <div class="col-12 col-md-6">
-        <?php
-
-        echo "<p>" .
-            form_label('E-mail', 'vrijwilligerEmail') .
-            "<br>" .
-            form_input('vrijwilligerEmail','','id="vrijwilligerEmail" class="form-control" disabled') .
-            "</p>\n";
-
-        ?>
-    </div>
 </div>
 <div class="form-row">
     <div class="col-12">
@@ -236,22 +100,6 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo heading('Ritgegevens',3,'class="mb-2"') . "\n" .
             heading('Vertrek',5,'class="mb-2"') . "\n";
-
-        ?>
-    </div>
-</div>
-<div class="form-row">
-    <div class="col-12">
-        <?php
-
-        $checkbox = array(
-            'name'          => 'thuisAdres',
-            'id'            => 'thuisAdres',
-            'value'         => ''
-        );
-
-        echo form_checkbox($checkbox);
-        echo form_label('De rit start bij het thuisadres van de passagier','thuisAdres', 'class="ml-1"');
 
         ?>
     </div>

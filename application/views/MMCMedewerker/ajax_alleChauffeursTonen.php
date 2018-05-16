@@ -49,8 +49,6 @@ foreach ($chauffeurs as $chauffeur) {
         $chauffeur->straatEnNummer . "</td>\n<td>" .
         $chauffeur->gemeente . "</td>\n<td>" .
         "<i class=\"material-icons\">" .
-        anchor('', 'directions_car', 'data-id="' . $chauffeur->id . '" data-toggle="tooltip" data-placement="right" title="Andere ritten"') .
-        "<i class=\"material-icons\">" .
         anchor('', 'check_circle', 'data-id="' . $chauffeur->id . '" class="ml-2 kiesChauffeur" data-toggle="tooltip" data-placement="right" title="Kies chauffeur"') .
         "</i></td>\n" .
         "</tr>\n";

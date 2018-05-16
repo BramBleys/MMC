@@ -52,8 +52,6 @@ foreach ($passagiers as $passagier) {
             $passagier->straatEnNummer . "</td>\n<td>" .
             $passagier->gemeente . "</td>\n<td>" .
             "<i class=\"material-icons\">" .
-            anchor('', 'directions_car', 'data-id="' . $passagier->id . '" data-toggle="tooltip" data-placement="right" title="Andere ritten"') .
-            "<i class=\"material-icons\">" .
             anchor('', 'check_circle', 'data-id="' . $passagier->id . '" data-coach="' . $passagier->coach->id . '"class="ml-2 kiesPassagier" data-toggle="tooltip" data-placement="right" title="Kies passagier"') .
             "</i></td>\n" .
             "</tr>\n";
@@ -62,8 +60,6 @@ foreach ($passagiers as $passagier) {
             $passagier->voornaam . " " . $passagier->naam . "</td>\n<td colspan='2'><i>Geen Coach ingegeven!</i></td>\n<td>" .
             $passagier->straatEnNummer . "</td>\n<td>" .
             $passagier->gemeente . "</td>\n<td>" .
-            "<i class=\"material-icons\">" .
-            anchor('', 'directions_car', 'data-id="' . $passagier->id . '" data-toggle="tooltip" data-placement="right" title="Andere ritten"') .
             "<i class=\"material-icons\">" .
             anchor('', 'check_circle', 'data-id="' . $passagier->id . '" data-coach="' . 0 . '"class="ml-2 kiesPassagier" data-toggle="tooltip" data-placement="right" title="Kies passagier"') .
             "</i></td>\n" .

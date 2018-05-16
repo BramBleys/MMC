@@ -174,10 +174,15 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo "<p>" .
             form_label('Naam', 'vrijwilligerNaam') .
-            "<br>" .
-            form_input('vrijwilligerNaam',$rit->chauffeur->voornaam . ' ' . $rit->chauffeur->naam,'id="vrijwilligerNaam" class="form-control" disabled') .
-            form_hidden('vrijwilligerId', $rit->chauffeur->id) .
+            "<br>";
+        if($rit->chauffeur) {
+            echo form_input('vrijwilligerNaam',$rit->chauffeur->voornaam . ' ' . $rit->chauffeur->naam,'id="vrijwilligerNaam" class="form-control" disabled') .
+                form_hidden('vrijwilligerId', $rit->chauffeur->id) .
+                "</p>\n";
+        } else {
+            echo form_input('vrijwilligerNaam','','id="vrijwilligerNaam" class="form-control" disabled') .
             "</p>\n";
+        }
 
         ?>
     </div>
@@ -186,9 +191,15 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo "<p>" .
             form_label('MMC-nummer', 'vrijwilligerMmcNummer') .
-            "<br>" .
-            form_input('vrijwilligerMmcNummer',$rit->chauffeur->mmcNummer,'id="vrijwilligerMmcNummer" class="form-control" disabled') .
-        "</p>\n";
+            "<br>";
+
+        if($rit->chauffeur) {
+            echo form_input('vrijwilligerMmcNummer',$rit->chauffeur->mmcNummer,'id="vrijwilligerMmcNummer" class="form-control" disabled') .
+                "</p>\n";
+        } else {
+            echo form_input('vrijwilligerMmcNummer','','id="vrijwilligerMmcNummer" class="form-control" disabled') .
+                "</p>\n";
+        }
 
         ?>
     </div>
@@ -197,9 +208,14 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo "<p>" .
             form_label('Telefoonnummer', 'vrijwilligerTelefoonnummer') .
-            "<br>" .
-            form_input('vrijwilligerTelefoonnummer',$rit->chauffeur->telefoonnummer,'id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
+            "<br>";
+        if($rit->chauffeur) {
+            echo form_input('vrijwilligerTelefoonnummer',$rit->chauffeur->telefoonnummer,'id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
+                "</p>\n";
+        } else {
+            echo form_input('vrijwilligerTelefoonnummer','','id="vrijwilligerTelefoonnummer" class="form-control" disabled') .
             "</p>\n";
+        }
 
         ?>
     </div>
@@ -208,9 +224,14 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
 
         echo "<p>" .
             form_label('E-mail', 'vrijwilligerEmail') .
-            "<br>" .
-            form_input('vrijwilligerEmail',$rit->chauffeur->email,'id="vrijwilligerEmail" class="form-control" disabled') .
-            "</p>\n";
+            "<br>";
+        if($rit->chauffeur) {
+            echo form_input('vrijwilligerEmail',$rit->chauffeur->email,'id="vrijwilligerEmail" class="form-control" disabled') .
+                "</p>\n";
+        } else {
+            echo form_input('vrijwilligerEmail','','id="vrijwilligerEmail" class="form-control" disabled') .
+                "</p>\n";
+        }
 
         ?>
     </div>
