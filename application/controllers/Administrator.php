@@ -263,6 +263,13 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Haalt alle gebruikers op via Gebruiker_model en toont de objecten in de view administrator/gebruikersBeheren.php
+     *
+     * @param $soort Het type van gebruiker dat standaard getoond wordt
+     * @see Gebruiker_model::getAllGebruikers()
+     * @see administrator/gebruikersBeheren.php
+     */
     public function gebruikersBeheren($soort) {
         $data['titel'] = 'Gebruikers beheren';
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -284,6 +291,12 @@ class Administrator extends CI_Controller
         }
     }
 
+    /**
+     * Haalt alle gebruikers op via AJAX en het model Gebruiker_model en toont de objecten in de view administrator/ajax_gebruikers.php
+     *
+     * @see Gebruiker_model::getAllGebruikers()
+     * @see administrator/ajax_gebruikers.php
+     */
     public function haalAjaxOp_Gebruikers() {
         $soort = $this->input->get('soortId');
         $data['soortId'] = $soort;
@@ -294,6 +307,12 @@ class Administrator extends CI_Controller
         $this->load->view("administrator/ajax_gebruikers", $data);
     }
 
+    /**
+     * Haalt het hoogste MMC-nummer via het model Gebruiker_model en toont een formulier om een nieuwe gebruiker toe te voegen in de view administrator/gebruikerToevoegen.php
+     *
+     * @see Gebruiker_model::getHighestMmcNummer()
+     * @see administrator/gebruikerToevoegen.php
+     */
     public function gebruikerToevoegen() {
         $data['titel'] = "Gebruiker toevoegen";
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -316,6 +335,13 @@ class Administrator extends CI_Controller
         }
     }
 
+    /**
+     * Haalt het gebruiker-object met id=$gebruikerId op via Gebruiker_model en toont een formulier om dit gebruiker-record aan te passen in de view administrator/gebruikerBewerken.php
+     *
+     * @param $gebruikerId De gebruiker die aangepast dient te worden
+     * @see Gebruiker_model::get()
+     * @see administrator/gebruikerBewerken.php
+     */
     public function gebruikerBewerken($gebruikerId) {
         $data['titel'] = "Gebruiker bewerken";
         $data['gemaaktDoor'] = 'Christophe Van Hoof';
@@ -338,6 +364,20 @@ class Administrator extends CI_Controller
         }
     }
 
+    /**
+     * Haalt alle gegevens uit het formulier om een nieuwe gebruiker toe te voegen en voert enkele controle-acties uit via Gebruiker_model.
+     * Afhankelijk van de waarde van de controle-acties zal één van volgende methodes opgeroepen worden:
+     *  - toonMeldingRegistratieOk/$soortId
+     *  - toonMeldingErkenningBestaat
+     *  - toonMeldingGebruikersnaamBestaat
+     *
+     * @see Gebruiker_model::controleerErkenningsNummerVrij()
+     * @see Gebruiker_model::controleerGebruikersnaamVrij()
+     * @see Gebruiker_model::insert()
+     * @see Administrator::toonMeldingRegistratieOk()
+     * @see Administrator::toonMeldingErkenningBestaat()
+     * @see Administrator::toonMeldingGebruikersnaamBestaat()
+     */
     public function voegToe() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')) {
@@ -401,6 +441,12 @@ class Administrator extends CI_Controller
         }
     }
 
+    /**
+     * Haalt alle gegevens uit het formulier om een gebruiker te wijzigen en voert de wijzigingen door via het Gebruiker_model en roept de methode toonMeldingWijzigingOk/$soortId op
+     *
+     * @see Gebruiker_model::update()
+     * @see Administrator::toonMeldingWijzigingOk()
+     */
     public function wijzig() {
         $data['gebruiker'] = $this->authex->getGebruikerInfo();
         if($this->session->has_userdata('gebruiker_id')) {
@@ -451,6 +497,14 @@ class Administrator extends CI_Controller
         }
     }
 
+    /**
+     * Wordt gebruikt om verschillende meldingen te tonen via de view administrator/melding.php
+     *
+     * @param $titel De titel voor de te tonen melding
+     * @param $boodschap De boodschap van de te tonen melding
+     * @param null $link Een link om naar een bepaalde pagina terug te keren
+     * @see Administrator/melding.php
+     */
     public function toonMelding($titel, $boodschap, $link = null)
     {
         $data['titel'] = $titel;
@@ -464,18 +518,42 @@ class Administrator extends CI_Controller
         $this->template->load('main_master', $partials, $data);
     }
 
+    /**
+     * Toont een melding wanneer al een gebruiker ingegeven is met een bepaalde erkenningsnummer via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikerToevoegen
+     *
+     * @see Administrator::toonMelding()
+     * @see Administrator::gebruikerToevoegen()
+     */
     public function toonMeldingErkenningBestaat() {
         $this->toonMelding('Fout', 'Erkenningsnummer bestaat reeds. Probeer opnieuw!', array("url" => "/administrator/gebruikerToevoegen", "tekst" => "Terug"));
     }
 
+    /**
+     * Toont een melding wanneer al een gebruiker ingegeven is met een bepaalde gebruikersnaam via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikerToevoegen
+     *
+     * @see Administrator::toonMelding()
+     * @see Administrator::gebruikerToevoegen()
+     */
     public function toonMeldingGebruikersnaamBestaat() {
         $this->toonMelding('Fout', 'Gebruikersnaam bestaat reeds. Probeer opnieuw!', array("url" => "/administrator/gebruikerToevoegen", "tekst" => "Terug"));
     }
 
+    /**
+     * Toont een melding wanneer de registratie van een gebruiker goed verlopen is via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikersBeheren/$soortId
+     *
+     * @see Administrator::toonMelding()
+     * @see Administrator::gebruikersBeheren()
+     */
     public function toonMeldingRegistratieOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol aangemaakt!', array("url" => "/administrator/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
     }
 
+    /**
+     * Toont een melding wanneer de wijziging van een gebruiker goed verlopen is via de methode toonMelding en genereert een link om terug te keren naar de methode gebruikersBeheren/$soortId
+     *
+     * @see Administrator::toonMelding()
+     * @see Administrator::gebruikersBeheren()
+     */
     public function toonMeldingWijzigingOk($soortId) {
         $this->toonMelding('Gelukt!', 'De gebruiker is succesvol gewijzigd!', array("url" => "/administrator/gebruikersBeheren/" . $soortId, "tekst" => "Terug"));
     }
