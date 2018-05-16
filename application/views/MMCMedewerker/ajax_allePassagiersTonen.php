@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_allePassagiersTonen.php
+ *
+ */
+
+?>
+
 <script>
     function kiesPassagier(gebruikerId, coachId) {
         $.ajax({type : "GET",
@@ -6,7 +15,7 @@
             success : function(result){
 
                 $("#passagierResultaat").html(result);
-                $('#modalChauffeur').modal('hide');
+                $('#modalGebruiker').modal('hide');
 
             },
             error: function (xhr, status, error) {

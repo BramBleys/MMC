@@ -150,6 +150,17 @@
                 $this->load->model('Gebruiker_model');
                 $rit->minderMobiele = $this->Gebruiker_model->getGebruiker($rit->gebruikerIdMinderMobiele);
                 $rit->chauffeur = $this->Gebruiker_model->getGebruiker($rit->gebruikerIdVrijwilliger);
+
+                $this->load->model('Coach_model');
+                $coach = $this->Coach_model->getCoachWhereMinderMobiele($rit->minderMobiele->id);
+
+                if(!$coach) {
+                    $rit->coach = null;
+                } else {
+                    $coachId = $coach->gebruikerIdCoach;
+                    $rit->coach = $this->Gebruiker_model->getGebruiker($coachId);
+                }
+
                 $this->load->model('Adres_model');
                 $rit->vertrekAdres = $this->Adres_model->getAdres($rit->adresIdVertrek);
                 $rit->bestemmingAdres = $this->Adres_model->getAdres($rit->adresIdBestemming);
@@ -191,6 +202,7 @@
         function update($rit) {
             $this->db->where('id', $rit->id);
             $this->db->update('rit', $rit);
+
         }
 
         /**

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file MMCMedewerker/gebruikerToevoegen.php
+ *
+ */
+
+
 echo heading($titel,2,'class="mb-3"') . "\n";
 
 echo form_open('MMCMedewerker/voegToe', 'class="needs-validation" novalidate');

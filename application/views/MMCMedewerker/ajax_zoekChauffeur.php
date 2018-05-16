@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_zoekChauffeur.php
+ *
+ */
+
+?>
+
 <script>
     function kiesChauffeur(id) {
         $.ajax({type : "GET",

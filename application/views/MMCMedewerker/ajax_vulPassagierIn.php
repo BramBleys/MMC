@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_vulPassagierIn.php
+ *
+ */
+
+?>
+
 <div class="col-12 col-md-6">
     <?php
 

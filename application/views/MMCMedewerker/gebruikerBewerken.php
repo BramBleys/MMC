@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file MMCMedewerker/gebruikerBewerken.php
+ *
+ */
+
 echo heading($titel,2,'class="mb-3"') . "\n";
 
 echo form_open('MMCMedewerker/wijzig', 'class="needs-validation" novalidate');

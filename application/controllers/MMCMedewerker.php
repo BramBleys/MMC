@@ -487,6 +487,78 @@ class MMCMedewerker extends CI_Controller {
         $gegevens = new stdClass();
         $adresVertrek = new stdClass();
         $adresBestemming = new stdClass();
+        $adresVertrekId = 0;
+
+        $this->load->model('Rit_model');
+
+        $gegevens->gebruikerIdMinderMobiele = $this->input->post('passagierId');
+        $gegevens->gebruikerIdVrijwilliger = $this->input->post('vrijwilligerId');
+
+        $this->load->model('Adres_model');
+        $this->load->model('Gebruiker_model');
+
+        $thuisAdres = $this->input->post('thuisAdres');
+
+        if($thuisAdres) {
+            $minderMobiele = $this->Gebruiker_model->get($gegevens->gebruikerIdMinderMobiele);
+
+            $adresVertrek->straatEnNummer = $minderMobiele->straatEnNummer;
+            $adresVertrek->postcode = $minderMobiele->postcode;
+            $adresVertrek->gemeente = $minderMobiele->gemeente;
+            $adresVertrekId = $this->Adres_model->getIdWhereStraatEnGemeenteEnPostcode($adresVertrek);
+        } else {
+            $adresVertrek->straatEnNummer = $this->input->post('straatEnNummerVertrek');
+            $adresVertrek->postcode = $this->input->post('postcodeVertrek');
+            $adresVertrek->gemeente = $this->input->post('gemeenteVertrek');
+            $adresVertrekId = $this->Adres_model->getIdWhereStraatEnGemeenteEnPostcode($adresVertrek);
+        }
+
+        if($adresVertrekId !== 0) {
+            $gegevens->adresIdVertrek = $adresVertrekId;
+        } else {
+            $gegevens->adresIdVertrek = $this->Adres_model->insert($adresVertrek);
+        }
+
+        $adresBestemming->straatEnNummer = $this->input->post('straatEnNummerBestemming');
+        $adresBestemming->postcode = $this->input->post('postcodeBestemming');
+        $adresBestemming->gemeente = $this->input->post('gemeenteBestemming');
+        $adresBestemmingId = $this->Adres_model->getIdWhereStraatEnGemeenteEnPostcode($adresBestemming);
+
+        if($adresBestemmingId !== 0) {
+            $gegevens->adresIdBestemming = $adresBestemmingId;
+        } else {
+            $gegevens->adresIdBestemming = $this->Adres_model->insert($adresBestemming);
+        }
+
+        $datum = $this->input->post('datumHeen');
+        $uur = $this->input->post('uurHeen');
+        $vertrekTijdstip = $datum . ' ' . $uur;
+        $gegevens->vertrekTijdstip = $vertrekTijdstip;
+
+        $heenRitId = $this->Rit_model->insert($gegevens);
+
+        if($this->input->post('terugRit') == 'checked') {
+            $terugRit = new stdClass();
+
+            $datum = $this->input->post('datumTerug');
+            $uur = $this->input->post('uurTerug');
+            $vertrekTijdstip = $datum . ' ' . $uur;
+
+            $terugRit->gebruikerIdMinderMobiele = $gegevens->gebruikerIdMinderMobiele;
+            $terugRit->adresIdVertrek = $gegevens->adresIdBestemming;
+            $terugRit->adresIdBestemming = $gegevens->adresIdVertrek;
+            $terugRit->vertrekTijdstip = $vertrekTijdstip;
+            $terugRit->ritIdHeenRit = $heenRitId;
+
+            $this->Rit_model->insert($terugRit);
+        }
+
+        redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');
+
+        /*//haal alle gegevens op uit het ingevulde formulier en steek ze in een object
+        $gegevens = new stdClass();
+        $adresVertrek = new stdClass();
+        $adresBestemming = new stdClass();
 
         $this->load->model('Rit_model');
 
@@ -541,7 +613,7 @@ class MMCMedewerker extends CI_Controller {
 
         $this->Rit_model->update($gegevens);
 
-        redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');
+        redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');*/
     }
 
     /**
@@ -677,9 +749,8 @@ class MMCMedewerker extends CI_Controller {
 
         $datum = $this->input->post('datumHeen');
         $uur = $this->input->post('uurHeen');
-        $vertrekTijdstip = $datum . ' ' . $uur . ':00';
-
-        $gegevens->vertrekTijdstip = date_create($vertrekTijdstip);
+        $vertrekTijdstip = $datum . ' ' . $uur;
+        $gegevens->vertrekTijdstip = $vertrekTijdstip;
 
         $heenRitId = $this->Rit_model->insert($gegevens);
 
@@ -688,7 +759,7 @@ class MMCMedewerker extends CI_Controller {
 
             $datum = $this->input->post('datumTerug');
             $uur = $this->input->post('uurTerug');
-            $vertrekTijdstip = strtotime($datum . ' ' . $uur . ':00');
+            $vertrekTijdstip = $datum . ' ' . $uur;
 
             $terugRit->gebruikerIdMinderMobiele = $gegevens->gebruikerIdMinderMobiele;
             $terugRit->adresIdVertrek = $gegevens->adresIdBestemming;
@@ -700,5 +771,32 @@ class MMCMedewerker extends CI_Controller {
         }
 
         redirect('MMCMedewerker/toonMeldingWijzigingOkAanvraag');
+    }
+
+    /**
+     * Verwijderd de rit met id=$ritId (en een eventueel gekoppelde terugrit) via Rit_model en roept vervolgens methode aanvragenBeheren op.
+     *
+     * @param $ritId De rit die verwijderd dient te worden
+     * @see Rit_model::getByHeenRit()
+     * @see Rit_model::delete()
+     * @see MMCMedewerker::aanvragenBeheren()
+     */
+    public function aanvraagVerwijderen($ritId) {
+        if(!$this->authex->isAangemeld()) {
+            redirect('home/inloggen');
+        } else {
+
+            $this->load->model('Rit_model');
+            $terugRit = $this->Rit_model->getByHeenRit($ritId);
+
+            if($terugRit) {
+                $this->Rit_model->delete($terugRit->id);
+                $this->Rit_model->delete($ritId);
+            } else {
+                $this->Rit_model->delete($ritId);
+            }
+
+            redirect('MMCMedewerker/aanvragenBeheren');
+        }
     }
 }

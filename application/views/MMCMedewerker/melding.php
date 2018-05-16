@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file MMCMedewerker/melding.php
+ *
+ */
+
 echo heading($titel,2,'class="mb-3"') . "\n";
 
 ?>

@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_alleChauffeursTonen.php
+ *
+ */
+
+?>
+
 <script>
     function kiesChauffeur(id) {
         $.ajax({type : "GET",
@@ -6,7 +15,7 @@
             success : function(result){
 
                 $("#chauffeur").html(result);
-                $('#modalChauffeur').modal('hide');
+                $('#modalGebruiker').modal('hide');
 
             },
             error: function (xhr, status, error) {

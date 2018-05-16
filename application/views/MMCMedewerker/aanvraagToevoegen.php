@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/aanvraagToevoegen.php
+ *
+ */
+
+?>
+
 <script>
     function zoekChauffeur() {
         $.ajax({type : "GET",
@@ -294,7 +303,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Datum', 'datumHeen') .
             "<br>" .
-            '<input type="date" id="datumHeen" value="" name="datum" class="form-control" min="' . $vandaag . '" required/>' .
+            '<input type="date" id="datumHeen" value="" name="datumHeen" class="form-control" min="' . $vandaag . '" required/>' .
             "<span class=\"invalid-feedback\">Vul hier de datum in</span>" .
             "</p>\n";
 
@@ -306,7 +315,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Uur', 'uurHeen') .
             "<br>" .
-            '<input type="time" id="uurHeen" value="" name="uur" class="form-control" required/>' .
+            '<input type="time" id="uurHeen" value="" name="uurHeen" class="form-control" required/>' .
             "<span class=\"invalid-feedback\">Vul hier het vertrekuur in</span>" .
             "</p>\n";
         ?>
@@ -378,7 +387,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Datum', 'datumTerug') .
             "<br>" .
-            '<input type="date" id="datumTerug" value="" name="datum" class="form-control" min="' . $vandaag . '"/>' .
+            '<input type="date" id="datumTerug" value="" name="datumTerug" class="form-control" min="' . $vandaag . '"/>' .
             "<span class=\"invalid-feedback\">Vul hier de datum in</span>" .
             "</p>\n";
         ?>
@@ -389,7 +398,7 @@ echo heading('Persoonsgegevens',3,'class="mb-2"') . "\n";
         echo "<p>" .
             form_label('Uur', 'uurTerug') .
             "<br>" .
-            '<input type="time" id="uurTerug" value="" name="uur" class="form-control"/>' .
+            '<input type="time" id="uurTerug" value="" name="uurTerug" class="form-control"/>' .
             "<span class=\"invalid-feedback\">Vul hier het uur in</span>" .
             "</p>\n";
         ?>

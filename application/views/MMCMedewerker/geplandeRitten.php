@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/geplandeRitten.php
+ *
+ */
+
+?>
+
 <script>
     function haalRittenOp(id) {
         $.ajax({type: "GET",

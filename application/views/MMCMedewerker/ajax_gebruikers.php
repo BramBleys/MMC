@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_gebruikers.php
+ *
+ */
+
+?>
+
 <table class="table">
     <thead>
         <tr>

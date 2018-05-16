@@ -106,6 +106,10 @@
             return $gebruikers;
         }
 
+        /**
+         * @param $soortId
+         * @return mixed
+         */
         function getAllGebruikersWithSoortLike($soortId) {
             // geef alle gebruiker-objecten met soort
             $this->db->like('soortId', $soortId, 'both');
@@ -134,12 +138,17 @@
         }
 
         /**
+<<<<<<< HEAD
          * Retourneert een object van gebruiker-records met coach = $coachId
          *
          * @param $coachId De id van de coach waar we de gebruikers van nodig hebben
          * @see Coach_model::getGebruikerWhereCoach()
          * @see Gebruiker_model::get()
          * @return Array object met gebruiker-records
+=======
+         * @param $coachId
+         * @return array
+>>>>>>> Added Doxygen comments and functionality
          */
         function getGebruikerWhereCoach($coachId) {
             $this->load->model('coach_model');
@@ -152,6 +161,9 @@
             return $gebruikers;
         }
 
+        /**
+         * @return mixed
+         */
         function getHighestMmcNummer() {
             $this->db->select_max('mmcNummer');
             $query = $this->db->get('gebruiker');
@@ -159,6 +171,10 @@
             return $query->row();
         }
 
+        /**
+         * @param $nummer
+         * @return bool
+         */
         function controleerErkenningsNummerVrij($nummer) {
             $this->db->where('erkenningsNummer', $nummer);
             $query = $this->db->get('gebruiker');
@@ -170,6 +186,10 @@
             }
         }
 
+        /**
+         * @param $naam
+         * @return bool
+         */
         function controleerGebruikersNaamVrij($naam) {
             $this->db->where('gebruikersnaam', $naam);
             $query = $this->db->get('gebruiker');

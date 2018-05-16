@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @file MMCMedewerker/ajax_vulThuisAdresIn.php
+ *
+ */
+
+?>
+
 <script>
     function thuisAdresInvullen(checked, gebruikerId) {
         $.ajax({type : "GET",
