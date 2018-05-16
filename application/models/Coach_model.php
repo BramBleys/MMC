@@ -1,18 +1,26 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kix
- * Date: 3/28/2018
- * Time: 12:17 PM
+ * @class Coach_model
+ * @brief Model-klasse voor de coaches met hun gebruikers
+ *
+ * Model-klasse die alle methodes bevat om te interageren met de database-tabel coach
  */
 
 class Coach_model extends CI_Model {
 
+    /**
+     * Constructor
+     */
     function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Retourneert een object van coach-records met gebruikerIdCoach = $coachId
+     * @param $coachId De id van de bijhorende coach
+     * @return Een object met coach-records
+     */
     function getGebruikerWhereCoach($coachId){
         $this->db->where('gebruikerIdCoach',$coachId);
         $query = $this->db->get('coach');

@@ -102,6 +102,12 @@
             return $gebruikers;
         }
 
+        /**
+         * Retourneert een gebruiker object met id = $gebruikerId
+         *
+         * @param $gebruikerId De id van de gebruiker waar we informatie over nodig hebben
+         * @return Een gebruiker object
+         */
         function getGebruiker($gebruikerId) {
             $this->db->where('id', $gebruikerId);
             $query = $this->db->get('gebruiker');
@@ -109,6 +115,14 @@
             return $gebruiker;
         }
 
+        /**
+         * Retourneert een object van gebruiker-records met coach = $coachId
+         *
+         * @param $coachId De id van de coach waar we de gebruikers van nodig hebben
+         * @see Coach_model::getGebruikerWhereCoach()
+         * @see Gebruiker_model::get()
+         * @return Array object met gebruiker-records
+         */
         function getGebruikerWhereCoach($coachId) {
             $this->load->model('coach_model');
             $gebruikerIds = $this->coach_model->getGebruikerWhereCoach($coachId);

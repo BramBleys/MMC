@@ -15,6 +15,11 @@
             parent::__construct();
         }
 
+        /**
+         * Retourneert het rit-record met id = $id
+         * @param $id De id van het record waar we informatie over nodig hebben
+         * @return Een object van het rit-record
+        */
         function get($id) {
             $this->db->where('id', $id);
             $query = $this->db->get('rit');
@@ -39,6 +44,11 @@
             return $query->result();
         }
 
+        /**
+         * Retourneert het rit-record met ritIdHeenrit = $id
+         * @param $id De id van de rit waar we de terugrit van willen vinden
+         * @return Een object van het rit-record
+        */
         function getByHeenRit($id) {
             $this->db->where('ritIdHeenrit', $id);
             $query = $this->db->get('rit');
@@ -46,8 +56,15 @@
             return $rit;
         }
 
+        /**
+         * Retourneert een object van rit-records (aangevuld met gebruiker- en adresgegevens)
+         * met gebruikerIdMinderMobiele = $gebruikerId en vertrekTijdstip > nu
+         * @param $gebruikerId De id van de gebruiker waar de ritten van willen hebben
+         * @see Gebruiker_model::getGebruiker()
+         * @see Adres_model::getAdres()
+         * @return Een object van rit-records (aangevuld met gebruiker- en adresgegevens)
+         */
         function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatum($gebruikerId) {
-            // geef gebruiker-object met opgegeven $id met de geplande ritten
             $nu = date('Y-m-d H:i:s');
             $this->db->order_by('vertrekTijdstip');
             $this->db->where('gebruikerIdMinderMobiele', $gebruikerId);
@@ -65,6 +82,14 @@
             return $ritten;
         }
 
+        /**
+         * Retourneert een object van rit-records (aangevuld met gebruiker- en adresgegevens)
+         * met gebruikerIdMinderMobiele = $gebruikerId en vertrekTijdstip > nu
+         * @param $gebruikerId De id van de gebruiker waar de ritten van willen hebben
+         * @see Gebruiker_model::getGebruiker()
+         * @see Adres_model::getAdres()
+         * @return Een object van rit-records (aangevuld met gebruiker- en adresgegevens)
+         */
         function getAllByDatumWithGebruikerEnAdresWhereGebruikerEnDatumOuder($gebruikerId) {
             // geef gebruiker-object met opgegeven $id met de geplande ritten
             $nu = date('Y-m-d H:i:s');
@@ -84,6 +109,13 @@
             return $ritten;
         }
 
+        /**
+         * Retourneert een object van rit-records
+         * met gebruikerIdMinderMobiele = $gebruikerId en vertrekDatum in de week van $datum
+         * @param $gebruikerId De id van de gebruiker waar de ritten van willen hebben
+         * @param $datum De datum in de week waar de ritten in willen vinden
+         * @return Een object van rit-records
+         */
         function getWhereDatum($gebruikerId, $datum) {
             $date = strtotime($datum);
             $weekDag = date('w', $date);
@@ -146,11 +178,20 @@
             return $rit;
         }
 
+        /**
+         * Maakt een nieuw rit-record aan met record = $rit, retourneert de id van het toegevoegde record
+         * @param $rit Het rit object dat we willen toevoegen aan de database
+         * @return De id van het toegevoegde record
+         */
         function insert($rit) {
             $this->db->insert('rit', $rit);
             return $this->db->insert_id();
         }
 
+        /**
+         * Verwijderd een rit-record met id = $id
+         * @param $id De id van het rit-record dat we willen verwijderen
+         */
         function delete($id) {
             $this->db->where('id', $id);
             $this->db->delete('rit');
