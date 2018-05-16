@@ -1,7 +1,10 @@
-<?
+<?php
 
 /**
- * @file
+ * @file administrator/gebruikerBewerken.php
+ *
+ * View voor het bewerken van een gebruiker
+ *  - krijgt een $gebruiker-object binnen
  */
 
 echo heading($titel,2,'class="mb-3"') . "\n";

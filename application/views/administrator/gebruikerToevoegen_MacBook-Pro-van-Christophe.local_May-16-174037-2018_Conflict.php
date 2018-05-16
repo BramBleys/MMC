@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file Administrator/gebruikerToevoegen.php
+ *
+ * View waarin een gebruiker kan worden toegevoegd
+ *  krijgt het hoogsteMmcNummer-object binnen
+ */
+
 echo heading($titel,2,'class="mb-3"') . "\n";
 
 echo form_open('administrator/voegToe', 'class="needs-validation" novalidate');

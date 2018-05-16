@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * @file administrator/ajax_gebruikers.php
+ *
+ * AJAX-view waarin alle gebruikeraccounts worden opgehaald, gesorteerd op type, en die getoond worden in de view MMCMedewerker/gebruikersBeheren.php
+ *  - krijgt alle $gebruiker-objecten binnen
+ */
+
+?>
+
 <table class="table">
     <thead>
     <tr>

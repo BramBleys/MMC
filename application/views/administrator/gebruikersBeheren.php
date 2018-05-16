@@ -1,3 +1,15 @@
+<?php
+
+/**
+ * @file administrator/gebruikersBeheren.php
+ *
+ * View waarin alle gebruikers worden weergegeven per type
+ * - krijgt meerdere gebruiker-objecten binnen
+ * - gebruikt AJAX
+ */
+
+?>
+
 <script>
 
     function haalGebruikersOp(soortId)
