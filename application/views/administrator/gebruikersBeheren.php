@@ -113,7 +113,6 @@
                                     "<i class=\"material-icons\">" .
                                     anchor('/administrator/gebruikerBewerken/' . $gebruiker->id,'edit') .
                                     "</i>\n" .
-                                    "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
                                     "</td>\n" .
                                     "</tr>\n";
                             }
@@ -130,7 +129,6 @@
                             "<i class=\"material-icons\">" .
                             anchor('/administrator/gebruikerBewerken/' . $gebruiker->id,'edit') .
                             "</i>\n" .
-                            "<i class=\"material-icons\"><a href=\"\">directions_car</a></i>\n" .
                             "</td>\n" .
                             "</tr>\n";
                     }
