@@ -55,6 +55,8 @@ if ($nieuweAanvragen == "") {
 
 <h3 class="mb-3">Nieuwe aanvragen</h3>
 
+<?= anchor('MMCMedewerker/aanvraagToevoegen','Nieuwe rit ingeven','class="btn btn-primary mb-3"'); ?>
+
 <table class="table">
     <thead>
         <tr>

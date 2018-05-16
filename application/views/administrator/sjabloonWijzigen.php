@@ -1,15 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kix
- * Date: 4/18/2018
- * Time: 1:58 PM
+ * @file sjabloonWijzigen.php
+ *
+ * View waarin het gekozen sjabloon wordt weergeven
+ * - krijgt een $sjabloon-object binnen
+ * - gebruikt een Bootstrap-modal
  */
 ?>
-<html>
-<head>
-</head>
-<body>
 <?php
     echo form_open('administrator/sjabloonOpslagen');
     ?>
@@ -25,6 +22,7 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
     Opslaan
 </button>
+<?php echo anchor('/Administrator/sjablonenBeheren', 'Terug', array('class' => 'btn btn-primary')) . "\n"; ?>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -46,6 +44,8 @@
         </div>
     </div>
 </div>
-<?php echo form_close(); ?>
-</body>
-</html>
+<?php
+
+    echo form_close();
+
+?>

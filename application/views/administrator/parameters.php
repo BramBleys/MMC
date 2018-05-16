@@ -4,7 +4,6 @@
  *
  * View waarin de parameters worden weergegeven
  * - krijgt een $parameters-object binnen
- * - gebruikt
  */
 ?>
 <html>
@@ -27,7 +26,11 @@ echo form_open('administrator/parametersOpslagen');
         <label for="exampleInputEmail1">Tijd voor annulatie - in werkdagen</label>
         <input type="number" class="form-control" name="annulatieTijd" id="annulatieTijd" value="<?php echo $parameters->annulatieTijd; ?>">
     </div>
-<?php echo form_submit('knop', 'Opslaan', array('class' =>'btn achtergrond')); ?>
-<?php echo form_close(); ?>
+<?php echo form_submit('knop', 'Opslaan', array('class' =>'btn achtergrond'));
+echo anchor('/Home/index', 'Terug', array('class' => 'btn btn-primary')) . "\n";
+?>
+<?php echo form_close();
+
+?>
 </body>
 </html>

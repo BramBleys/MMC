@@ -41,6 +41,8 @@ class Adres_model extends CI_Model {
         $adres = $query->row();
         if($adres!=NULL){
             return $adres->id;
+        } else {
+            return 0;
         }
     }
 

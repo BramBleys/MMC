@@ -81,6 +81,10 @@
             return $gebruiker;
         }
 
+        /**
+         * Retourneert alle gebruiker records uit de tabel gebruiker
+         * @return Alle gebruiker records
+         */
         function getAllGebruikers() {
             // geef alle gebruiker-objecten
             $this->db->order_by('soortId', 'asc');
@@ -102,12 +106,29 @@
             return $gebruikers;
         }
 
+<<<<<<< HEAD
         /**
          * Retourneert een gebruiker object met id = $gebruikerId
          *
          * @param $gebruikerId De id van de gebruiker waar we informatie over nodig hebben
          * @return Een gebruiker object
          */
+=======
+        function getAllGebruikersWithSoortLike($soortId) {
+            // geef alle gebruiker-objecten met soort
+            $this->db->like('soortId', $soortId, 'both');
+            $query = $this->db->get('gebruiker');
+            $gebruikers = $query->result();
+
+            $this->load->model('soort_model');
+            foreach ($gebruikers as $gebruiker) {
+                $gebruiker->soort = $this->soort_model->getSoort($gebruiker->soortId);
+            }
+
+            return $gebruikers;
+        }
+
+>>>>>>> 275fceb81dec94535e90f2a21529ef40a6c24e86
         function getGebruiker($gebruikerId) {
             $this->db->where('id', $gebruikerId);
             $query = $this->db->get('gebruiker');

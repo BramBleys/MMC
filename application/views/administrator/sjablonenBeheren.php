@@ -1,9 +1,11 @@
 <?php
     /**
-     * Created by PhpStorm.
-     * User: Kix
-     * Date: 3/30/2018
-     * Time: 3:10 PM
+     * @file sjablonenBeheren.php
+     *
+     * View waarin de sjablonen worden weergegeven
+     * De gebruiker kan kiezen om deze sjablonen aan te passen of leeg te maken
+     * - krijgt een $sjabloon-object binnen
+     * - gebruikt een Bootstrap-modal
      */
 ?>
     <script>
@@ -73,3 +75,6 @@
 
         ?>
     </table>
+<?php
+echo anchor('/Home/index', 'Terug', array('class' => 'btn btn-primary mb-4')) . "\n";
+?>
