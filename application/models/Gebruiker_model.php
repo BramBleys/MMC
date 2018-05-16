@@ -138,17 +138,12 @@
         }
 
         /**
-<<<<<<< HEAD
          * Retourneert een object van gebruiker-records met coach = $coachId
          *
          * @param $coachId De id van de coach waar we de gebruikers van nodig hebben
          * @see Coach_model::getGebruikerWhereCoach()
          * @see Gebruiker_model::get()
          * @return Array object met gebruiker-records
-=======
-         * @param $coachId
-         * @return array
->>>>>>> Added Doxygen comments and functionality
          */
         function getGebruikerWhereCoach($coachId) {
             $this->load->model('coach_model');
