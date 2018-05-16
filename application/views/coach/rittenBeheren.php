@@ -1,3 +1,17 @@
+<?php
+/**
+ * @file rittenBeheren.php
+ *
+ * View waar de coach de geplande ritten kan bekijken van zijn gebruikers
+ *  - krijgt een $minderMobielen-object binnen
+ *  - krijgt een $gekozenAccount-object binnen
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de view ajax_geplandeRitten.php op met ajax
+ *  @see Coach::haalAjaxOp_GeplandeRitten()
+ *  @see ajax_geplandeRitten.php
+ */
+?>
 <script>
 
     function haalRittenOp(accountId)

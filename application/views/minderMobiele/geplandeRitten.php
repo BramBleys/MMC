@@ -1,3 +1,16 @@
+<?php
+/**
+ * @file geplandeRitten.php
+ *
+ * View waar de minder mobiele zijn geplande ritten kan bekijken en beheren
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $ritten-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de geplande ritten op als een JSON object met ajax @see MinderMobiele::haalJsonOp_GeplandeRitten()
+ *  - gebruikt Google Maps JavaScript API
+ *  - gebruikt Bootstrap-modal
+ */
+?>
 <script>
     function haalRittenOp(id) {
         $.ajax({type: "GET",

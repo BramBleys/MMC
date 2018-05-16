@@ -1,3 +1,12 @@
+<?php
+/**
+ * @file minderMobielen.php
+ *
+ * View met de minder mobielen die de coach beheert
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $minderMobielen-object binnen
+ */
+?>
 <script>
     $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();

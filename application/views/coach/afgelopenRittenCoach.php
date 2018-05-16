@@ -1,3 +1,17 @@
+<?php
+/**
+ * @file afgelopenRittenCoach.php
+ *
+ * View waar de coach de afgelopen ritten kan bekijken van zijn gebruikers
+ *  - krijgt een $minderMobielen-object binnen
+ *  - krijgt een $gekozenAccount-object binnen
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de view ajax_afgelopenRitten.php op met ajax
+ *  @see Coach::haalAjaxOp_AfgelopenRitten()
+ *  @see ajax_afgelopenRitten.php
+ */
+?>
 <script>
 
     function haalAfgelopenRittenOp(accountId)

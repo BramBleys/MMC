@@ -1,3 +1,11 @@
+<?php
+/**
+ * @file ajax_account.php
+ *
+ * View met de account gegegevens van de gekozen gebruiker voor accountsBeheren.php
+ *  - krijgt een $account-object binnen
+ */
+?>
 <div class="form-row">
     <div class="col-sm-6">
         <?php

@@ -1,3 +1,15 @@
+<?php
+/**
+ * @file ajax_afgelopenRitten.php
+ *
+ * View met de afgelopen ritten van de gekozen gebruiker voor rittenBeheren.php
+ *  - krijgt een $account-object binnen
+ *  - krijgt een $ritten-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de geplande ritten op als een JSON object met ajax @see MinderMobiele::haalJsonOp_AfgelopenRitten()
+ *  - gebruikt Google Maps JavaScript API
+ */
+?>
 <script>
     function berekenPrijs(id) {
         $.ajax({type: "GET",

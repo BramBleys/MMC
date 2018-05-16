@@ -1,3 +1,16 @@
+<?php
+/**
+ * @file accountsBeheren.php
+ *
+ * View waar de coach de gegevens kan aanpassen van de minder mobielen die hij beheert
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $minderMobielen-object binnen
+ *  - krijgt een $gekozenAccount-object binnen
+ *  - haalt de view ajax_account.php op met ajax
+ *  @see Coach::haalAjaxOp_Gebruiker()
+ *  @see ajax_account.php
+ */
+?>
 <script>
 
     function haalGegevensOp(accountId)

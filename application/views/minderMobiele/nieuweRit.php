@@ -1,3 +1,14 @@
+<?php
+/**
+ * @file nieuweRit.php
+ *
+ * View waar de minder mobiele een nieuwe rit kan aanvragen
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de ritten in de gekozen week op als een JSON object met ajax @see MinderMobiele::haalJsonOp_RittenWeek()
+ *  - gebruikt Bootstrap-modal
+ */
+?>
 <script>
     function haalRittenWeekOp(id, datum) {
         $.ajax({type: "GET",

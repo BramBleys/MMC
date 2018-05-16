@@ -1,3 +1,18 @@
+<?php
+/**
+ * @file wijzigRitCoach.php
+ *
+ * View waar de coach een geplande rit kan wijzigen
+ *  - krijgt een $heenrit-object binnen
+ *  - krijgt een $gebruiker-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - krijgt een $vertrekThuis-object binnen
+ *  - krijgt een $minderMobielen-object binnen
+ *  - krijgt een $gekozenAccount-object binnen
+ *  - haalt de ritten in de gekozen week op als een JSON object met ajax @see MinderMobiele::haalJsonOp_RittenWeek()
+ *  - gebruikt Bootstrap-modal
+ */
+?>
 <script>
     function haalRittenWeekOp(id, datum, startdatum) {
         $.ajax({type: "GET",

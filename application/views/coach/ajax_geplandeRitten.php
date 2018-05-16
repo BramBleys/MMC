@@ -1,3 +1,16 @@
+<?php
+/**
+ * @file ajax_geplandeRitten.php
+ *
+ * View met de geplande ritten van de gekozen gebruiker voor rittenBeheren.php
+ *  - krijgt een $account-object binnen
+ *  - krijgt een $ritten-object binnen
+ *  - krijgt een $parameters-object binnen
+ *  - haalt de geplande ritten op als een JSON object met ajax @see MinderMobiele::haalJsonOp_GeplandeRitten()
+ *  - gebruikt Google Maps JavaScript API
+ *  - gebruikt Bootstrap-modal
+ */
+?>
 <script>
     function berekenPrijs(id) {
         $.ajax({type: "GET",
